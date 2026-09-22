@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Prompt Builder v16.3 - The World Builder</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f1f5f9;
+            --accent-color: #38bdf8;
+            --accent-hover: #0ea5e9;
+            --input-bg: #334155;
+            --border-color: #475569;
+            --highlight: #f472b6;
+            --negative-color: #fb7185;
+            --ai-color: #a855f7;
+            --engine-color: #fbbf24;
+            --export-color: #ec4899;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            width: 100%;
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            border: 1px solid var(--border-color);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-size: 2.8rem;
+            letter-spacing: -1px;
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: #94a3b8;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+        }
+
+        .ai-analysis-panel {
+            background-color: #020617;
+            padding: 25px;
+            border-radius: 20px;
+            border: 2px solid var(--ai-color);
+            margin-bottom: 30px;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+        }
+
+        .ai-panel-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--ai-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .ai-input-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        .ai-input-group input {
+            flex: 1;
+            background-color: var(--input-bg);
+            color: white;
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            outline: none;
+        }
+
+        .btn-analyze {
+            background-color: var(--ai-color);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 12px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-analyze:hover {
+            background-color: #9333ea;
+            transform: translateY(-2px);
+        }
+
+        .grid-settings {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .setting-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        select, input {
+            background-color: var(--input-bg);
+            color: white;
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .engine-panel {
+            background-color: #020617;
+            padding: 20px;
+            border-radius: 20px;
+            border: 2px solid var(--engine-color);
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            align-items: end;
+        }
+
+        .engine-label {
+            color: var(--engine-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .file-upload-container {
+            background-color: #020617;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px dashed var(--accent-color);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .upload-label {
+            color: var(--accent-color); 
+            font-size: 1.1rem; 
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: color 0.3s;
+        }
+
+        .aspect-ratio-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .aspect-ratio-container input {
+            width: 100px;
+            text-align: center;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 15px 30px;
+            border-radius: 12px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1.1rem;
+        }
+
+        .btn-generate {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
+        }
+
+        .btn-next, .btn-prev {
+            background-color: #10b981;
+            color: white;
+        }
+
+        .btn-random {
+            background-color: #64748b;
+            color: white;
+        }
+
+        .btn-export {
+            background-color: var(--export-color);
+            color: white;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+        }
+
+        .btn-export:hover {
+            background-color: #db2777;
+            transform: translateY(-3px);
+        }
+
+        .result-area {
+            background-color: #020617;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px dashed var(--accent-color);
+        }
+
+        .result-label {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        #finalPrompt, #negativePrompt {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: #e2e8f0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 1.1rem;
+            resize: none;
+            outline: none;
+            line-height: 1.5;
+        }
+
+        #negativePrompt {
+            color: var(--negative-color);
+            border-top: 1px solid #334155;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        .copy-btn {
+            background: var(--accent-color);
+            color: var(--bg-color);
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+        }
+
+        optgroup {
+            color: var(--accent-color);
+            font-style: normal;
+            font-weight: bold;
+            background: var(--input-bg);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🧠 AI Prompt Builder v16.3</h1>
+    <p class="subtitle">The World Builder: Expanded Environment Library & Batch Export</p>
+
+    <div class="ai-analysis-panel">
+        <div class="ai-panel-header">✨ AI Prompt Analysis & Optimization</div>
+        <div class="ai-input-group">
+            <input type="text" id="aiInput" placeholder="Describe your vision... (ex: A luxury gold watch in a dark moody room with neon accents)">
+            <button class="btn-analyze" onclick="analyzePrompt()">Analyze & Optimize</button>
+        </div>
+    </div>
+
+    <div class="engine-panel">
+        <div class="setting-group">
+            <label class="engine-label">🎯 Target AI Engine</label>
+            <select id="targetEngine" onchange="toggleEngineOptions()">
+                <option value="midjourney">Midjourney v6</option>
+                <option value="stable_diffusion">Stable Diffusion (SDXL/1.5)</option>
+                <option value="dalle3">DALL-E 3</option>
+            </select>
+        </div>
+        <div class="setting-group" id="sd-options" style="display: none;">
+            <label class="engine-label">📦 Model / Checkpoint</label>
+            <select id="sdModel">
+                <optgroup label="Lightning / Hyper-Fast">
+                    <option value="DreamShaper XL Lightning">DreamShaper XL Lightning</option>
+                    <option value="Realistic Vision Lightning">Realistic Vision Lightning</option>
+                </optgroup>
+                <optgroup label="Photorealistic">
+                    <option value="Realistic Vision v5.1">Realistic Vision v5.1</option>
+                    <option value="AbsoluteReality">AbsoluteReality</option>
+                </optgroup>
+                <optgroup label="Artistic & Stylized">
+                    <option value="DreamShaper 8">DreamShaper 8</option>
+                    <option value="Rev Animated">Rev Animated</option>
+                </optgroup>
+            </select>
+        </div>
+        <div class="setting-group" id="mj-options">
+            <label class="engine-label">🎨 Stylize Value</label>
+            <input type="number" id="mjStylize" value="250" min="0" max="1000">
+        </div>
+    </div>
+
+    <div class="file-upload-container">
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <label for="fileInput" class="upload-label">📁 Upload Subject List (.txt)</label>
+            <input type="file" id="fileInput" accept=".txt" style="display: none;">
+        </div>
+        <div id="queueStatus" style="font-size: 0.9rem; color: #94a3b8;">Queue: 0 / 0 Subjects</div>
+    </div>
+
+    <div class="grid-settings">
+        <div class="setting-group">
+            <label>🔍 Current Subject</label>
+            <input type="text" id="subject" placeholder="Enter a subject...">
+        </div>
+
+        <div class="setting-group">
+            <label>🎭 Visual Style</label>
+            <select id="style" onchange="updateLogic()">
+                <optgroup label="Photorealism & Cinematic">
+                    <option value="Photorealistic" data-tag="real">Photorealism</option>
+                    <option value="Hyper-realistic" data-tag="real">Hyper-realism</option>
+                    <option value="Cinematic" data-tag="real">Cinematic (Hollywood)</option>
+                    <option value="Street Photography" data-tag="real">Street Photography</option>
+                    <option value="Editorial Fashion Photography" data-tag="real">Editorial/Fashion</option>
+                    <option value="National Geographic style" data-tag="real">National Geographic</option>
+                </optgroup>
+                <optgroup label="3D & Digital Modern">
+                    <option value="Unreal Engine 5 render, Octane Render" data-tag="digital">UE5 / Octane Render</option>
+                    <option value="Pixar and Disney 3D style" data-tag="digital">Pixar / Disney Style</option>
+                    <option value="Cyberpunk aesthetic" data-tag="digital">Cyberpunk</option>
+                    <option value="Isometric 3D Render" data-tag="digital">Isometric 3D</option>
+                    <option value="Voxel Art professional render" data-tag="digital">Voxel Art</option>
+                </optgroup>
+                <optgroup label="Classical Art & Concept">
+                    <option value="Professional Concept Art" data-tag="art">Concept Art</option>
+                    <option value="Surrealism style" data-tag="art">Surrealism (Dalí)</option>
+                    <option value="Oil Painting on canvas" data-tag="art">Oil Painting</option>
+                    <option value="Soft Watercolor painting" data-tag="art">Watercolor</option>
+                    <option value="Traditional Japanese Ukiyo-e" data-tag="art">Ukiyo-e</option>
+                </optgroup>
+                <optgroup label="Graphic & Illustration">
+                    <option value="Flat Design minimalist" data-tag="graphic">Flat Design</option>
+                    <option value="Professional Vector Art" data-tag="graphic">Vector Art</option>
+                    <option value="Minimalist Line Art" data-tag="graphic">Line Art</option>
+                    <option value="Studio Ghibli Anime style" data-tag="graphic">Anime (Studio Ghibli)</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="setting-group" id="group-composition">
+            <label>📐 Composition & Direction</label>
+            <select id="composition" onchange="updateLogic()">
+                <optgroup label="Shot Sizes">
+                    <option value="Extreme wide shot, expansive scene" data-tag="wide">Extreme Wide</option>
+                    <option value="Full shot, showing entire subject">Full Shot</option>
+                    <option value="Medium shot, waist-up" data-tag="med">Medium Shot</option>
+                    <option value="Close-up portrait" data-tag="close">Close-up</option>
+                    <option value="Extreme close-up, macro focus" data-tag="macro">Extreme Close-up</option>
+                </optgroup>
+                <optgroup label="Angles (Perspective)">
+                    <option value="Eye-level shot" data-tag="neutral">Eye-level</option>
+                    <option value="Low angle shot, imposing scale" data-tag="low">Low Angle</option>
+                    <option value="High angle shot, wide perspective" data-tag="high">High Angle</option>
+                    <option value="Dutch angle, tilted frame" data-tag="tilt">Dutch Angle</option>
+                    <option value="God's eye view, top-down" data-tag="top">God's Eye</option>
+                </optgroup>
+                <optgroup label="Artistic Composition">
+                    <option value="Symmetrical composition, centered" data-tag="sym">Symmetry</option>
+                    <option value="Rule of thirds composition" data-tag="third">Rule of Thirds</option>
+                    <option value="Frame within a frame" data-tag="frame">Frame in Frame</option>
+                    <option value="Negative space composition" data-tag="empty">Negative Space</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="setting-group">
+            <label>💡 Lighting Control</label>
+            <select id="lighting" onchange="updateLogic()">
+                <optgroup label="Natural Light">
+                    <option value="Golden hour natural sunlight">Golden Hour</option>
+                    <option value="Blue hour ethereal lighting">Blue Hour</option>
+                    <option value="High noon harsh sunlight">High Noon</option>
+                </optgroup>
+                <optgroup label="Studio & Cinematic">
+                    <option value="Professional softbox studio lighting">Studio Softbox</option>
+                    <option value="Cinematic rim lighting, backlit silhouette">Rim Lighting</option>
+                    <option value="Dramatic chiaroscuro, extreme contrast">Chiaroscuro</option>
+                    <option value="Volumetric god rays, atmospheric haze">Volumetric God Rays</option>
+                    <option value="Cyberpunk neon lighting, magenta and cyan">Neon Cyberpunk</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="setting-group" id="group-camera">
+            <label>📷 Camera & Lenses</label>
+            <select id="camera" onchange="updateLogic()">
+                <optgroup label="Wide Angle">
+                    <option value="Shot on 14mm ultra-wide lens">14mm (Ultra Wide)</option>
+                    <option value="Shot on 24mm wide angle lens">24mm (Arch)</option>
+                    <option value="Shot on 35mm lens">35mm (Storyteller)</option>
+                </optgroup>
+                <optgroup label="Standard & Tele">
+                    <option value="Shot on 50mm prime lens">50mm (Standard)</option>
+                    <option value="Shot on 85mm lens, f/1.8, creamy bokeh">85mm (Portrait)</option>
+                    <option value="Shot on 200mm telephoto lens">200mm (Telephoto)</option>
+                </optgroup>
+                <optgroup label="Specialized">
+                    <option value="Macro lens, extreme close-up" data-tag="macro">Macro Lens</option>
+                    <option value="Anamorphic lens, wide cinematic aspect">Anamorphic</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="setting-group">
+            <label>💎 Quality Standard</label>
+            <select id="qualityStandard" onchange="updateLogic()">
+                <optgroup label="RAW & Authentic">
+                    <option value="RAW photo, unedited, authentic" data-tag="real">RAW Photo</option>
+                    <option value="Candid photography, snapshot style">Unedited / Candid</option>
+                </optgroup>
+                <optgroup label="Editorial & Luxury">
+                    <option value="Vogue aesthetic, high fashion" data-tag="lux">Vogue / High Fashion</option>
+                    <option value="Commercial studio grade, clean">Commercial Studio</option>
+                </optgroup>
+                <optgroup label="Technical">
+                    <option value="Ultra-High Definition UHD" data-tag="tech">UHD (Crystalline)</option>
+                    <option value="Tack sharp focus, zero blur">Sharp Focus</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="setting-group" id="group-colors">
+            <label>🎨 Color Palette (Mood)</label>
+            <select id="colorPalette" onchange="updateLogic()">
+                <option value="Teal and Orange cinematic color grading">Teal & Orange (Hollywood)</option>
+                <option value="Monochromatic mood, deep contrast, noir aesthetic" data-tag="mono">Monochromatic / Noir</option>
+                <option value="Soft pastel color palette, dreamy">Pastel Tones</option>
+                <option value="Vibrant neon colors, high saturation">Vibrant / Neon</option>
+                <option value="Muted colors, desaturated mood">Muted (Realistic)</option>
+                <option value="High contrast black and white" data-tag="mono">B&W High Contrast</option>
+            </select>
+        </div>
+
+        <div class="setting-group" id="group-render">
+            <label>⚙️ Render Tech</label>
+            <select id="renderTech" onchange="updateLogic()">
+                <optgroup label="Digital Core">
+                    <option value="Unreal Engine 5, ray tracing, octane render" data-tag="digital">UE5 / Octane Render</option>
+                    <option value="Physically Based Rendering (PBR)">PBR / Ray-traced</option>
+                    <option value="Global Illumination, soft ambient occlusion">Global Illumination</option>
+                </optgroup>
+                <optgroup label="Material Physics">
+                    <option value="subsurface scattering, realistic skin diffusion" data-tag="real">Subsurface Scattering</option>
+                    <option value="caustics lighting, light refraction through glass">Caustics (Refraction)</option>
+                </optgroup>
+                <optgroup label="Optics">
+                    <option value="Ambient Occlusion, deep realistic shadows">Ambient Occlusion</option>
+                    <option value="Fresnel effect, angle-based reflections">Fresnel Effect</option>
+                    <option value="Chromatic aberration, analog lens fringe">Chromatic Aberration</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="setting-group">
+            <label>🌀 Env Interaction</label>
+            <select id="interaction" onchange="updateLogic()">
+                <option value="perfectly integrated into the environment">Integrated (Standard)</option>
+                <option value="environmental reflections on subject surface">Environmental Reflections</option>
+                <option value="surface indentation, subject pressing into ground">Surface Indentation</option>
+                <option value="water ripples and wake effects">Water Ripples</option>
+                <option value="light wrapping, background light bleeding over edges">Light Wrapping</option>
+                <option value="heat haze shimmer, air distorting">Heat Haze</option>
+            </select>
+        </div>
+
+        <div class="setting-group">
+            <label>🌍 Background & Atmosphere</label>
+            <select id="background">
+                <optgroup label="Urban & Architecture">
+                    <option value="blurred rainy city street background, wet asphalt, reflections">Rainy City Street</option>
+                    <option value="cyberpunk megacity cityscape, towering skyscrapers, hologram billboards">Cyberpunk Megacity</option>
+                    <option value="abandoned brutalist concrete architecture, decaying walls, dust motes">Brutalist Decay</option>
+                    <option value="luxury white marble hall, polished floors, high ceilings, symmetry">Luxury Marble Hall</option>
+                    <option value="modern minimalist art gallery, white walls, soft gallery lighting">Minimalist Gallery</option>
+                    <option value="ancient gothic cathedral, towering arches, stained glass, incense haze">Gothic Cathedral</option>
+                    <option value="industrial warehouse, exposed pipes, rusty beams, shafts of light">Industrial Loft</option>
+                </optgroup>
+                <optgroup label="Natural Worlds">
+                    <option value="bioluminescent jungle, glowing flora, iridescent spores, exotic plants">Bioluminescent Jungle</option>
+                    <option value="frozen arctic tundra, glaciers, aurora borealis, snow crystals">Arctic Tundra</option>
+                    <option value="ancient redwood forest, giant trees, dappled sunlight, morning mist">Ancient Redwood Forest</option>
+                    <option value="serene zen garden, raked sand, bonsai trees, soft wind">Zen Garden</option>
+                    <option value="volcanic lava field, obsidian rocks, flowing magma, ash clouds">Volcanic Wasteland</option>
+                    <option value="tropical white sand beach, crystal clear turquoise water, palm leaves">Tropical Paradise</option>
+                    <option value="deep underwater abyss, coral reefs, floating plankton, caustic light">Deep Sea Abyss</option>
+                </optgroup>
+                <optgroup label="Sci-Fi & Cosmic">
+                    <option value="futuristic spaceship bridge, holographic controls, starfield view">Starship Bridge</option>
+                    <option value="cybernetic laboratory, glowing tubes, server racks, sterile white light">Tech Lab</option>
+                    <option value="floating astral islands, cosmic nebula, shimmering stars, gravity-defying rocks">Astral Islands</option>
+                    <option value="dystopian wasteland, scorched earth, scrap metal, orange haze">Post-Apocalyptic</option>
+                    <option value="interdimensional void, fractal geometry, floating mirrors, void energy">The Void</option>
+                </optgroup>
+                <optgroup label="Fantasy & Mythic">
+                    <option value="ancient astral library, floating books, endless scrolls, magical dust">Astral Library</option>
+                    <option value="enchanted fairy glade, shimmering mushrooms, floating pollen">Fairy Glade</option>
+                    <option value="medieval castle courtyard, cobblestones, torchlight, banners">Medieval Castle</option>
+                    <option value="underground dwarven forge, molten gold, obsidian pillars, steam">Dwarven Forge</option>
+                    <option value="celestial palace, clouds of gold, ivory pillars, divine light">Celestial Palace</option>
+                </optgroup>
+                <optgroup label="Abstract & Studio">
+                    <option value="dark void, single spotlight, high contrast, deep shadows">Dark Studio Void</option>
+                    <option value="soft pastel gradient background, ethereal air, dreamlike">Pastel Dreamscape</option>
+                    <option value="geometric abstract patterns, floating cubes, mathematical precision">Geometric Abstract</option>
+                    <option value="liquid iridescent swirls, holographic colors, fluid motion">Iridescent Liquid</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="setting-group">
+            <label>🖼️ Aspect Ratio (Format)</label>
+            <div class="aspect-ratio-container">
+                <select id="ratioPreset" onchange="handleRatioChange()">
+                    <option value="1:1">1:1 (Square)</option>
+                    <option value="16:9">16:9 (Cinema)</option>
+                    <option value="9:16">9:16 (TikTok/Story)</option>
+                    <option value="4:5">4:5 (Portrait)</option>
+                    <option value="21:9">21:9 (Ultrawide)</option>
+                    <option value="custom">Custom...</option>
+                </select>
+                <input type="text" id="customRatio" placeholder="ex: 2:3" disabled>
+            </div>
+        </div>
+    </div>
+
+    <div class="button-group">
+        <button class="btn-prev" onclick="prevSubject()">⏮️ Prev Subject</button>
+        <button class="btn-next" onclick="nextSubject()">⏭️ Next Subject</button>
+        <button class="btn-random" onclick="smartRandomize()">🎲 Smart Randomize</button>
+        <button class="btn-generate" onclick="generatePrompt()">🚀 Generate Prompt</button>
+        <button class="btn-export" onclick="exportSDBatch()">💾 Export SD Batch (.txt)</button>
+    </div>
+
+    <div class="result-area">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <div class="result-label">Main Prompt</div>
+            <button class="copy-btn" onclick="copyPrompt('finalPrompt')">Copy Prompt</button>
+        </div>
+        <textarea id="finalPrompt" rows="4" readonly placeholder="Your intelligent prompt will appear here..."></textarea>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; margin-bottom: 10px;">
+            <div class="result-label" style="color: var(--negative-color);">Smart Negative Prompt</div>
+            <button class="copy-btn" onclick="copyPrompt('negativePrompt')" style="background: var(--negative-color);">Copy Neg</button>
+        </div>
+        <textarea id="negativePrompt" rows="3" readonly placeholder="Negative prompt will appear here..."></textarea>
+    </div>
+</div>
+
+<script>
+    let subjectQueue = [];
+    let currentQueueIndex = 0;
+
+    const NEGATIVE_ENGINE = {
+        core: "lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, distorted, deformed",
+        organic: "mutated hands, poorly drawn face, fused fingers, extra limbs, cloned face, gross proportions, malformed limbs, missing arms, missing legs, deformed iris, cross-eyed",
+        conflict: {
+            real: "cartoon, anime, illustration, 3d render, painting, drawing, sketch, CGI, vector art, flat color",
+            digital: "grainy, noise, blurred edges, low poly, amateur render, flat lighting, oil painting, watercolor",
+            art: "photorealistic, photography, camera lens, raw photo, realistic skin pores",
+            graphic: "depth of field, photorealistic, 3d render, realistic shadows, complex gradients"
+        },
+        quality: "flat lighting, overexposed, underexposed, washed out colors, dull skin, plastic skin, airbrushed"
+    };
+
+    const SEMANTIC_MAP = {
+        styles: {
+            'luxury': 'Editorial Fashion Photography',
+            'neon': 'Cyberpunk aesthetic',
+            'nature': 'National Geographic style',
+            'painting': 'Oil Painting on canvas',
+            'modern': 'Unreal Engine 5 render, Octane Render',
+            'photo': 'Hyper-realistic'
+        },
+        compositions: {
+            'landscape': 'Extreme wide shot, expansive scene',
+            'portrait': 'Close-up portrait',
+            'detail': 'Extreme close-up, macro focus',
+            'huge': 'Low angle shot, imposing scale',
+            'top': 'God\'s eye view, top-down'
+        },
+        lighting: {
+            'dark': 'Dramatic chiaroscuro, extreme contrast',
+            'sun': 'Golden hour natural sunlight',
+            'neon': 'Cyberpunk neon lighting, magenta and cyan',
+            'soft': 'Professional softbox studio lighting',
+            'ethereal': 'Volumetric god rays, atmospheric haze'
+        },
+        cameras: {
+            'macro': 'Macro lens, extreme close-up',
+            'wide': 'Shot on 14mm ultra-wide lens',
+            'bokeh': 'Shot on 85mm lens, f/1.8, creamy bokeh',
+            'cinematic': 'Anamorphic lens, wide cinematic aspect'
+        },
+        render: {
+            'glass': 'caustics lighting, light refraction through glass',
+            'skin': 'subsurface scattering, realistic skin diffusion',
+            'metal': 'Anisotropic filtering, brushed metal highlights',
+            'shadows': 'Ambient Occlusion, deep realistic contact shadows'
+        }
+    };
+
+    function toggleEngineOptions() {
+        const engine = document.getElementById('targetEngine').value;
+        document.getElementById('sd-options').style.display = (engine === 'stable_diffusion') ? 'block' : 'none';
+        document.getElementById('mj-options').style.display = (engine === 'midjourney') ? 'block' : 'none';
+    }
+
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const text = event.target.result;
+            subjectQueue = text.split(/\r?\n/).map(line => line.trim()).filter(line => line !== "");
+            if(subjectQueue.length > 0) {
+                currentQueueIndex = 0;
+                document.getElementById('subject').value = subjectQueue[0];
+                updateQueueStatus();
+                smartRandomize(subjectQueue[0]);
+            }
+        };
+        reader.readAsText(file);
+    });
+
+    function updateQueueStatus() {
+        document.getElementById('queueStatus').innerText = `Queue: ${subjectQueue.length > 0 ? currentQueueIndex + 1 : 0} / ${subjectQueue.length} Subjects`;
+    }
+
+    function handleRatioChange() {
+        const preset = document.getElementById('ratioPreset').value;
+        const customInput = document.getElementById('customRatio');
+        customInput.disabled = (preset !== 'custom');
+        if (preset === 'custom') customInput.focus();
+    }
+
+    function updateLogic() {
+        const style = document.getElementById('style').selectedOptions[0]?.dataset.tag;
+        const composition = document.getElementById('composition').selectedOptions[0]?.dataset.tag;
+        const camera = document.getElementById('camera').selectedOptions[0]?.dataset.tag;
+
+        if (camera === 'macro') hideOptionsByTag('composition', 'wide'); else showAllOptions('composition');
+        if (style === 'digital') hideOptionsByTag('qualityStandard', 'real'); else showAllOptions('qualityStandard');
+        if (composition === 'sym') hideOptionsByTag('composition', 'tilt');
+    }
+
+    function hideOptionsByTag(selectId, tagToHide) {
+        const select = document.getElementById(selectId);
+        Array.from(select.options).forEach(option => {
+            option.style.display = (option.dataset.tag === tagToHide) ? 'none' : 'block';
+        });
+    }
+
+    function showAllOptions(selectId) {
+        const select = document.getElementById(selectId);
+        Array.from(select.options).forEach(option => option.style.display = 'block');
+    }
+
+    function analyzePrompt() {
+        const input = document.getElementById('aiInput').value.toLowerCase();
+        if (!input) {
+            alert("Please enter a vision description first!");
+            return;
+        }
+
+        const subjectMatch = input.match(/^(.*?)(?=\s(in a|with|on|at|during|by|background)\b)/i);
+        const extractedSubject = subjectMatch ? subjectMatch[1] : input;
+        document.getElementById('subject').value = extractedSubject;
+
+        const styleSelect = document.getElementById('style');
+        const compSelect = document.getElementById('composition');
+        const lightSelect = document.getElementById('lighting');
+        const camSelect = document.getElementById('camera');
+        const renderSelect = document.getElementById('renderTech');
+
+        for (let key in SEMANTIC_MAP.styles) { if (input.includes(key)) { styleSelect.value = SEMANTIC_MAP.styles[key]; break; } }
+        for (let key in SEMANTIC_MAP.compositions) { if (input.includes(key)) { compSelect.value = SEMANTIC_MAP.compositions[key]; break; } }
+        for (let key in SEMANTIC_MAP.lighting) { if (input.includes(key)) { lightSelect.value = SEMANTIC_MAP.lighting[key]; break; } }
+        for (let key in SEMANTIC_MAP.cameras) { if (input.includes(key)) { camSelect.value = SEMANTIC_MAP.cameras[key]; break; } }
+        for (let key in SEMANTIC_MAP.render) { if (input.includes(key)) { renderSelect.value = SEMANTIC_MAP.render[key]; break; } }
+
+        updateLogic();
+        generatePrompt();
+    }
+
+    function smartRandomize(subjectText) {
+        const subLow = (subjectText || document.getElementById('subject').value).toLowerCase();
+        const styleSelect = document.getElementById('style');
+        
+        if (subLow.includes("cyberpunk") || subLow.includes("futuristic")) styleSelect.value = "Cyberpunk aesthetic";
+        else if (subLow.includes("portrait") || subLow.includes("woman") || subLow.includes("man")) styleSelect.value = "Hyper-realistic";
+        else styleSelect.selectedIndex = Math.floor(Math.random() * styleSelect.options.length);
+
+        const compSelect = document.getElementById('composition');
+        if (subLow.includes("city") || subLow.includes("landscape")) compSelect.value = "Extreme wide shot, expansive scene";
+        else if (subLow.includes("watch") || subLow.includes("detail")) compSelect.value = "Extreme close-up, macro focus";
+        else compSelect.selectedIndex = Math.floor(Math.random() * compSelect.options.length);
+
+        const camSelect = document.getElementById('camera');
+        if (compSelect.value.includes("macro")) camSelect.value = "Macro lens, extreme close-up";
+        else if (compSelect.value.includes("wide")) camSelect.value = "Shot on 14mm ultra-wide lens";
+        else camSelect.selectedIndex = Math.floor(Math.random() * camSelect.options.length);
+
+        const others = ['lighting', 'qualityStandard', 'colorPalette', 'renderTech', 'interaction', 'background'];
+        others.forEach(id => {
+            const sel = document.getElementById(id);
+            sel.selectedIndex = Math.floor(Math.random() * sel.options.length);
+        });
+
+        updateLogic();
+        generatePrompt();
+    }
+
+    function nextSubject() {
+        if (subjectQueue.length === 0) { alert("Please upload a .txt file first!"); return; }
+        if (currentQueueIndex < subjectQueue.length - 1) {
+            currentQueueIndex++;
+            const nextSub = subjectQueue[currentQueueIndex];
+            document.getElementById('subject').value = nextSub;
+            smartRandomize(nextSub);
+            updateQueueStatus();
+        } else { alert("Reached the end of the list!"); }
+    }
+
+    function prevSubject() {
+        if (subjectQueue.length === 0) { alert("Please upload a .txt file first!"); return; }
+        if (currentQueueIndex > 0) {
+            currentQueueIndex--;
+            const prevSub = subjectQueue[currentQueueIndex];
+            document.getElementById('subject').value = prevSub;
+            smartRandomize(prevSub);
+            updateQueueStatus();
+        } else { alert("You are at the first subject!"); }
+    }
+
+    function buildPromptString(subjectText) {
+        const engine = document.getElementById('targetEngine').value;
+        const style = document.getElementById('style').value;
+        const composition = document.getElementById('composition').value;
+        const lighting = document.getElementById('lighting').value;
+        const camera = document.getElementById('camera').value;
+        const qualityStd = document.getElementById('qualityStandard').value;
+        const colorPalette = document.getElementById('colorPalette').value;
+        const renderTech = document.getElementById('renderTech').value;
+        const interaction = document.getElementById('interaction').value;
+        const background = document.getElementById('background').value;
+
+        const ratioPreset = document.getElementById('ratioPreset').value;
+        const customRatio = document.getElementById('customRatio').value;
+        const finalRatio = (ratioPreset === 'custom') ? customRatio : ratioPreset;
+        
+        if (engine === 'midjourney') {
+            const stylize = document.getElementById('mjStylize').value;
+            const ratioString = finalRatio ? `--ar ${finalRatio}` : '';
+            return `${composition}, ${style} of ${subjectText}, ${background}, ${interaction}, ${lighting}, ${camera}, ${colorPalette}, ${qualityStd}, ${renderTech}. ${ratioString} --v 6.0 --stylize ${stylize}`;
+        } 
+        else if (engine === 'stable_diffusion') {
+            const model = document.getElementById('sdModel').value;
+            if (model.includes("Lightning")) {
+                return `(masterpiece:1.2), (best quality:1.2), highly detailed, 8k uhd, ${model} style, (${subjectText}:1.3), (${style}:1.2), ${composition}, ${background}, ${lighting}, ${camera}, ${colorPalette}, ${renderTech}, ${interaction}, ${qualityStd}`;
+            } else {
+                return `(masterpiece), (best quality), ${model} style, ${subjectText}, ${composition}, ${style}, ${background}, ${lighting}, ${camera}, ${colorPalette}, ${renderTech}, ${interaction}, ${qualityStd}`;
+            }
+        } 
+        else if (engine === 'dalle3') {
+            return `A professional ${style} image of ${subjectText}. The scene is composed as a ${composition}, set against a ${background}. The lighting is ${lighting} and captured with a ${camera}. The color mood is ${colorPalette} with ${renderTech} and ${interaction}. The overall quality should be ${qualityStd}. Aspect ratio: ${finalRatio}.`;
+        }
+        return "";
+    }
+
+    function generatePrompt() {
+        const subject = document.getElementById('subject').value || "A stunning subject";
+        const prompt = buildPromptString(subject);
+        document.getElementById('finalPrompt').value = prompt;
+
+        const styleTag = document.getElementById('style').selectedOptions[0]?.dataset.tag;
+        let negParts = [NEGATIVE_ENGINE.core];
+        const organicKeywords = ['woman', 'man', 'person', 'face', 'girl', 'boy', 'human', 'animal', 'dog', 'cat', 'dragon', 'creature', 'goddess', 'sailor', 'astronaut'];
+        if (organicKeywords.some(word => subject.toLowerCase().includes(word))) negParts.push(NEGATIVE_ENGINE.organic);
+        if (styleTag && NEGATIVE_ENGINE.conflict[styleTag]) negParts.push(NEGATIVE_ENGINE.conflict[styleTag]);
+        negParts.push(NEGATIVE_ENGINE.quality);
+        
+        if (document.getElementById('targetEngine').value === 'stable_diffusion') negParts.push("watermark, text, logo, lowpoly, bad proportions, blurry, distorted");
+
+        document.getElementById('negativePrompt').value = negParts.join(", ");
+    }
+
+    function exportSDBatch() {
+        if (subjectQueue.length === 0) {
+            alert("No subject list uploaded. Please upload a .txt file first.");
+            return;
+        }
+
+        if (document.getElementById('targetEngine').value !== 'stable_diffusion') {
+            if(!confirm("You are not currently using the Stable Diffusion engine. Exporting will still work, but the prompt format might not be optimal for SD. Continue?")) return;
+        }
+
+        let batchContent = "";
+        subjectQueue.forEach((subject) => {
+            const prompt = buildPromptString(subject);
+            const cleanPrompt = prompt.replace(/\r?\n|\r/g, " ").trim();
+            batchContent += cleanPrompt + "\n";
+        });
+
+        const blob = new Blob([batchContent], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `sd_batch_export_${Date.now()}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    function copyPrompt(id) {
+        const copyText = document.getElementById(id);
+        if (!copyText.value) return;
+        copyText.select();
+        navigator.clipboard.writeText(copyText.value);
+        const btn = event.target;
+        const originalText = btn.innerText;
+        btn.innerText = "Copied! ✅";
+        setTimeout(() => btn.innerText = originalText, 2000);
+    }
+
+    window.onload = () => {
+        toggleEngineOptions();
+        updateLogic();
+    }
+</script>
+
+</body>
+</html>
