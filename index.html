@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Prompt Builder v16.4 - The Community Edition</title>
+    <title>AI Prompt Builder v18.0 - The Physicality Engine</title>
     <style>
         :root {
             --bg-color: #0f172a;
@@ -285,7 +285,6 @@
             background: var(--input-bg);
         }
 
-        /* SUPPORT SECTION */
         .support-footer {
             margin-top: 50px;
             text-align: center;
@@ -326,13 +325,13 @@
 <body>
 
 <div class="container">
-    <h1>🧠 AI Prompt Builder v16.4</h1>
-    <p class="subtitle">The Community Edition: World-class Environment & Model Matrix</p>
+    <h1>🧠 AI Prompt Builder v18.0</h1>
+    <p class="subtitle">The Physicality Engine: Advanced Environmental Interaction & Optic Physics</p>
 
     <div class="ai-analysis-panel">
         <div class="ai-panel-header">✨ AI Prompt Analysis & Optimization</div>
         <div class="ai-input-group">
-            <input type="text" id="aiInput" placeholder="Describe your vision... (ex: A luxury gold watch in a dark moody room with neon accents)">
+            <input type="text" id="aiInput" placeholder="Describe your vision... (ex: A luxury watch in a dusty room with sunlight beams)">
             <button class="btn-analyze" onclick="analyzePrompt()">Analyze & Optimize</button>
         </div>
     </div>
@@ -461,8 +460,8 @@
             </select>
         </div>
 
-        <div class="setting-group" id="group-camera">
-            <label>📷 Camera & Lenses</label>
+        <div class="setting-group">
+            <label>📷 Focal Length (Lens)</label>
             <select id="camera" onchange="updateLogic()">
                 <optgroup label="Wide Angle">
                     <option value="Shot on 14mm ultra-wide lens">14mm (Ultra Wide)</option>
@@ -471,13 +470,47 @@
                 </optgroup>
                 <optgroup label="Standard & Tele">
                     <option value="Shot on 50mm prime lens">50mm (Standard)</option>
-                    <option value="Shot on 85mm lens, f/1.8, creamy bokeh">85mm (Portrait)</option>
+                    <option value="Shot on 85mm lens">85mm (Portrait)</option>
                     <option value="Shot on 200mm telephoto lens">200mm (Telephoto)</option>
                 </optgroup>
                 <optgroup label="Specialized">
                     <option value="Macro lens, extreme close-up" data-tag="macro">Macro Lens</option>
                     <option value="Anamorphic lens, wide cinematic aspect">Anamorphic</option>
                 </optgroup>
+            </select>
+        </div>
+
+        <div class="setting-group">
+            <label>⭕ Aperture (Depth of Field)</label>
+            <select id="aperture" onchange="updateLogic()">
+                <option value="">Standard / Auto</option>
+                <option value="shot at f/1.2, ultra-shallow depth of field, creamy bokeh">f/1.2 (Ultra Bokeh)</option>
+                <option value="shot at f/2.8, soft background blur, professional bokeh">f/2.8 (Soft Blur)</option>
+                <option value="shot at f/8, sharp detail across the frame, deep focus">f/8 (Sharp/Commercial)</option>
+                <option value="shot at f/16, extreme deep focus, everything in focus">f/16 (Deep Focus)</option>
+            </select>
+        </div>
+
+        <div class="setting-group">
+            <label>⏱️ Exposure & Motion</label>
+            <select id="motion" onchange="updateLogic()">
+                <option value="">Static / Standard</option>
+                <option value="long exposure, motion blur, silky textures">Long Exposure (Silky)</option>
+                <option value="high speed shutter, frozen action, zero motion blur">High Speed (Freeze Frame)</option>
+                <option value="slight motion blur, dynamic movement">Slight Motion Blur</option>
+                <option value="light trails, long exposure night photography">Light Trails (Night)</option>
+            </select>
+        </div>
+
+        <div class="setting-group">
+            <label>🎞️ Sensor & Film Stock</label>
+            <select id="filmStock" onchange="updateLogic()">
+                <option value="">Digital Modern (Clean)</option>
+                <option value="shot on Kodak Portra 400, analog film grain, warm skin tones">Kodak Portra 400 (Warm)</option>
+                <option value="shot on Fujifilm Velvia, high saturation, vivid colors">Fujifilm Velvia (Vivid)</option>
+                <option value="shot on 35mm film, nostalgic analog texture, slight grain">Standard 35mm Analog</option>
+                <option value="medium format photography, Hasselblad quality, extreme detail">Medium Format (Luxury)</option>
+                <option value="high ISO grain, gritty documentary texture">High ISO (Gritty)</option>
             </select>
         </div>
 
@@ -534,12 +567,28 @@
         <div class="setting-group">
             <label>🌀 Env Interaction</label>
             <select id="interaction" onchange="updateLogic()">
-                <option value="perfectly integrated into the environment">Integrated (Standard)</option>
-                <option value="environmental reflections on subject surface">Environmental Reflections</option>
-                <option value="surface indentation, subject pressing into ground">Surface Indentation</option>
-                <option value="water ripples and wake effects">Water Ripples</option>
-                <option value="light wrapping, background light bleeding over edges">Light Wrapping</option>
-                <option value="heat haze shimmer, air distorting">Heat Haze</option>
+                <optgroup label="Physical Anchoring">
+                    <option value="ambient occlusion, deep contact shadows, perfectly grounded">Ambient Occlusion (Grounded)</option>
+                    <option value="surface indentation, subject pressing into ground, weight simulation">Surface Indentation (Weight)</option>
+                    <option value="environmental reflections on subject surface, ray-traced reflections">Ray-traced Reflections</option>
+                </optgroup>
+                <optgroup label="Atmospheric Particles">
+                    <option value="floating dust motes in sunbeams, airborne micro-particles">Dust Motes (Sunbeams)</option>
+                    <option value="floating embers and ash, scorched air, volcanic particles">Embers & Ash (Dramatic)</option>
+                    <option value="floating pollen and iridescent spores, ethereal particles">Pollen & Spores (Magic)</option>
+                    <option value="thick atmospheric haze, volumetric fog, depth blur">Volumetric Haze</option>
+                </optgroup>
+                <optgroup label="Weather & Dynamics">
+                    <option value="rain-splashed surfaces, water droplets bouncing off subject">Rain-splashed (Dynamic)</option>
+                    <option value="snow accumulation on surfaces, frost crystals, winter breath">Snow Accumulation</option>
+                    <option value="wind-blown textures, fabric fluttering, hair movement">Wind-blown (Dynamic)</option>
+                    <option value="water ripples and wake effects, fluid dynamics">Water Ripples</option>
+                </optgroup>
+                <optgroup label="Light Physics">
+                    <option value="subsurface scattering on edges, warm skin glow, translucency">Subsurface Scattering</option>
+                    <option value="caustics projections, refracted light patterns from water/glass">Caustics Projections</option>
+                    <option value="light wrapping, background light bleeding over edges">Light Wrapping</option>
+                </optgroup>
             </select>
         </div>
 
@@ -625,7 +674,6 @@
         <textarea id="negativePrompt" rows="3" readonly placeholder="Negative prompt will appear here..."></textarea>
     </div>
 
-    <!-- SUPPORT FOOTER -->
     <div class="support-footer">
         <span class="support-text">ENJOYED IT? ❤️ Help me create more.</span>
         <a href="https://paypal.me/TekiDeki" target="_blank" class="btn-donate">☕ Buy me a Coffee</a>
@@ -674,7 +722,7 @@
         cameras: {
             'macro': 'Macro lens, extreme close-up',
             'wide': 'Shot on 14mm ultra-wide lens',
-            'bokeh': 'Shot on 85mm lens, f/1.8, creamy bokeh',
+            'bokeh': 'Shot on 85mm lens',
             'cinematic': 'Anamorphic lens, wide cinematic aspect'
         },
         render: {
@@ -757,12 +805,23 @@
         const lightSelect = document.getElementById('lighting');
         const camSelect = document.getElementById('camera');
         const renderSelect = document.getElementById('renderTech');
+        const apertureSelect = document.getElementById('aperture');
+        const motionSelect = document.getElementById('motion');
+        const interactionSelect = document.getElementById('interaction');
 
         for (let key in SEMANTIC_MAP.styles) { if (input.includes(key)) { styleSelect.value = SEMANTIC_MAP.styles[key]; break; } }
         for (let key in SEMANTIC_MAP.compositions) { if (input.includes(key)) { compSelect.value = SEMANTIC_MAP.compositions[key]; break; } }
         for (let key in SEMANTIC_MAP.lighting) { if (input.includes(key)) { lightSelect.value = SEMANTIC_MAP.lighting[key]; break; } }
         for (let key in SEMANTIC_MAP.cameras) { if (input.includes(key)) { camSelect.value = SEMANTIC_MAP.cameras[key]; break; } }
         for (let key in SEMANTIC_MAP.render) { if (input.includes(key)) { renderSelect.value = SEMANTIC_MAP.render[key]; break; } }
+
+        if (input.includes("bokeh") || input.includes("blurred background")) apertureSelect.value = "shot at f/1.2, ultra-shallow depth of field, creamy bokeh";
+        if (input.includes("sharp") || input.includes("clear background")) apertureSelect.value = "shot at f/8, sharp detail across the frame, deep focus";
+        if (input.includes("waterfall") || input.includes("long exposure")) motionSelect.value = "long exposure, motion blur, silky textures";
+        if (input.includes("frozen") || input.includes("action")) motionSelect.value = "high speed shutter, frozen action, zero motion blur";
+        if (input.includes("dusty") || input.includes("sunbeam")) interactionSelect.value = "floating dust motes in sunbeams, airborne micro-particles";
+        if (input.includes("rainy") || input.includes("wet")) interactionSelect.value = "rain-splashed surfaces, water droplets bouncing off subject";
+        if (input.includes("windy") || input.includes("movement")) interactionSelect.value = "wind-blown textures, fabric fluttering, hair movement";
 
         updateLogic();
         generatePrompt();
@@ -786,7 +845,18 @@
         else if (compSelect.value.includes("wide")) camSelect.value = "Shot on 14mm ultra-wide lens";
         else camSelect.selectedIndex = Math.floor(Math.random() * camSelect.options.length);
 
-        const others = ['lighting', 'qualityStandard', 'colorPalette', 'renderTech', 'interaction', 'background'];
+        // SEMANTIC MATCHING FOR INTERACTION BASED ON BACKGROUND
+        const bgSelect = document.getElementById('background');
+        const bgVal = bgSelect.value.toLowerCase();
+        const intSelect = document.getElementById('interaction');
+
+        if (bgVal.includes("rainy")) intSelect.value = "rain-splashed surfaces, water droplets bouncing off subject";
+        else if (bgVal.includes("jungle") || bgVal.includes("glade")) intSelect.value = "floating pollen and iridescent spores, ethereal particles";
+        else if (bgVal.includes("volcanic") || bgVal.includes("wasteland")) intSelect.value = "floating embers and ash, scorched air, volcanic particles";
+        else if (bgVal.includes("industrial") || bgVal.includes("decay")) intSelect.value = "floating dust motes in sunbeams, airborne micro-particles";
+        else intSelect.selectedIndex = Math.floor(Math.random() * intSelect.options.length);
+
+        const others = ['lighting', 'aperture', 'motion', 'filmStock', 'qualityStandard', 'colorPalette', 'renderTech', 'background'];
         others.forEach(id => {
             const sel = document.getElementById(id);
             sel.selectedIndex = Math.floor(Math.random() * sel.options.length);
@@ -824,31 +894,37 @@
         const composition = document.getElementById('composition').value;
         const lighting = document.getElementById('lighting').value;
         const camera = document.getElementById('camera').value;
+        const aperture = document.getElementById('aperture').value;
+        const motion = document.getElementById('motion').value;
+        const film = document.getElementById('filmStock').value;
+        const interaction = document.getElementById('interaction').value;
         const qualityStd = document.getElementById('qualityStandard').value;
         const colorPalette = document.getElementById('colorPalette').value;
         const renderTech = document.getElementById('renderTech').value;
-        const interaction = document.getElementById('interaction').value;
         const background = document.getElementById('background').value;
 
         const ratioPreset = document.getElementById('ratioPreset').value;
         const customRatio = document.getElementById('customRatio').value;
         const finalRatio = (ratioPreset === 'custom') ? customRatio : ratioPreset;
         
+        const opticals = [aperture, motion, film].filter(Boolean).join(", ");
+        const opticalsString = opticals ? `${opticals}, ` : "";
+
         if (engine === 'midjourney') {
             const stylize = document.getElementById('mjStylize').value;
             const ratioString = finalRatio ? `--ar ${finalRatio}` : '';
-            return `${composition}, ${style} of ${subjectText}, ${background}, ${interaction}, ${lighting}, ${camera}, ${colorPalette}, ${qualityStd}, ${renderTech}. ${ratioString} --v 6.0 --stylize ${stylize}`;
+            return `${composition}, ${style} of ${subjectText}, ${background}, ${interaction}, ${lighting}, ${camera}, ${opticalsString}${colorPalette}, ${qualityStd}, ${renderTech}. ${ratioString} --v 6.0 --stylize ${stylize}`;
         } 
         else if (engine === 'stable_diffusion') {
             const model = document.getElementById('sdModel').value;
             if (model.includes("Lightning")) {
-                return `(masterpiece:1.2), (best quality:1.2), highly detailed, 8k uhd, ${model} style, (${subjectText}:1.3), (${style}:1.2), ${composition}, ${background}, ${lighting}, ${camera}, ${colorPalette}, ${renderTech}, ${interaction}, ${qualityStd}`;
+                return `(masterpiece:1.2), (best quality:1.2), highly detailed, 8k uhd, ${model} style, (${subjectText}:1.3), (${style}:1.2), ${composition}, ${background}, ${lighting}, ${camera}, ${opticalsString}${colorPalette}, ${renderTech}, ${interaction}, ${qualityStd}`;
             } else {
-                return `(masterpiece), (best quality), ${model} style, ${subjectText}, ${composition}, ${style}, ${background}, ${lighting}, ${camera}, ${colorPalette}, ${renderTech}, ${interaction}, ${qualityStd}`;
+                return `(masterpiece), (best quality), ${model} style, ${subjectText}, ${composition}, ${style}, ${background}, ${lighting}, ${camera}, ${opticalsString}${colorPalette}, ${renderTech}, ${interaction}, ${qualityStd}`;
             }
         } 
         else if (engine === 'dalle3') {
-            return `A professional ${style} image of ${subjectText}. The scene is composed as a ${composition}, set against a ${background}. The lighting is ${lighting} and captured with a ${camera}. The color mood is ${colorPalette} with ${renderTech} and ${interaction}. The overall quality should be ${qualityStd}. Aspect ratio: ${finalRatio}.`;
+            return `A professional ${style} image of ${subjectText}. The scene is composed as a ${composition}, set against a ${background}. The lighting is ${lighting} and captured with a ${camera}. ${opticalsString}The image features ${interaction}, with a color mood and palette of ${colorPalette}, using ${renderTech}. The overall quality is ${qualityStd}. Aspect ratio: ${finalRatio}.`;
         }
         return "";
     }
