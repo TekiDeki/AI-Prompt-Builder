@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Prompt Builder v18.0 - The Physicality Engine</title>
+    <title>AI Prompt Builder v19.0 - The Parametric Hub</title>
     <style>
         :root {
             --bg-color: #0f172a;
@@ -107,6 +107,44 @@
             transform: translateY(-2px);
         }
 
+        /* DYNAMIC ENGINE PANEL */
+        .engine-panel {
+            background-color: #020617;
+            padding: 25px;
+            border-radius: 20px;
+            border: 2px solid var(--engine-color);
+            margin-bottom: 30px;
+        }
+
+        .engine-main-row {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        .engine-params-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .engine-label {
+            color: var(--engine-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
         .grid-settings {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -138,26 +176,6 @@
             font-size: 1rem;
             outline: none;
             transition: all 0.3s ease;
-        }
-
-        .engine-panel {
-            background-color: #020617;
-            padding: 20px;
-            border-radius: 20px;
-            border: 2px solid var(--engine-color);
-            margin-bottom: 30px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            align-items: end;
-        }
-
-        .engine-label {
-            color: var(--engine-color);
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            display: block;
         }
 
         .file-upload-container {
@@ -325,46 +343,31 @@
 <body>
 
 <div class="container">
-    <h1>🧠 AI Prompt Builder v18.0</h1>
-    <p class="subtitle">The Physicality Engine: Advanced Environmental Interaction & Optic Physics</p>
+    <h1>🧠 AI Prompt Builder v19.0</h1>
+    <p class="subtitle">The Parametric Hub: Advanced Engine Control & Logic</p>
 
     <div class="ai-analysis-panel">
         <div class="ai-panel-header">✨ AI Prompt Analysis & Optimization</div>
         <div class="ai-input-group">
-            <input type="text" id="aiInput" placeholder="Describe your vision... (ex: A luxury watch in a dusty room with sunlight beams)">
+            <input type="text" id="aiInput" placeholder="Describe your vision... (ex: A cyberpunk city, wide shot, moody lighting)">
             <button class="btn-analyze" onclick="analyzePrompt()">Analyze & Optimize</button>
         </div>
     </div>
 
+    <!-- DYNAMIC ENGINE PANEL -->
     <div class="engine-panel">
-        <div class="setting-group">
-            <label class="engine-label">🎯 Target AI Engine</label>
-            <select id="targetEngine" onchange="toggleEngineOptions()">
-                <option value="midjourney">Midjourney v6</option>
-                <option value="stable_diffusion">Stable Diffusion (SDXL/1.5)</option>
-                <option value="dalle3">DALL-E 3</option>
-            </select>
+        <div class="engine-main-row">
+            <div class="setting-group" style="flex: 1;">
+                <label class="engine-label">🎯 Target AI Engine</label>
+                <select id="targetEngine" onchange="updateEnginePanel()">
+                    <option value="midjourney">Midjourney v6</option>
+                    <option value="stable_diffusion">Stable Diffusion (SDXL/1.5)</option>
+                    <option value="dalle3">DALL-E 3</option>
+                </select>
+            </div>
         </div>
-        <div class="setting-group" id="sd-options" style="display: none;">
-            <label class="engine-label">📦 Model / Checkpoint</label>
-            <select id="sdModel">
-                <optgroup label="Lightning / Hyper-Fast">
-                    <option value="DreamShaper XL Lightning">DreamShaper XL Lightning</option>
-                    <option value="Realistic Vision Lightning">Realistic Vision Lightning</option>
-                </optgroup>
-                <optgroup label="Photorealistic">
-                    <option value="Realistic Vision v5.1">Realistic Vision v5.1</option>
-                    <option value="AbsoluteReality">AbsoluteReality</option>
-                </optgroup>
-                <optgroup label="Artistic & Stylized">
-                    <option value="DreamShaper 8">DreamShaper 8</option>
-                    <option value="Rev Animated">Rev Animated</option>
-                </optgroup>
-            </select>
-        </div>
-        <div class="setting-group" id="mj-options">
-            <label class="engine-label">🎨 Stylize Value</label>
-            <input type="number" id="mjStylize" value="250" min="0" max="1000">
+        <div id="engineParams" class="engine-params-grid">
+            <!-- Dynamic Params’ will be injected here by JS -->
         </div>
     </div>
 
@@ -733,10 +736,89 @@
         }
     };
 
-    function toggleEngineOptions() {
+    // DYNAMIC PANEL DEFINITIONS
+    const ENGINE_CONFIGS = {
+        midjourney: {
+            params: [
+                { id: 'mjStylize', label: '🎨 Stylize', type: 'number', default: 250, min: 0, max: 1000 },
+                { id: 'mjChaos', label: '🌪️ Chaos', type: 'number', default: 0, min: 0, max: 100 },
+                { id: 'mjWeird', label: '🌀 Weird', type: 'number', default: 0, min: 0, max: 3000 },
+            ]
+        },
+        stable_diffusion: {
+            params: [
+                { 
+                    id: 'sdModel', label: '📦 Checkpoint', type: 'select', 
+                    options: [
+                        { group: 'Lightning', vals: ['DreamShaper XL Lightning', 'Realistic Vision Lightning'] },
+                        { group: 'Photorealistic', vals: ['Realistic Vision v5.1', 'AbsoluteReality'] },
+                        { group: 'Artistic', vals: ['DreamShaper 8', 'Rev Animated'] }
+                    ] 
+                },
+                { id: 'sdCfg', label: '🎯 CFG Scale', type: 'number', default: 7, min: 1, max: 30 },
+                { id: 'sdSteps', label: '📉 Steps', type: 'number', default: 20, min: 1, max: 100 },
+                { 
+                    id: 'sdSampler', label: '⚙️ Sampler', type: 'select', 
+                    options: ['Euler a', 'DPM++ 2M Karras', 'DDIM', 'Heun'] 
+                },
+            ]
+        },
+        dalle3: {
+            params: [
+                { 
+                    id: 'dalleStyle', label: '🖼️ Style Mode', type: 'select', 
+                    options: ['Vivid', 'Natural'] 
+                },
+            ]
+        }
+    };
+
+    function updateEnginePanel() {
         const engine = document.getElementById('targetEngine').value;
-        document.getElementById('sd-options').style.display = (engine === 'stable_diffusion') ? 'block' : 'none';
-        document.getElementById('mj-options').style.display = (engine === 'midjourney') ? 'block' : 'none';
+        const panel = document.getElementById('engineParams');
+        panel.innerHTML = '';
+
+        const config = ENGINE_CONFIGS[engine];
+        config.params.forEach(p => {
+            const group = document.createElement('div');
+            group.className = 'setting-group';
+            
+            const label = document.createElement('label');
+            label.innerText = p.label;
+            group.appendChild(label);
+
+            let input;
+            if (p.type === 'select') {
+                input = document.createElement('select');
+                if (Array.isArray(p.options)) {
+                    p.options.forEach(optGroup => {
+                        const og = document.createElement('optgroup');
+                        og.label = optGroup.group;
+                        optGroup.vals.forEach(val => {
+                            const o = document.createElement('option');
+                            o.value = val; o.innerText = val;
+                            og.appendChild(o);
+                        });
+                        input.appendChild(og);
+                    });
+                } else {
+                    p.options.forEach(val => {
+                        const o = document.createElement('option');
+                        o.value = val; o.innerText = val;
+                        input.appendChild(o);
+                    });
+                }
+            } else {
+                input = document.createElement('input');
+                input.type = p.type;
+                input.value = p.default;
+                if(p.min) input.min = p.min;
+                if(p.max) input.max = p.max;
+            }
+            input.id = p.id;
+            group.appendChild(input);
+            panel.appendChild(group);
+        });
     }
 
     document.getElementById('fileInput').addEventListener('change', function(e) {
@@ -845,7 +927,6 @@
         else if (compSelect.value.includes("wide")) camSelect.value = "Shot on 14mm ultra-wide lens";
         else camSelect.selectedIndex = Math.floor(Math.random() * camSelect.options.length);
 
-        // SEMANTIC MATCHING FOR INTERACTION BASED ON BACKGROUND
         const bgSelect = document.getElementById('background');
         const bgVal = bgSelect.value.toLowerCase();
         const intSelect = document.getElementById('interaction');
@@ -911,20 +992,27 @@
         const opticalsString = opticals ? `${opticals}, ` : "";
 
         if (engine === 'midjourney') {
-            const stylize = document.getElementById('mjStylize').value;
+            const stylize = document.getElementById('mjStylize')?.value || 250;
+            const chaos = document.getElementById('mjChaos')?.value || 0;
+            const weird = document.getElementById('mjWeird')?.value || 0;
             const ratioString = finalRatio ? `--ar ${finalRatio}` : '';
-            return `${composition}, ${style} of ${subjectText}, ${background}, ${interaction}, ${lighting}, ${camera}, ${opticalsString}${colorPalette}, ${qualityStd}, ${renderTech}. ${ratioString} --v 6.0 --stylize ${stylize}`;
+            return `${composition}, ${style} of ${subjectText}, ${background}, ${interaction}, ${lighting}, ${camera}, ${opticalsString}${colorPalette}, ${qualityStd}, ${renderTech}. ${ratioString} --v 6.0 --stylize ${stylize} --chaos ${chaos} --weird ${weird}`;
         } 
         else if (engine === 'stable_diffusion') {
-            const model = document.getElementById('sdModel').value;
+            const model = document.getElementById('sdModel')?.value || "SDXL";
+            const cfg = document.getElementById('sdCfg')?.value || 7;
+            const steps = document.getElementById('sdSteps')?.value || 20;
+            const sampler = document.getElementById('sdSampler')?.value || "Euler a";
+            
             if (model.includes("Lightning")) {
-                return `(masterpiece:1.2), (best quality:1.2), highly detailed, 8k uhd, ${model} style, (${subjectText}:1.3), (${style}:1.2), ${composition}, ${background}, ${lighting}, ${camera}, ${opticalsString}${colorPalette}, ${renderTech}, ${interaction}, ${qualityStd}`;
+                return `(masterpiece:1.2), (best quality:1.2), highly detailed, 8k uhd, ${model} style, (${subjectText}:1.3), (${style}:1.2), ${composition}, ${background}, ${lighting}, ${camera}, ${opticalsString}${colorPalette}, ${renderTech}, ${interaction}, ${qualityStd}, CFG ${cfg}, Steps ${steps}, Sampler ${sampler}`;
             } else {
-                return `(masterpiece), (best quality), ${model} style, ${subjectText}, ${composition}, ${style}, ${background}, ${lighting}, ${camera}, ${opticalsString}${colorPalette}, ${renderTech}, ${interaction}, ${qualityStd}`;
+                return `(masterpiece), (best quality), ${model} style, ${subjectText}, ${composition}, ${style}, ${background}, ${lighting}, ${camera}, ${opticalsString}${colorPalette}, ${renderTech}, ${interaction}, ${qualityStd}, CFG ${cfg}, Steps ${steps}, Sampler ${sampler}`;
             }
         } 
         else if (engine === 'dalle3') {
-            return `A professional ${style} image of ${subjectText}. The scene is composed as a ${composition}, set against a ${background}. The lighting is ${lighting} and captured with a ${camera}. ${opticalsString}The image features ${interaction}, with a color mood and palette of ${colorPalette}, using ${renderTech}. The overall quality is ${qualityStd}. Aspect ratio: ${finalRatio}.`;
+            const styleMode = document.getElementById('dalleStyle')?.value || "Vivid";
+            return `A professional ${style} image of ${subjectText} in ${styleMode} style. The scene is composed as a ${composition}, set against a ${background}. The lighting is ${lighting} and captured with a ${camera}. ${opticalsString}The image features ${interaction}, with a color mood and palette of ${colorPalette}, using ${renderTech}. The overall quality is ${qualityStd}. Aspect ratio: ${finalRatio}.`;
         }
         return "";
     }
@@ -942,6 +1030,13 @@
         negParts.push(NEGATIVE_ENGINE.quality);
         
         if (document.getElementById('targetEngine').value === 'stable_diffusion') negParts.push("watermark, text, logo, lowpoly, bad proportions, blurry, distorted");
+
+        // MIDJOURNEY NEGATIVE BRIDGE
+        if (document.getElementById('targetEngine').value === 'midjourney') {
+            const currentPrompt = document.getElementById('finalPrompt').value;
+            const negString = negParts.join(", ");
+            document.getElementById('finalPrompt').value = `${currentPrompt} --no ${negString}`;
+        }
 
         document.getElementById('negativePrompt').value = negParts.join(", ");
     }
@@ -986,7 +1081,7 @@
     }
 
     window.onload = () => {
-        toggleEngineOptions();
+        updateEnginePanel();
         updateLogic();
     }
 </script>
