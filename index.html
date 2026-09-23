@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Prompt Builder v22.2 - The Luminance Master</title>
+    <title>AI Prompt Builder v22.8 - The Luminance Master</title>
     <style>
         :root {
             --bg-color: #0f172a;
@@ -25,7 +25,6 @@
             --engine-dalle: #a855f7;
         }
 
-        /* ===== LIGHT THEME (#9.2) ===== */
         :root.theme-light {
             --bg-color: #f8fafc;
             --card-bg: #ffffff;
@@ -41,11 +40,7 @@
             --donate-color: #eab308;
         }
 
-        :root.theme-light body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-        }
-
+        :root.theme-light body { background-color: var(--bg-color); color: var(--text-color); }
         :root.theme-light .result-area,
         :root.theme-light .history-panel,
         :root.theme-light .engine-panel,
@@ -53,47 +48,17 @@
         :root.theme-light .file-upload-container,
         :root.theme-light .history-header,
         :root.theme-light .history-item,
-        :root.theme-light .engine-params-grid {
-            background-color: #f1f5f9;
-        }
-
+        :root.theme-light .engine-params-grid { background-color: #f1f5f9; }
         :root.theme-light #finalPrompt,
-        :root.theme-light #negativePrompt {
-            color: #0f172a;
-        }
-
-        :root.theme-light .presets-bar {
-            background: rgba(2, 132, 199, 0.05);
-            border-color: rgba(2, 132, 199, 0.2);
-        }
-
-        :root.theme-light .preset-chip {
-            background: rgba(2, 132, 199, 0.1);
-            color: var(--text-color);
-        }
-
-        :root.theme-light .preset-chip:hover {
-            background: var(--accent-color);
-            color: white;
-        }
-
+        :root.theme-light #negativePrompt { color: #0f172a; }
+        :root.theme-light .presets-bar { background: rgba(2, 132, 199, 0.05); border-color: rgba(2, 132, 199, 0.2); }
+        :root.theme-light .preset-chip { background: rgba(2, 132, 199, 0.1); color: var(--text-color); }
+        :root.theme-light .preset-chip:hover { background: var(--accent-color); color: white; }
         :root.theme-light .shortcuts-help,
-        :root.theme-light .drop-hint {
-            color: #475569;
-        }
-
-        :root.theme-light .toast {
-            background: linear-gradient(135deg, #ffffff, #f1f5f9);
-            color: #0f172a;
-        }
-
-        :root.theme-light label {
-            color: #334155;
-        }
-
-        :root.theme-light .history-item {
-            color: #334155;
-        }
+        :root.theme-light .drop-hint { color: #475569; }
+        :root.theme-light .toast { background: linear-gradient(135deg, #ffffff, #f1f5f9); color: #0f172a; }
+        :root.theme-light label { color: #334155; }
+        :root.theme-light .history-item { color: #334155; }
 
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -132,7 +97,6 @@
             font-size: 1.2rem;
         }
 
-        /* ===== PRESETS ===== */
         .presets-bar {
             display: flex;
             flex-wrap: wrap;
@@ -172,6 +136,12 @@
             box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
         }
 
+        .preset-chip.active {
+            background: var(--accent-color);
+            color: var(--bg-color);
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+        }
+
         .ai-analysis-panel {
             background-color: #020617;
             padding: 25px;
@@ -191,10 +161,7 @@
             margin-bottom: 15px;
         }
 
-        .ai-input-group {
-            display: flex;
-            gap: 15px;
-        }
+        .ai-input-group { display: flex; gap: 15px; }
 
         .ai-input-group input {
             flex: 1;
@@ -218,10 +185,7 @@
             transition: all 0.3s ease;
         }
 
-        .btn-analyze:hover {
-            background-color: #9333ea;
-            transform: translateY(-2px);
-        }
+        .btn-analyze:hover { background-color: #9333ea; transform: translateY(-2px); }
 
         .engine-panel {
             background-color: #020617;
@@ -267,11 +231,7 @@
             margin-bottom: 30px;
         }
 
-        .setting-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+        .setting-group { display: flex; flex-direction: column; gap: 8px; }
 
         label {
             font-weight: 600;
@@ -294,11 +254,8 @@
         }
 
         .setting-group select,
-        .setting-group input[type="text"] {
-            padding-right: 40px;
-        }
+        .setting-group input[type="text"] { padding-right: 40px; }
 
-        /* ===== DRAG & DROP (#9.1) ===== */
         .file-upload-container {
             background-color: #020617;
             padding: 15px;
@@ -319,11 +276,7 @@
             box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
         }
 
-        .drop-hint {
-            color: #64748b;
-            font-size: 0.85rem;
-            font-style: italic;
-        }
+        .drop-hint { color: #64748b; font-size: 0.85rem; font-style: italic; }
 
         .upload-label {
             color: var(--accent-color);
@@ -336,16 +289,8 @@
             transition: color 0.3s;
         }
 
-        .aspect-ratio-container {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .aspect-ratio-container input {
-            width: 100px;
-            text-align: center;
-        }
+        .aspect-ratio-container { display: flex; gap: 10px; align-items: center; }
+        .aspect-ratio-container input { width: 100px; text-align: center; }
 
         .button-group {
             display: flex;
@@ -371,21 +316,9 @@
             box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
         }
 
-        .btn-next, .btn-prev {
-            background-color: #10b981;
-            color: white;
-        }
-
-        .btn-random {
-            background-color: #64748b;
-            color: white;
-        }
-
-        .btn-export {
-            background-color: var(--export-color);
-            color: white;
-            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
-        }
+        .btn-next, .btn-prev { background-color: #10b981; color: white; }
+        .btn-random { background-color: #64748b; color: white; }
+        .btn-export { background-color: var(--export-color); color: white; box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4); }
 
         .result-area {
             background-color: #020617;
@@ -402,7 +335,6 @@
             font-weight: bold;
         }
 
-        /* ===== PROMPT SCORE (#9.3) ===== */
         .prompt-score {
             display: inline-block;
             margin-left: 10px;
@@ -492,7 +424,6 @@
             background-color: #ffd700;
         }
 
-        /* ===== ENGINE BADGE ===== */
         .engine-badge {
             display: flex;
             align-items: center;
@@ -527,30 +458,10 @@
             to { opacity: 1; transform: translateX(0); }
         }
 
-        .engine-badge-icon {
-            font-size: 2rem;
-            line-height: 1;
-            filter: drop-shadow(0 0 8px currentColor);
-        }
-
-        .engine-badge-content {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .engine-badge-title {
-            font-size: 1rem;
-            font-weight: 800;
-            color: var(--text-color);
-            letter-spacing: 0.3px;
-        }
-
-        .engine-badge-chips {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
+        .engine-badge-icon { font-size: 2rem; line-height: 1; filter: drop-shadow(0 0 8px currentColor); }
+        .engine-badge-content { display: flex; flex-direction: column; gap: 6px; }
+        .engine-badge-title { font-size: 1rem; font-weight: 800; color: var(--text-color); letter-spacing: 0.3px; }
+        .engine-badge-chips { display: flex; gap: 6px; flex-wrap: wrap; }
 
         .chip {
             font-size: 0.7rem;
@@ -579,7 +490,120 @@
         .engine-badge.theme-dalle3 .engine-badge-icon { color: #a855f7; }
         .engine-badge.theme-dalle3 .chip { background: rgba(168,85,247,0.15); color: #c084fc; }
 
-        /* ===== TOAST ===== */
+        .model-info-panel {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(16,185,129,0.02));
+            border: 1px solid rgba(16,185,129,0.4);
+            border-radius: 12px;
+            padding: 15px 18px;
+            margin-top: 10px;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .model-info-panel.visible { display: block; }
+
+        .model-info-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .model-info-row:last-child { margin-bottom: 0; }
+
+        .model-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            background: rgba(255,255,255,0.08);
+            color: #cbd5e1;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .model-badge.vae-builtin { background: rgba(16,185,129,0.2); color: #6ee7b7; border-color: rgba(16,185,129,0.4); }
+        .model-badge.vae-external { background: rgba(251,191,36,0.2); color: #fcd34d; border-color: rgba(251,191,36,0.4); }
+        .model-badge.arch-match { background: rgba(56,189,248,0.2); color: #7dd3fc; border-color: rgba(56,189,248,0.4); }
+        .model-badge.arch-mismatch { background: rgba(251,113,133,0.2); color: var(--negative-color); border-color: rgba(251,113,133,0.4); }
+
+        .model-recommendation {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            padding: 10px 14px;
+            background: rgba(56,189,248,0.1);
+            border-left: 3px solid var(--accent-color);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: var(--text-color);
+        }
+
+        .model-recommendation strong { color: var(--accent-color); }
+
+        .btn-apply-recommendation {
+            background: var(--accent-color);
+            color: var(--bg-color);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            border: none;
+            cursor: pointer;
+            margin-left: auto;
+            transition: all 0.2s ease;
+        }
+
+        .btn-apply-recommendation:hover { background: var(--accent-hover); transform: scale(1.05); }
+
+        .model-trigger-input {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex: 1;
+        }
+
+        .model-trigger-input input {
+            flex: 1;
+            padding: 8px 12px;
+            font-size: 0.85rem;
+            font-family: 'Consolas', monospace;
+        }
+
+        .mismatch-warning {
+            grid-column: 1 / -1;
+            background: rgba(251,113,133,0.15);
+            border-left: 4px solid var(--negative-color);
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: var(--negative-color);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            animation: warningSlide 0.3s ease;
+        }
+
+        .btn-fix-arch {
+            background: var(--negative-color);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 6px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin-left: auto;
+        }
+
+        .btn-fix-arch:hover { background: #e11d48; }
+
         .toast {
             position: fixed;
             bottom: 30px;
@@ -599,11 +623,7 @@
             pointer-events: none;
         }
 
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-        }
-
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
         .toast.error {
             border-color: var(--negative-color);
             box-shadow: 0 8px 30px rgba(0,0,0,0.5), 0 0 20px rgba(251,113,133,0.3);
@@ -617,12 +637,8 @@
             padding: 10px 20px;
         }
 
-        .btn-reset:hover {
-            color: var(--negative-color);
-            border-color: var(--negative-color);
-        }
+        .btn-reset:hover { color: var(--negative-color); border-color: var(--negative-color); }
 
-        /* ===== HISTORY ===== */
         .history-panel {
             margin-top: 25px;
             background: #020617;
@@ -663,17 +679,9 @@
             transition: max-height 0.4s ease;
         }
 
-        .history-body.open {
-            max-height: 500px;
-            overflow-y: auto;
-        }
+        .history-body.open { max-height: 500px; overflow-y: auto; }
 
-        .history-list {
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+        .history-list { padding: 10px; display: flex; flex-direction: column; gap: 8px; }
 
         .history-item {
             background: var(--input-bg);
@@ -696,11 +704,7 @@
             color: var(--text-color);
         }
 
-        .history-item-time {
-            color: #64748b;
-            font-size: 0.7rem;
-            margin-right: 8px;
-        }
+        .history-item-time { color: #64748b; font-size: 0.7rem; margin-right: 8px; }
 
         .history-clear {
             margin: 10px;
@@ -714,14 +718,7 @@
 
         .history-clear:hover { background: var(--negative-color); color: white; }
 
-        /* ===== CONFLICT WARNINGS ===== */
-        .conflict-warnings {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
+        .conflict-warnings { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
         .conflict-warnings:empty { display: none; }
 
         .conflict-warning {
@@ -745,19 +742,8 @@
             to { opacity: 1; transform: translateX(0); }
         }
 
-        /* ===== SHORTCUTS HELP ===== */
-        .shortcuts-help {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.85rem;
-            color: #94a3b8;
-        }
-
-        .shortcuts-title {
-            font-weight: 700;
-            color: var(--accent-color);
-            margin-right: 8px;
-        }
+        .shortcuts-help { text-align: center; margin-top: 20px; font-size: 0.85rem; color: #94a3b8; }
+        .shortcuts-title { font-weight: 700; color: var(--accent-color); margin-right: 8px; }
 
         kbd {
             background: var(--input-bg);
@@ -771,49 +757,37 @@
             margin: 0 2px;
         }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .engine-badge {
-                min-width: auto;
-                width: 100%;
-                align-self: stretch;
-                margin-bottom: 0;
-            }
-
-            .engine-main-row {
-                flex-direction: column;
-                align-items: stretch;
-            }
+            .engine-badge { min-width: auto; width: 100%; align-self: stretch; margin-bottom: 0; }
+            .engine-main-row { flex-direction: column; align-items: stretch; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>🧠 AI Prompt Builder v22.2</h1>
+    <h1>🧠 AI Prompt Builder v22.8</h1>
     <p class="subtitle">The Luminance Master: Physical-Based Lighting & Optic Control</p>
 
-    <!-- ===== PRESETS ===== -->
     <div class="presets-bar">
         <span class="presets-label">⚡ Quick Presets:</span>
         <button class="preset-chip" onclick="saveCurrentAsPreset()" style="background: rgba(16,185,129,0.15); border-color: #10b981; color: #6ee7b7;">➕ Save Current</button>
-        <button class="preset-chip" onclick="applyPreset('cinematic_portrait')">🎬 Cinematic Portrait</button>
-        <button class="preset-chip" onclick="applyPreset('epic_landscape')">🏔️ Epic Landscape</button>
-        <button class="preset-chip" onclick="applyPreset('neon_cyberpunk')">🌃 Neon Cyberpunk</button>
-        <button class="preset-chip" onclick="applyPreset('vintage_film')">📽️ Vintage Film</button>
-        <button class="preset-chip" onclick="applyPreset('product_shoot')">📦 Product Shoot</button>
-        <button class="preset-chip" onclick="applyPreset('fantasy_art')">🐉 Fantasy Art</button>
-        <button class="preset-chip" onclick="applyPreset('documentary')">📰 Documentary</button>
-        <button class="preset-chip" onclick="applyPreset('anime_ghibli')">🌸 Anime Ghibli</button>
-        <button class="preset-chip" onclick="applyPreset('watercolor_dream')">🎨 Watercolor Dream</button>
-        <button class="preset-chip" onclick="applyPreset('architectural')">🏛️ Architectural</button>
-        <button class="preset-chip" onclick="applyPreset('studio_beauty')">👤 Studio Beauty</button>
-        <button class="preset-chip" onclick="applyPreset('cosmic_scifi')">🌌 Cosmic Sci-Fi</button>
-        <button class="preset-chip" onclick="applyPreset('food_editorial')">🍔 Food Editorial</button>
-        <button class="preset-chip" onclick="applyPreset('film_noir_bw')">🎭 Film Noir B&W</button>
+        <button class="preset-chip" onclick="applyPreset('cinematic_portrait', this)">🎬 Cinematic Portrait</button>
+        <button class="preset-chip" onclick="applyPreset('epic_landscape', this)">🏔️ Epic Landscape</button>
+        <button class="preset-chip" onclick="applyPreset('neon_cyberpunk', this)">🌃 Neon Cyberpunk</button>
+        <button class="preset-chip" onclick="applyPreset('vintage_film', this)">📽️ Vintage Film</button>
+        <button class="preset-chip" onclick="applyPreset('product_shoot', this)">📦 Product Shoot</button>
+        <button class="preset-chip" onclick="applyPreset('fantasy_art', this)">🐉 Fantasy Art</button>
+        <button class="preset-chip" onclick="applyPreset('documentary', this)">📰 Documentary</button>
+        <button class="preset-chip" onclick="applyPreset('anime_ghibli', this)">🌸 Anime Ghibli</button>
+        <button class="preset-chip" onclick="applyPreset('watercolor_dream', this)">🎨 Watercolor Dream</button>
+        <button class="preset-chip" onclick="applyPreset('architectural', this)">🏛️ Architectural</button>
+        <button class="preset-chip" onclick="applyPreset('studio_beauty', this)">👤 Studio Beauty</button>
+        <button class="preset-chip" onclick="applyPreset('cosmic_scifi', this)">🌌 Cosmic Sci-Fi</button>
+        <button class="preset-chip" onclick="applyPreset('food_editorial', this)">🍔 Food Editorial</button>
+        <button class="preset-chip" onclick="applyPreset('film_noir_bw', this)">🎭 Film Noir B&W</button>
     </div>
 
-    <!-- ===== CUSTOM PRESETS (#9.4) ===== -->
     <div class="presets-bar" id="customPresetsBar" style="display: none; border-color: rgba(16,185,129,0.3);">
         <span class="presets-label" style="color: #10b981;">💾 My Presets:</span>
         <div id="customPresetsList" style="display: flex; flex-wrap: wrap; gap: 10px;"></div>
@@ -851,12 +825,9 @@
                 </div>
             </div>
         </div>
-        <div id="engineParams" class="engine-params-grid">
-            <!-- Dynamic Params injected here -->
-        </div>
+        <div id="engineParams" class="engine-params-grid"></div>
     </div>
 
-    <!-- ===== DRAG & DROP (#9.1) ===== -->
     <div class="file-upload-container" id="dropZone">
         <div style="display: flex; align-items: center; gap: 15px;">
             <label for="fileInput" class="upload-label">📁 Upload Subject List (.txt)</label>
@@ -955,7 +926,6 @@
             </select>
         </div>
 
-        <!-- LIGHTING MASTER SUITE -->
         <div class="setting-group">
             <label>💡 Primary Light Source</label>
             <select id="lighting" onchange="updateLogic()">
@@ -1208,7 +1178,6 @@
         <button class="btn-reset" onclick="cycleTheme()" id="themeBtn" title="Switch theme">🌙 Theme</button>
     </div>
 
-    <!-- ===== CONFLICT WARNINGS ===== -->
     <div id="conflictWarnings" class="conflict-warnings"></div>
 
     <div class="result-area">
@@ -1225,21 +1194,17 @@
         <textarea id="negativePrompt" rows="3" readonly placeholder="Negative prompt will appear here..."></textarea>
     </div>
 
-    <!-- ===== HISTORY PANEL ===== -->
     <div class="history-panel">
         <div class="history-header" onclick="toggleHistory()">
             <span>📜 Prompt History <span id="historyCount" class="history-count">0</span></span>
             <span id="historyToggleIcon" class="history-toggle">▼</span>
         </div>
         <div id="historyBody" class="history-body">
-            <div id="historyList" class="history-list">
-                <!-- Items injected here -->
-            </div>
+            <div id="historyList" class="history-list"></div>
             <button class="history-clear" onclick="clearHistory()">🗑️ Clear History</button>
         </div>
     </div>
 
-    <!-- ===== SHORTCUTS HELP ===== -->
     <div class="shortcuts-help">
         <span class="shortcuts-title">⌨️ Shortcuts:</span>
         <kbd>Ctrl+S</kbd> Save •
@@ -1272,20 +1237,25 @@
     let currentQueueIndex = 0;
     let saveTimeout = null;
     let toastTimeout = null;
+    let suppressArchToast = false;
+    let isRebuildingPanel = false;
+    let activePresetKey = null;
 
     // ============================================================
-    // PERSISTENCE (#6)
+    // STORAGE
     // ============================================================
     const STORAGE_KEY = 'aiPromptBuilder_v22';
     const HISTORY_KEY = 'aiPromptBuilder_history';
     const THEME_KEY = 'aiPromptBuilder_theme';
     const CUSTOM_PRESETS_KEY = 'aiPromptBuilder_customPresets';
+    const CUSTOM_MODELS_KEY = 'aiPromptBuilder_customModels';
     const HISTORY_MAX = 20;
 
     const PERSISTED_FIELDS = [
         'targetEngine',
         'mjVersion', 'mjStylize', 'mjChaos', 'mjWeird', 'mjStyleRaw', 'mjTile',
         'sdVersion', 'sdModel', 'sdCfg', 'sdSteps', 'sdSampler', 'sdHires', 'sdRefiner', 'sdFaceRestore',
+        'sdTrigger',
         'fluxVariant', 'fluxGuidance', 'fluxSteps', 'fluxSeed', 'fluxRefiner',
         'dalleVersion', 'dalleStyle',
         'style', 'composition', 'lighting', 'lightDirection', 'lightQuality', 'lightTemp',
@@ -1301,16 +1271,11 @@
             PERSISTED_FIELDS.forEach(id => {
                 const el = document.getElementById(id);
                 if (!el) return;
-                if (el.type === 'checkbox') {
-                    data[id] = { type: 'checkbox', value: el.checked };
-                } else {
-                    data[id] = { type: 'value', value: el.value };
-                }
+                if (el.type === 'checkbox') data[id] = { type: 'checkbox', value: el.checked };
+                else data[id] = { type: 'value', value: el.value };
             });
             localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-        } catch (e) {
-            console.warn('Failed to save settings:', e);
-        }
+        } catch (e) { console.warn('Save failed:', e); }
     }
 
     function loadSettings(filter = null) {
@@ -1331,10 +1296,7 @@
                 } else {
                     if (el.tagName === 'SELECT') {
                         const optionExists = Array.from(el.options).some(o => o.value === entry.value);
-                        if (optionExists) {
-                            el.value = entry.value;
-                            loaded++;
-                        }
+                        if (optionExists) { el.value = entry.value; loaded++; }
                     } else {
                         el.value = entry.value;
                         loaded++;
@@ -1342,17 +1304,11 @@
                 }
             });
             return loaded > 0;
-        } catch (e) {
-            console.warn('Failed to load settings:', e);
-            return false;
-        }
+        } catch (e) { console.warn('Load failed:', e); return false; }
     }
 
     function clearSettings() {
-        try {
-            localStorage.removeItem(STORAGE_KEY);
-            return true;
-        } catch (e) { return false; }
+        try { localStorage.removeItem(STORAGE_KEY); return true; } catch (e) { return false; }
     }
 
     function scheduleSave() {
@@ -1376,15 +1332,15 @@
 
     function manualSave() {
         saveSettings();
-        showToast('💾 Setările au fost salvate');
+        showToast('💾 Settings saved');
     }
 
     function resetAllSettings() {
-        if (!confirm('Sigur vrei să resetezi toate setările salvate? Această acțiune nu poate fi anulată.')) return;
+        if (!confirm('Are you sure you want to reset all saved settings?')) return;
         clearSettings();
         localStorage.removeItem(HISTORY_KEY);
         localStorage.removeItem(CUSTOM_PRESETS_KEY);
-        showToast('🔄 Setările au fost resetate. Se reîncarcă...');
+        showToast('🔄 Reloading...');
         setTimeout(() => window.location.reload(), 800);
     }
 
@@ -1403,7 +1359,7 @@
     }
 
     // ============================================================
-    // THEME SWITCHER (#9.2)
+    // THEME
     // ============================================================
     const THEMES = ['dark', 'light', 'auto'];
     const THEME_ICONS = { dark: '🌙 Dark', light: '☀️ Light', auto: '🌗 Auto' };
@@ -1411,15 +1367,10 @@
     function applyTheme(theme) {
         const root = document.documentElement;
         root.classList.remove('theme-light', 'theme-dark');
-
         let effective = theme;
-        if (theme === 'auto') {
-            effective = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-        }
-
+        if (theme === 'auto') effective = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
         if (effective === 'light') root.classList.add('theme-light');
         else root.classList.add('theme-dark');
-
         const btn = document.getElementById('themeBtn');
         if (btn) btn.innerHTML = THEME_ICONS[theme];
     }
@@ -1434,19 +1385,14 @@
     }
 
     // ============================================================
-    // HISTORY (#7.2)
+    // HISTORY
     // ============================================================
     function getHistory() {
-        try {
-            const raw = localStorage.getItem(HISTORY_KEY);
-            return raw ? JSON.parse(raw) : [];
-        } catch (e) { return []; }
+        try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); } catch (e) { return []; }
     }
 
     function saveHistory(history) {
-        try {
-            localStorage.setItem(HISTORY_KEY, JSON.stringify(history.slice(0, HISTORY_MAX)));
-        } catch (e) {}
+        try { localStorage.setItem(HISTORY_KEY, JSON.stringify(history.slice(0, HISTORY_MAX))); } catch (e) {}
     }
 
     function addToHistory(promptText) {
@@ -1492,14 +1438,14 @@
         if (!history[idx]) return;
         navigator.clipboard.writeText(history[idx].text);
         document.getElementById('finalPrompt').value = history[idx].text;
-        showToast('📋 Prompt restaurat & copiat');
+        showToast('📋 Prompt restored & copied');
     }
 
     function clearHistory() {
-        if (!confirm('Ștergi tot istoricul de prompt-uri?')) return;
+        if (!confirm('Delete all history?')) return;
         localStorage.removeItem(HISTORY_KEY);
         renderHistory();
-        showToast('🗑️ Istoric șters');
+        showToast('🗑️ History cleared');
     }
 
     function toggleHistory() {
@@ -1510,12 +1456,10 @@
     }
 
     // ============================================================
-    // CUSTOM PRESETS (#9.4)
+    // CUSTOM PRESETS
     // ============================================================
     function getCustomPresets() {
-        try {
-            return JSON.parse(localStorage.getItem(CUSTOM_PRESETS_KEY) || '{}');
-        } catch (e) { return {}; }
+        try { return JSON.parse(localStorage.getItem(CUSTOM_PRESETS_KEY) || '{}'); } catch (e) { return {}; }
     }
 
     function saveCustomPresets(presets) {
@@ -1523,7 +1467,7 @@
     }
 
     function saveCurrentAsPreset() {
-        const name = prompt('Nume preset:');
+        const name = prompt('Preset name:');
         if (!name || !name.trim()) return;
 
         const settings = {};
@@ -1543,12 +1487,12 @@
     }
 
     function deleteCustomPreset(key) {
-        if (!confirm('Ștergi acest preset?')) return;
+        if (!confirm('Delete this preset?')) return;
         const presets = getCustomPresets();
         delete presets[key];
         saveCustomPresets(presets);
         renderCustomPresets();
-        showToast('🗑️ Preset șters');
+        showToast('🗑️ Preset deleted');
     }
 
     function renderCustomPresets() {
@@ -1559,10 +1503,7 @@
         const presets = getCustomPresets();
         const keys = Object.keys(presets);
 
-        if (keys.length === 0) {
-            bar.style.display = 'none';
-            return;
-        }
+        if (keys.length === 0) { bar.style.display = 'none'; return; }
 
         bar.style.display = 'flex';
         list.innerHTML = '';
@@ -1575,21 +1516,8 @@
             const btn = document.createElement('button');
             btn.textContent = p.name;
             btn.style.cssText = 'background:transparent; border:none; color:#6ee7b7; padding:8px 14px; font-size:0.9rem; font-weight:600; cursor:pointer;';
-            btn.onclick = () => {
-                Object.entries(p.settings).forEach(([id, value]) => {
-                    const el = document.getElementById(id);
-                    if (!el) return;
-                    if (el.type === 'checkbox') el.checked = !!value;
-                    else if (el.tagName === 'SELECT') {
-                        const exists = Array.from(el.options).some(o => o.value === value);
-                        if (exists) el.value = value;
-                    } else el.value = value;
-                });
-                updateLogic();
-                generatePrompt();
-                scheduleSave();
-                showToast(`⚡ Preset aplicat: ${p.name}`);
-            };
+            btn.onclick = () => applyCustomPreset(key);
+            btn.title = p.name;
 
             const del = document.createElement('button');
             del.textContent = '×';
@@ -1603,8 +1531,693 @@
         });
     }
 
+    function applyCustomPreset(key) {
+        const presets = getCustomPresets();
+        const p = presets[key];
+        if (!p) return;
+
+        // Use the same robust applyPreset logic
+        applyPresetSettings(p.settings, p.name);
+        scheduleSave();
+    }
+
     // ============================================================
-    // BUILT-IN PRESETS (#7.1 + 14 total)
+    // CUSTOM MODELS
+    // ============================================================
+    function getCustomModels() {
+        try { return JSON.parse(localStorage.getItem(CUSTOM_MODELS_KEY) || '[]'); } catch (e) { return []; }
+    }
+
+    function saveCustomModels(models) {
+        localStorage.setItem(CUSTOM_MODELS_KEY, JSON.stringify(models));
+    }
+
+    function addCustomModel() {
+        const name = prompt('Custom model name (e.g. "MyRealismXL_v3"):');
+        if (!name || !name.trim()) return;
+
+        const arch = document.getElementById('sdVersion')?.value || 'SDXL 1.0';
+        const models = getCustomModels();
+
+        if (models.some(m => m.name === name.trim())) { showToast('⚠️ Model already exists', true); return; }
+        models.push({ name: name.trim(), arch });
+        saveCustomModels(models);
+        updateEnginePanel();
+        showToast(`➕ Model "${name}" added (${arch})`);
+    }
+
+    // ============================================================
+    // MODEL DATABASE
+    // ============================================================
+    const MODEL_DATABASE = {
+        'Juggernaut XL v9': {
+            arch: 'SDXL 1.0', category: 'Human Realism',
+            trigger: 'Hyperdetailed Photography, Skin Details, Cinematic lighting',
+            recommended: { cfg: 4.5, steps: 35, sampler: 'DPM++ 2M Karras' },
+            vae: 'builtin', size: '6.6 GB', resolution: '1024x1024',
+            notes: 'Most balanced for realistic photography. Excellent skin detail.'
+        },
+        'CyberRealistic XL': {
+            arch: 'SDXL 1.0', category: 'Human Realism',
+            trigger: 'RAW photo, candid moment, natural skin texture',
+            recommended: { cfg: 7.5, steps: 30, sampler: 'DPM++ 3M SDE Karras' },
+            vae: 'builtin', size: '6.5 GB', resolution: '1024x1024',
+            notes: 'Specialized in portraits. Highly detailed skin and eyes.'
+        },
+        'AbsoluteReality': {
+            arch: 'SDXL 1.0', category: 'Human Realism',
+            trigger: 'skin pores, detailed eyes, film photography',
+            recommended: { cfg: 7.0, steps: 30, sampler: 'DPM++ 2M Karras' },
+            vae: 'builtin', size: '6.5 GB', resolution: '1024x1024',
+            notes: 'Excellent for female portraits. Natural colors.'
+        },
+        'OdysseyXL-MK2-Alpha': {
+            arch: 'SDXL 1.0', category: 'Landscape',
+            trigger: 'cinematic landscape, atmospheric depth, volumetric light',
+            recommended: { cfg: 6.0, steps: 30, sampler: 'DPM++ 2M SDE Karras' },
+            vae: 'builtin', size: '6.5 GB', resolution: '1344x768 (wide)',
+            notes: 'Specialized in epic landscapes and architecture.'
+        },
+        'Illustrious Anime v4': {
+            arch: 'SDXL 1.0', category: 'Anime',
+            trigger: 'anime, masterpiece, best quality, detailed illustration',
+            recommended: { cfg: 7.0, steps: 25, sampler: 'Euler a' },
+            vae: 'builtin', size: '6.4 GB', resolution: '1024x1024',
+            notes: 'Best for modern SDXL anime.'
+        },
+        'Pony Diffusion V6 XL': {
+            arch: 'SDXL 1.0', category: 'Anime',
+            trigger: 'score_9, score_8_up, score_7_up, source_anime',
+            recommended: { cfg: 7.0, steps: 25, sampler: 'Euler a' },
+            vae: 'builtin', size: '6.6 GB', resolution: '1024x1024',
+            notes: '⚠️ REQUIRES trigger words for correct results!'
+        },
+        'DreamShaper XL Lightning': {
+            arch: 'SDXL 1.0', category: 'Turbo',
+            trigger: '',
+            recommended: { cfg: 2.0, steps: 6, sampler: 'DPM++ SDE Karras' },
+            vae: 'builtin', size: '6.5 GB', resolution: '1024x1024',
+            notes: 'Ultra-fast generation. Only 6 steps!'
+        },
+        'SDXL Lightning': {
+            arch: 'SDXL Turbo', category: 'Turbo',
+            trigger: '',
+            recommended: { cfg: 2.0, steps: 4, sampler: 'Euler a' },
+            vae: 'builtin', size: '6.5 GB', resolution: '1024x1024',
+            notes: '4-step generation. Ideal for quick previews.'
+        },
+        'Realistic Vision Lightning': {
+            arch: 'SDXL Turbo', category: 'Turbo',
+            trigger: 'photo, realistic',
+            recommended: { cfg: 2.0, steps: 6, sampler: 'DPM++ SDE Karras' },
+            vae: 'builtin', size: '6.5 GB', resolution: '1024x1024',
+            notes: 'Fast realism. Great for large batches.'
+        },
+        'Realistic Vision v5.1': {
+            arch: 'SD 1.5', category: 'Human Realism',
+            trigger: '',
+            recommended: { cfg: 7.0, steps: 25, sampler: 'DPM++ 2M Karras' },
+            vae: 'external', size: '2.1 GB', resolution: '512x512 (native)',
+            notes: 'SD 1.5 classic. Requires external VAE for correct colors.'
+        },
+        'Poralus-Image-1357': {
+            arch: 'SD 1.5', category: 'Landscape',
+            trigger: 'detailed scenery, cinematic composition',
+            recommended: { cfg: 7.0, steps: 25, sampler: 'DPM++ 2M Karras' },
+            vae: 'external', size: '2.0 GB', resolution: '512x512',
+            notes: 'SD 1.5 landscape. Fast and VRAM-efficient.'
+        },
+        'DreamShaper 8': {
+            arch: 'SD 1.5', category: 'General',
+            trigger: 'photorealistic, detailed, balanced composition',
+            recommended: { cfg: 7.0, steps: 25, sampler: 'DPM++ 2M Karras' },
+            vae: 'external', size: '2.0 GB', resolution: '512x512',
+            notes: 'Versatile SD 1.5. Good for anything.'
+        },
+        'Rev Animated': {
+            arch: 'SD 1.5', category: 'General',
+            trigger: 'illustration, detailed, fantasy art',
+            recommended: { cfg: 7.0, steps: 25, sampler: 'Euler a' },
+            vae: 'external', size: '2.1 GB', resolution: '512x512',
+            notes: 'Excellent for fantasy art and illustrations.'
+        },
+        'SD 2.1 768-v': {
+            arch: 'SD 2.1', category: 'General',
+            trigger: '',
+            recommended: { cfg: 7.0, steps: 25, sampler: 'DPM++ 2M Karras' },
+            vae: 'external', size: '5.2 GB', resolution: '768x768',
+            notes: 'Official Stability AI SD 2.1 model. Requires external VAE.'
+        },
+        'SD 2.1 Base': {
+            arch: 'SD 2.1', category: 'General',
+            trigger: '',
+            recommended: { cfg: 7.0, steps: 25, sampler: 'DPM++ 2M Karras' },
+            vae: 'external', size: '5.2 GB', resolution: '512x512',
+            notes: 'SD 2.1 base version. Faster than 768-v.'
+        },
+        'SD 3.5 Large': {
+            arch: 'SD 3.5 Large', category: 'General',
+            trigger: '',
+            recommended: { cfg: 4.5, steps: 28, sampler: 'DPM++ 2M Karras' },
+            vae: 'builtin', size: '9.1 GB', resolution: '1024x1024',
+            notes: 'Latest Stability model. Excellent text rendering. Requires 12GB+ VRAM.'
+        },
+        'SD 3.5 Large Turbo': {
+            arch: 'SD 3.5 Large', category: 'Turbo',
+            trigger: '',
+            recommended: { cfg: 1.0, steps: 4, sampler: 'Euler a' },
+            vae: 'builtin', size: '9.1 GB', resolution: '1024x1024',
+            notes: 'SD 3.5 Large fast version. 4 steps.'
+        },
+        'SD 3.5 Medium': {
+            arch: 'SD 3.5 Medium', category: 'General',
+            trigger: '',
+            recommended: { cfg: 4.5, steps: 28, sampler: 'DPM++ 2M Karras' },
+            vae: 'builtin', size: '4.5 GB', resolution: '1024x1024',
+            notes: 'Smaller version for limited VRAM (8GB).'
+        }
+    };
+
+    // ============================================================
+    // BUILD SD MODEL OPTIONS
+    // ============================================================
+    function buildSDModelOptions(currentArch) {
+        const arch = currentArch || document.getElementById('sdVersion')?.value || 'SDXL 1.0';
+
+        const groups = {
+            'Human Realism': [],
+            'Landscape': [],
+            'Anime': [],
+            'Turbo': [],
+            'General': []
+        };
+
+        Object.entries(MODEL_DATABASE).forEach(([name, data]) => {
+            if (data.arch === arch && groups[data.category]) {
+                groups[data.category].push(name);
+            }
+        });
+
+        const customModels = getCustomModels();
+        const matchingCustom = customModels.filter(m => m.arch === arch).map(m => m.name);
+        if (matchingCustom.length > 0) groups['Custom'] = matchingCustom;
+
+        const totalModels = Object.values(groups).reduce((s, arr) => s + arr.length, 0);
+        if (totalModels === 0) {
+            groups['⚠️ No models'] = ['— Select a different architecture or add custom —'];
+        }
+
+        return groups;
+    }
+
+    // ============================================================
+    // ENGINE CONFIGS
+    // ============================================================
+    const ENGINE_CONFIGS = {
+        midjourney: {
+            params: [
+                { id: 'mjVersion', label: '📌 Model Version', type: 'select',
+                  options: [
+                    { group: 'Latest', vals: ['7', '6.1', '6.0'] },
+                    { group: 'Legacy', vals: ['5.2', '5.1', 'niji 6'] }
+                  ] },
+                { id: 'mjStylize', label: '🎨 Stylize', type: 'number', default: 250, min: 0, max: 1000 },
+                { id: 'mjChaos', label: '🌪️ Chaos', type: 'number', default: 0, min: 0, max: 100 },
+                { id: 'mjWeird', label: '🌀 Weird', type: 'number', default: 0, min: 0, max: 3000 },
+                { id: 'mjStyleRaw', label: '📷 Style Mode', type: 'checkbox', default: false, checkboxLabel: 'Style Raw (photographic)' },
+                { id: 'mjTile', label: '🧩 Pattern Mode', type: 'checkbox', default: false, checkboxLabel: 'Seamless Tile' }
+            ]
+        },
+        flux: {
+            params: [
+                { id: 'fluxVariant', label: '⚡ Variant', type: 'select',
+                  options: [
+                    { group: 'Black Forest Labs', vals: ['FLUX.1 [pro]', 'FLUX.1 [dev]', 'FLUX.1 [schnell]'] },
+                    { group: 'Fine-tunes', vals: ['FLUX.1 [dev] Realism', 'FLUX.1 [schnell] Photo'] }
+                  ] },
+                { id: 'fluxGuidance', label: '🎯 Guidance Scale', type: 'number', default: 3.5, min: 0, max: 10 },
+                { id: 'fluxSteps', label: '📉 Inference Steps', type: 'number', default: 28, min: 1, max: 50 },
+                { id: 'fluxSeed', label: '🎲 Seed (0 = random)', type: 'number', default: 0, min: 0, max: 999999999 },
+                { id: 'fluxRefiner', label: '🎨 Post-Process', type: 'checkbox', default: false, checkboxLabel: 'Enable Refiner Pass' }
+            ]
+        },
+        stable_diffusion: {
+            params: [
+                { id: 'sdVersion', label: '📌 Architecture', type: 'select',
+                  options: [
+                    { group: 'Modern (Recommended)', vals: ['SDXL 1.0', 'SDXL Turbo'] },
+                    { group: 'Latest Generation', vals: ['SD 3.5 Large', 'SD 3.5 Medium'] },
+                    { group: 'Legacy', vals: ['SD 1.5', 'SD 2.1'] }
+                  ] },
+                { id: 'sdModel', label: '📦 Checkpoint', type: 'select-dynamic', optionsBuilder: buildSDModelOptions },
+                { id: 'sdTrigger', label: '🏷️ Trigger Words (auto)', type: 'text', default: '', placeholder: 'auto-populated per model' },
+                { id: 'sdCfg', label: '🎯 CFG Scale', type: 'number', default: 7, min: 1, max: 30 },
+                { id: 'sdSteps', label: '📉 Steps', type: 'number', default: 25, min: 1, max: 100 },
+                { id: 'sdSampler', label: '⚙️ Sampler', type: 'select',
+                  options: ['Euler a', 'DPM++ 2M Karras', 'DPM++ 2M SDE Karras', 'DPM++ 3M SDE Karras', 'DPM++ SDE Karras', 'DDIM', 'Heun'] },
+                { id: 'sdHires', label: '🔍 Upscaling', type: 'checkbox', default: false, checkboxLabel: 'Hires Fix (2x)' },
+                { id: 'sdRefiner', label: '🎨 Refiner Pass', type: 'checkbox', default: false, checkboxLabel: 'Enable Refiner' },
+                { id: 'sdFaceRestore', label: '👤 Post-Process', type: 'checkbox', default: false, checkboxLabel: 'Face Restoration' }
+            ]
+        },
+        dalle3: {
+            params: [
+                { id: 'dalleVersion', label: '📌 Model', type: 'select', options: ['DALL-E 3', 'DALL-E 3 HD'] },
+                { id: 'dalleStyle', label: '🖼️ Style Mode', type: 'select', options: ['Vivid', 'Natural'] }
+            ]
+        }
+    };
+
+    // ============================================================
+    // ENGINE BADGES
+    // ============================================================
+    const ENGINE_BADGES = {
+        midjourney: { icon: '🎨', title: 'Midjourney', chips: ['Parametric', 'Discord', '--ar/--stylize'], tooltip: 'Parametric syntax on Discord.' },
+        flux: { icon: '⚡', title: 'FLUX.1', chips: ['Natural Language', '12B params', 'SOTA'], tooltip: 'State-of-the-art model.' },
+        stable_diffusion: { icon: '🔧', title: 'Stable Diffusion', chips: ['Local', 'LoRA', 'ControlNet'], tooltip: 'Runs locally, fully configurable.' },
+        dalle3: { icon: '🖼️', title: 'DALL-E 3', chips: ['ChatGPT', 'Safety-first', '1024px'], tooltip: 'Integrated in ChatGPT.' }
+    };
+
+    function updateEngineBadge(engine) {
+        const badge = document.getElementById('engineBadge');
+        if (!badge) return;
+        const cfg = ENGINE_BADGES[engine];
+        if (!cfg) return;
+
+        badge.className = 'engine-badge theme-' + engine;
+        document.getElementById('engineBadgeIcon').textContent = cfg.icon;
+        document.getElementById('engineBadgeTitle').textContent = cfg.title;
+
+        const chipsContainer = document.getElementById('engineBadgeChips');
+        chipsContainer.innerHTML = '';
+        cfg.chips.forEach(chipText => {
+            const chip = document.createElement('span');
+            chip.className = 'chip';
+            chip.textContent = chipText;
+            chipsContainer.appendChild(chip);
+        });
+
+        badge.title = cfg.tooltip;
+        badge.style.animation = 'none';
+        void badge.offsetWidth;
+        badge.style.animation = 'badgeFadeIn 0.5s ease';
+    }
+
+    function refreshBadgeVersion(engine) {
+        const cfg = ENGINE_BADGES[engine];
+        if (!cfg) return;
+        let versionLabel = '';
+        if (engine === 'midjourney') {
+            const v = document.getElementById('mjVersion')?.value;
+            if (v) versionLabel = v.startsWith('niji') ? 'Niji 6' : 'v' + v;
+        } else if (engine === 'stable_diffusion') {
+            versionLabel = document.getElementById('sdVersion')?.value || '';
+        } else if (engine === 'flux') {
+            const v = document.getElementById('fluxVariant')?.value || '';
+            versionLabel = v.replace('FLUX.1 ', '');
+        } else if (engine === 'dalle3') {
+            versionLabel = document.getElementById('dalleVersion')?.value || '';
+        }
+        const titleEl = document.getElementById('engineBadgeTitle');
+        titleEl.textContent = versionLabel ? `${cfg.title} · ${versionLabel}` : cfg.title;
+    }
+
+    // ============================================================
+    // MODEL INFO PANEL
+    // ============================================================
+    function updateModelInfoPanel() {
+        const panel = document.getElementById('modelInfoPanel');
+        if (!panel) return;
+
+        const modelName = document.getElementById('sdModel')?.value;
+        if (!modelName || modelName.startsWith('—')) { panel.classList.remove('visible'); return; }
+
+        const currentArch = document.getElementById('sdVersion')?.value || 'SDXL 1.0';
+        const data = MODEL_DATABASE[modelName];
+        const customModels = getCustomModels();
+        const customEntry = customModels.find(m => m.name === modelName);
+
+        if (!data && customEntry) {
+            panel.classList.add('visible');
+            const archMatch = customEntry.arch === currentArch;
+            panel.innerHTML = `
+                <div class="model-info-row">
+                    <span class="model-badge">📁 Custom Model</span>
+                    <span class="model-badge ${archMatch ? 'arch-match' : 'arch-mismatch'}">
+                        ${archMatch ? '✅' : '⚠️'} ${customEntry.arch}
+                    </span>
+                </div>
+                <div class="model-trigger-input">
+                    <label style="font-size:0.85rem; color:#cbd5e1; white-space:nowrap;">🏷️ Trigger:</label>
+                    <input type="text" id="sdTrigger" value="${escapeAttr(document.getElementById('sdTrigger')?.value || '')}" placeholder="trigger words...">
+                </div>
+            `;
+            attachTriggerListener();
+            return;
+        }
+
+        if (!data) { panel.classList.remove('visible'); return; }
+
+        if (data.arch !== currentArch) {
+            panel.classList.add('visible');
+            panel.innerHTML = `
+                <div class="mismatch-warning">
+                    ⚠️ <strong>Mismatch:</strong> Model "${escapeHtml(modelName)}" is built for <strong>${data.arch}</strong>,
+                    but selected architecture is <strong>${currentArch}</strong>.
+                    <button class="btn-fix-arch" onclick="fixArchitectureMismatch('${data.arch}')">🔧 Fix to ${data.arch}</button>
+                </div>
+            `;
+            return;
+        }
+
+        panel.classList.add('visible');
+        const vaeClass = data.vae === 'builtin' ? 'vae-builtin' : 'vae-external';
+        const vaeText = data.vae === 'builtin' ? '✅ Built-in VAE' : '⚠️ Requires external VAE';
+
+        panel.innerHTML = `
+            <div class="model-info-row">
+                <span class="model-badge arch-match">📐 ${data.arch}</span>
+                <span class="model-badge">📂 ${data.category}</span>
+                <span class="model-badge ${vaeClass}">${vaeText}</span>
+                <span class="model-badge">💾 ${data.size}</span>
+                <span class="model-badge">🖼️ ${data.resolution}</span>
+            </div>
+            <div class="model-info-row">
+                <div class="model-trigger-input">
+                    <label style="font-size:0.85rem; color:#cbd5e1; white-space:nowrap;">🏷️ Trigger:</label>
+                    <input type="text" id="sdTrigger" value="${escapeAttr(document.getElementById('sdTrigger')?.value || data.trigger || '')}" placeholder="trigger words...">
+                </div>
+            </div>
+            <div class="model-recommendation">
+                <strong>💡 Recommended:</strong>
+                <span>CFG <strong>${data.recommended.cfg}</strong></span> ·
+                <span>Steps <strong>${data.recommended.steps}</strong></span> ·
+                <span>Sampler <strong>${data.recommended.sampler}</strong></span>
+                <button class="btn-apply-recommendation" onclick="applyRecommended()">✨ Apply</button>
+            </div>
+            <div style="margin-top:8px; font-size:0.8rem; color:#94a3b8; font-style:italic;">
+                ${escapeHtml(data.notes)}
+            </div>
+        `;
+        attachTriggerListener();
+    }
+
+    function escapeHtml(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function escapeAttr(s) {
+        return String(s).replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function attachTriggerListener() {
+        const triggerEl = document.getElementById('sdTrigger');
+        if (triggerEl) triggerEl.addEventListener('input', scheduleSave);
+    }
+
+    function applyRecommended() {
+        const modelName = document.getElementById('sdModel')?.value;
+        const data = MODEL_DATABASE[modelName];
+        if (!data) return;
+
+        const cfgEl = document.getElementById('sdCfg');
+        const stepsEl = document.getElementById('sdSteps');
+        const samplerEl = document.getElementById('sdSampler');
+
+        if (cfgEl) cfgEl.value = data.recommended.cfg;
+        if (stepsEl) stepsEl.value = data.recommended.steps;
+        if (samplerEl) {
+            const exists = Array.from(samplerEl.options).some(o => o.value === data.recommended.sampler);
+            if (exists) samplerEl.value = data.recommended.sampler;
+        }
+
+        scheduleSave();
+        generatePrompt();
+        showToast('✨ Recommended settings applied');
+    }
+
+    function handleModelChange() {
+        const modelName = document.getElementById('sdModel')?.value;
+        const data = MODEL_DATABASE[modelName];
+        const triggerEl = document.getElementById('sdTrigger');
+
+        if (data && triggerEl) {
+            if (!triggerEl.value || Object.values(MODEL_DATABASE).some(m => m.trigger === triggerEl.value)) {
+                triggerEl.value = data.trigger || '';
+            }
+        }
+
+        updateModelInfoPanel();
+        refreshBadgeVersion('stable_diffusion');
+        scheduleSave();
+        generatePrompt();
+    }
+
+    // ============================================================
+    // ARCHITECTURE CHANGE HANDLER
+    // ============================================================
+    function handleArchitectureChange(event) {
+        const archEl = document.getElementById('sdVersion');
+        if (!archEl) return;
+        const arch = archEl.value;
+
+        const modelSelectBefore = document.getElementById('sdModel');
+        const currentModel = modelSelectBefore?.value || '';
+
+        const currentModelData = MODEL_DATABASE[currentModel];
+        const customModels = getCustomModels();
+        const customEntry = customModels.find(m => m.name === currentModel);
+
+        let isCompatible = false;
+        if (currentModelData && currentModelData.arch === arch) isCompatible = true;
+        if (customEntry && customEntry.arch === arch) isCompatible = true;
+
+        isRebuildingPanel = true;
+
+        updateEnginePanel();
+
+        const newArchEl = document.getElementById('sdVersion');
+        if (newArchEl) newArchEl.value = arch;
+
+        setTimeout(() => {
+            const newSelect = document.getElementById('sdModel');
+            if (newSelect) {
+                if (!isCompatible) {
+                    for (let i = 0; i < newSelect.options.length; i++) {
+                        const opt = newSelect.options[i];
+                        if (opt.value && !opt.value.startsWith('—')) {
+                            newSelect.value = opt.value;
+                            break;
+                        }
+                    }
+                } else {
+                    const exists = Array.from(newSelect.options).some(o => o.value === currentModel);
+                    if (exists) {
+                        newSelect.value = currentModel;
+                    } else {
+                        for (let i = 0; i < newSelect.options.length; i++) {
+                            const opt = newSelect.options[i];
+                            if (opt.value && !opt.value.startsWith('—')) {
+                                newSelect.value = opt.value;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (newArchEl) newArchEl.value = arch;
+            updateModelInfoPanel();
+            refreshBadgeVersion('stable_diffusion');
+            scheduleSave();
+            generatePrompt();
+            renderScore();
+            isRebuildingPanel = false;
+        }, 30);
+
+        if (!suppressArchToast) {
+            showToast(`🔧 Architecture: ${arch} — Checkpoints filtered`);
+        }
+        suppressArchToast = false;
+    }
+
+    function fixArchitectureMismatch(arch) {
+        const sdVersionEl = document.getElementById('sdVersion');
+        if (sdVersionEl) {
+            sdVersionEl.value = arch;
+            handleArchitectureChange();
+            showToast(`🔧 Architecture set to ${arch}`);
+        }
+    }
+
+    // ============================================================
+    // ENGINE PANEL RENDERING
+    // ============================================================
+    function updateEnginePanel() {
+        const engine = document.getElementById('targetEngine').value;
+
+        const snapshot = {};
+        const dynamicIds = ['mjVersion', 'mjStylize', 'mjChaos', 'mjWeird', 'mjStyleRaw', 'mjTile',
+                            'sdVersion', 'sdModel', 'sdTrigger', 'sdCfg', 'sdSteps', 'sdSampler', 'sdHires', 'sdRefiner', 'sdFaceRestore',
+                            'fluxVariant', 'fluxGuidance', 'fluxSteps', 'fluxSeed', 'fluxRefiner',
+                            'dalleVersion', 'dalleStyle'];
+        dynamicIds.forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            snapshot[id] = (el.type === 'checkbox') ? el.checked : el.value;
+        });
+
+        const panel = document.getElementById('engineParams');
+        panel.innerHTML = '';
+
+        updateEngineBadge(engine);
+
+        const config = ENGINE_CONFIGS[engine];
+        config.params.forEach(p => {
+            const group = document.createElement('div');
+            group.className = 'setting-group';
+
+            const label = document.createElement('label');
+            label.innerText = p.label;
+            group.appendChild(label);
+
+            let input;
+            if (p.type === 'select' || p.type === 'select-dynamic') {
+                input = document.createElement('select');
+                let options = p.options;
+                if (p.type === 'select-dynamic' && p.optionsBuilder) {
+                    options = p.optionsBuilder(snapshot.sdVersion);
+                }
+
+                if (Array.isArray(options)) {
+                    const isSimpleArray = options.every(o => typeof o === 'string');
+                    if (isSimpleArray) {
+                        options.forEach(val => {
+                            const o = document.createElement('option');
+                            o.value = val; o.innerText = val;
+                            input.appendChild(o);
+                        });
+                    } else {
+                        options.forEach(item => {
+                            if (item && item.group && Array.isArray(item.vals)) {
+                                const og = document.createElement('optgroup');
+                                og.label = item.group;
+                                item.vals.forEach(val => {
+                                    const o = document.createElement('option');
+                                    o.value = val; o.innerText = val;
+                                    og.appendChild(o);
+                                });
+                                input.appendChild(og);
+                            } else if (typeof item === 'string') {
+                                const o = document.createElement('option');
+                                o.value = item; o.innerText = item;
+                                input.appendChild(o);
+                            }
+                        });
+                    }
+                } else if (options && typeof options === 'object') {
+                    Object.entries(options).forEach(([groupName, vals]) => {
+                        if (!Array.isArray(vals) || vals.length === 0) return;
+                        const og = document.createElement('optgroup');
+                        og.label = groupName;
+                        vals.forEach(val => {
+                            const o = document.createElement('option');
+                            o.value = val; o.innerText = val;
+                            og.appendChild(o);
+                        });
+                        input.appendChild(og);
+                    });
+                }
+            } else if (p.type === 'checkbox') {
+                const cbWrapper = document.createElement('label');
+                cbWrapper.style.cssText = 'display:flex; align-items:center; gap:10px; background:var(--input-bg); border:1px solid var(--border-color); padding:12px; border-radius:12px; cursor:pointer; font-weight:normal; color:var(--text-color); font-size:1rem;';
+
+                input = document.createElement('input');
+                input.type = 'checkbox';
+                input.checked = !!p.default;
+                input.style.cssText = 'width:20px; height:20px; accent-color:var(--accent-color); cursor:pointer; margin:0;';
+
+                const cbLabel = document.createElement('span');
+                cbLabel.innerText = p.checkboxLabel || 'Enable';
+
+                cbWrapper.appendChild(input);
+                cbWrapper.appendChild(cbLabel);
+
+                input.id = p.id;
+                group.appendChild(cbWrapper);
+                panel.appendChild(group);
+                return;
+            } else {
+                input = document.createElement('input');
+                input.type = p.type;
+                input.value = p.default;
+                if (p.min !== undefined) input.min = p.min;
+                if (p.max !== undefined) input.max = p.max;
+                if (p.step !== undefined) input.step = p.step;
+                if (p.placeholder) input.placeholder = p.placeholder;
+            }
+            input.id = p.id;
+            group.appendChild(input);
+            panel.appendChild(group);
+
+            if (snapshot[p.id] !== undefined) {
+                if (input.type === 'checkbox') input.checked = !!snapshot[p.id];
+                else {
+                    if (input.tagName === 'SELECT') {
+                        const exists = Array.from(input.options).some(o => o.value === snapshot[p.id]);
+                        if (exists) input.value = snapshot[p.id];
+                    } else {
+                        input.value = snapshot[p.id];
+                    }
+                }
+            }
+
+            if (p.id === 'sdModel') {
+                const addBtn = document.createElement('button');
+                addBtn.type = 'button';
+                addBtn.textContent = '➕ Add custom model';
+                addBtn.style.cssText = 'margin-top:6px; padding:8px 12px; font-size:0.8rem; background:transparent; border:1px dashed var(--border-color); color:#94a3b8; border-radius:8px; cursor:pointer; font-weight:600;';
+                addBtn.onmouseenter = () => { addBtn.style.borderColor = '#10b981'; addBtn.style.color = '#6ee7b7'; };
+                addBtn.onmouseleave = () => { addBtn.style.borderColor = 'var(--border-color)'; addBtn.style.color = '#94a3b8'; };
+                addBtn.onclick = addCustomModel;
+                group.appendChild(addBtn);
+            }
+        });
+
+        if (engine === 'stable_diffusion') {
+            const infoPanel = document.createElement('div');
+            infoPanel.id = 'modelInfoPanel';
+            infoPanel.className = 'model-info-panel';
+            panel.appendChild(infoPanel);
+
+            const modelSelect = document.getElementById('sdModel');
+            if (modelSelect) modelSelect.addEventListener('change', handleModelChange);
+
+            const sdVersionEl = document.getElementById('sdVersion');
+            if (sdVersionEl) {
+                sdVersionEl.addEventListener('change', handleArchitectureChange);
+            }
+        }
+
+        const versionSelectIds = ['mjVersion', 'sdVersion', 'fluxVariant', 'dalleVersion'];
+        versionSelectIds.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('change', () => {
+                refreshBadgeVersion(engine);
+                scheduleSave();
+                renderScore();
+            });
+        });
+
+        refreshBadgeVersion(engine);
+
+        if (engine === 'stable_diffusion') {
+            setTimeout(updateModelInfoPanel, 20);
+        }
+    }
+
+    // ============================================================
+    // PRESETS (14 built-in)
     // ============================================================
     const PRESETS = {
         cinematic_portrait: {
@@ -1903,287 +2516,96 @@
         }
     };
 
-    function applyPreset(key) {
-        const preset = PRESETS[key];
-        if (!preset) return;
-        Object.entries(preset.settings).forEach(([id, value]) => {
+    // ============================================================
+    // APPLY PRESET (v22.8 — FIXED)
+    // ============================================================
+    function applyPresetSettings(settings, presetName) {
+        // PAS 1: Aplică setările pe elementele existente în DOM (static grid)
+        const deferredSettings = {};
+
+        Object.entries(settings).forEach(([id, value]) => {
+            const el = document.getElementById(id);
+            if (!el) {
+                // Elementul nu există (ex: sdModel când nu ești pe SD engine)
+                deferredSettings[id] = value;
+                return;
+            }
+            setElementValue(el, value);
+        });
+
+        // PAS 2: Detectează dacă presetul necesită un engine switch
+        const hasEngineSpecificSettings = Object.keys(settings).some(id =>
+            id.startsWith('sd') || id.startsWith('mj') || id.startsWith('flux') || id.startsWith('dalle')
+        );
+        const currentEngine = document.getElementById('targetEngine').value;
+        const presetHasSDOnly = Object.keys(settings).some(id => id.startsWith('sd'));
+        const presetHasMJOnly = Object.keys(settings).some(id => id.startsWith('mj'));
+        const presetHasFluxOnly = Object.keys(settings).some(id => id.startsWith('flux'));
+        const presetHasDalleOnly = Object.keys(settings).some(id => id.startsWith('dalle'));
+
+        // Nu facem switch automat — preset-ul nu forțează un engine,
+        // doar aplică setările pentru engine-ul curent.
+        // Setările pentru alte engine-uri rămân în deferredSettings
+        // dar nu sunt aplicate (pentru că elementele nu există în DOM).
+
+        // Dacă elementul engineParams trebuie re-randat (pentru că avem setări engine-specific
+        // și elementele respective nu există), atunci re-randăm.
+
+        const needsRerender = Object.keys(deferredSettings).length > 0;
+        if (needsRerender) {
+            // Salvează setările deferred temporar, apoi re-randează
+            suppressArchToast = true;
+            updateEnginePanel();
+            suppressArchToast = false;
+
+            // PAS 3: Acum că panel-ul e re-randat, încearcă să aplici deferredSettings
+            Object.entries(deferredSettings).forEach(([id, value]) => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                setElementValue(el, value);
+            });
+        }
+
+        // PAS 4: Aplică din nou TOATE setările (după re-render, unele elemente ar putea fi resetate)
+        Object.entries(settings).forEach(([id, value]) => {
             const el = document.getElementById(id);
             if (!el) return;
-            if (el.tagName === 'SELECT') {
-                const exists = Array.from(el.options).some(o => o.value === value);
-                if (exists) el.value = value;
-            } else {
-                el.value = value;
-            }
+            setElementValue(el, value);
         });
+
+        // PAS 5: Finalizează
         updateLogic();
         generatePrompt();
         scheduleSave();
-        showToast(`⚡ Preset aplicat: ${preset.name}`);
+        showToast(`⚡ Preset applied: ${presetName}`);
     }
 
-    // ============================================================
-    // NEGATIVE ENGINE
-    // ============================================================
-    const NEGATIVE_ENGINE = {
-        core: "lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, distorted, deformed",
-        organic: "mutated hands, poorly drawn face, fused fingers, extra limbs, cloned face, gross proportions, malformed limbs, missing arms, missing legs, deformed iris, cross-eyed",
-        conflict: {
-            real: "cartoon, anime, illustration, 3d render, painting, drawing, sketch, CGI, vector art, flat color",
-            digital: "grainy, noise, blurred edges, low poly, amateur render, flat lighting, oil painting, watercolor",
-            art: "photorealistic, photography, camera lens, raw photo, realistic skin pores",
-            graphic: "depth of field, photorealistic, 3d render, realistic shadows, complex gradients",
-            sketch: "photorealistic, 3d render, glossy, colorful, photo, high resolution"
-        },
-        quality: "flat lighting, overexposed, underexposed, washed out colors, dull skin, plastic skin, airbrushed"
-    };
-
-    const SEMANTIC_MAP = {
-        styles: {
-            'luxury': 'Editorial Fashion Photography',
-            'neon': 'Cyberpunk aesthetic',
-            'nature': 'National Geographic style',
-            'painting': 'Oil Painting on canvas',
-            'modern': 'Unreal Engine 5 render, Octane Render',
-            'photo': 'Hyper-realistic',
-            'wes anderson': 'staged in the whimsical, symmetrical style of Wes Anderson',
-            'ghibli': 'Studio Ghibli anime aesthetic, lush landscapes, magical lighting',
-            'burton': 'Tim Burton gothic aesthetic, pale tones, distorted forms',
-            'sketch': 'Professional Charcoal and Graphite sketch on textured paper',
-            'origami': 'Intricate Origami and Papercraft art, paper folds'
-        },
-        compositions: {
-            'landscape': 'Extreme wide shot, expansive scene',
-            'portrait': 'Close-up portrait',
-            'detail': 'Extreme close-up, macro focus',
-            'huge': 'Low angle shot, imposing scale',
-            'top': 'God\'s eye view, top-down'
-        },
-        lighting: {
-            'dark': 'Dramatic chiaroscuro, extreme contrast',
-            'sun': 'Golden hour natural sunlight',
-            'neon': 'Cyberpunk neon lighting, magenta and cyan',
-            'soft': 'Professional softbox studio lighting',
-            'ethereal': 'Volumetric god rays, atmospheric haze'
-        },
-        cameras: {
-            'macro': 'Macro lens, extreme close-up',
-            'wide': 'Shot on 14mm ultra-wide lens',
-            'bokeh': 'Shot on 85mm lens',
-            'cinematic': 'Anamorphic lens, wide cinematic aspect'
-        },
-        render: {
-            'glass': 'caustics lighting, light refraction through glass',
-            'skin': 'subsurface scattering, realistic skin diffusion',
-            'metal': 'Anisotropic filtering, brushed metal highlights',
-            'shadows': 'Ambient Occlusion, deep realistic contact shadows'
+    function setElementValue(el, value) {
+        if (el.type === 'checkbox') {
+            el.checked = !!value;
+        } else if (el.tagName === 'SELECT') {
+            const exists = Array.from(el.options).some(o => o.value === value);
+            if (exists) el.value = value;
+        } else {
+            el.value = value;
         }
-    };
-
-    // ============================================================
-    // ENGINE CONFIGS
-    // ============================================================
-    const ENGINE_CONFIGS = {
-        midjourney: {
-            params: [
-                { id: 'mjVersion', label: '📌 Model Version', type: 'select',
-                  options: [
-                    { group: 'Latest', vals: ['7', '6.1', '6.0'] },
-                    { group: 'Legacy', vals: ['5.2', '5.1', 'niji 6'] }
-                  ] },
-                { id: 'mjStylize', label: '🎨 Stylize', type: 'number', default: 250, min: 0, max: 1000 },
-                { id: 'mjChaos', label: '🌪️ Chaos', type: 'number', default: 0, min: 0, max: 100 },
-                { id: 'mjWeird', label: '🌀 Weird', type: 'number', default: 0, min: 0, max: 3000 },
-                { id: 'mjStyleRaw', label: '📷 Style Mode', type: 'checkbox', default: false, checkboxLabel: 'Style Raw (photographic)' },
-                { id: 'mjTile', label: '🧩 Pattern Mode', type: 'checkbox', default: false, checkboxLabel: 'Seamless Tile' }
-            ]
-        },
-        flux: {
-            params: [
-                { id: 'fluxVariant', label: '⚡ Variant', type: 'select',
-                  options: [
-                    { group: 'Black Forest Labs', vals: ['FLUX.1 [pro]', 'FLUX.1 [dev]', 'FLUX.1 [schnell]'] },
-                    { group: 'Fine-tunes', vals: ['FLUX.1 [dev] Realism', 'FLUX.1 [schnell] Photo'] }
-                  ] },
-                { id: 'fluxGuidance', label: '🎯 Guidance Scale', type: 'number', default: 3.5, min: 0, max: 10 },
-                { id: 'fluxSteps', label: '📉 Inference Steps', type: 'number', default: 28, min: 1, max: 50 },
-                { id: 'fluxSeed', label: '🎲 Seed (0 = random)', type: 'number', default: 0, min: 0, max: 999999999 },
-                { id: 'fluxRefiner', label: '🎨 Post-Process', type: 'checkbox', default: false, checkboxLabel: 'Enable Refiner Pass' }
-            ]
-        },
-        stable_diffusion: {
-            params: [
-                { id: 'sdVersion', label: '📌 Architecture', type: 'select',
-                  options: [
-                    { group: 'Modern', vals: ['SD 3.5 Large', 'SD 3.5 Medium', 'SDXL 1.0', 'SDXL Turbo'] },
-                    { group: 'Legacy', vals: ['SD 1.5', 'SD 2.1'] }
-                  ] },
-                { id: 'sdModel', label: '📦 Checkpoint', type: 'select',
-                  options: [
-                    { group: 'Lightning', vals: ['DreamShaper XL Lightning', 'Realistic Vision Lightning'] },
-                    { group: 'Photorealistic', vals: ['Realistic Vision v5.1', 'AbsoluteReality'] },
-                    { group: 'Artistic', vals: ['DreamShaper 8', 'Rev Animated'] }
-                  ] },
-                { id: 'sdCfg', label: '🎯 CFG Scale', type: 'number', default: 7, min: 1, max: 30 },
-                { id: 'sdSteps', label: '📉 Steps', type: 'number', default: 20, min: 1, max: 100 },
-                { id: 'sdSampler', label: '⚙️ Sampler', type: 'select',
-                  options: ['Euler a', 'DPM++ 2M Karras', 'DDIM', 'Heun'] },
-                { id: 'sdHires', label: '🔍 Upscaling', type: 'checkbox', default: false, checkboxLabel: 'Hires Fix (2x)' },
-                { id: 'sdRefiner', label: '🎨 Refiner Pass', type: 'checkbox', default: false, checkboxLabel: 'Enable Refiner' },
-                { id: 'sdFaceRestore', label: '👤 Post-Process', type: 'checkbox', default: false, checkboxLabel: 'Face Restoration' }
-            ]
-        },
-        dalle3: {
-            params: [
-                { id: 'dalleVersion', label: '📌 Model', type: 'select',
-                  options: ['DALL-E 3', 'DALL-E 3 HD'] },
-                { id: 'dalleStyle', label: '🖼️ Style Mode', type: 'select',
-                  options: ['Vivid', 'Natural'] }
-            ]
-        }
-    };
-
-    // ============================================================
-    // ENGINE BADGES
-    // ============================================================
-    const ENGINE_BADGES = {
-        midjourney: { icon: '🎨', title: 'Midjourney', chips: ['Parametric', 'Discord', '--ar/--stylize'], tooltip: 'Sintaxă parametrică pe Discord. Ideal pentru artă stilizată.' },
-        flux: { icon: '⚡', title: 'FLUX.1', chips: ['Natural Language', '12B params', 'SOTA'], tooltip: 'Model de ultimă generație. Preferă limbaj natural descriptiv.' },
-        stable_diffusion: { icon: '🔧', title: 'Stable Diffusion', chips: ['Local', 'LoRA', 'ControlNet'], tooltip: 'Rulează local, complet configurabil. Bogat în ecosistem.' },
-        dalle3: { icon: '🖼️', title: 'DALL-E 3', chips: ['ChatGPT', 'Safety-first', '1024px'], tooltip: 'Integrat în ChatGPT. Excelent pentru text în imagine.' }
-    };
-
-    function updateEngineBadge(engine) {
-        const badge = document.getElementById('engineBadge');
-        if (!badge) return;
-        const cfg = ENGINE_BADGES[engine];
-        if (!cfg) return;
-
-        badge.className = 'engine-badge theme-' + engine;
-        document.getElementById('engineBadgeIcon').textContent = cfg.icon;
-        document.getElementById('engineBadgeTitle').textContent = cfg.title;
-
-        const chipsContainer = document.getElementById('engineBadgeChips');
-        chipsContainer.innerHTML = '';
-        cfg.chips.forEach(chipText => {
-            const chip = document.createElement('span');
-            chip.className = 'chip';
-            chip.textContent = chipText;
-            chipsContainer.appendChild(chip);
-        });
-
-        badge.title = cfg.tooltip;
-        badge.style.animation = 'none';
-        void badge.offsetWidth;
-        badge.style.animation = 'badgeFadeIn 0.5s ease';
     }
 
-    function refreshBadgeVersion(engine) {
-        const cfg = ENGINE_BADGES[engine];
-        if (!cfg) return;
-        let versionLabel = '';
-        if (engine === 'midjourney') {
-            const v = document.getElementById('mjVersion')?.value;
-            if (v) versionLabel = v.startsWith('niji') ? 'Niji 6' : 'v' + v;
-        } else if (engine === 'stable_diffusion') {
-            versionLabel = document.getElementById('sdVersion')?.value || '';
-        } else if (engine === 'flux') {
-            const v = document.getElementById('fluxVariant')?.value || '';
-            versionLabel = v.replace('FLUX.1 ', '');
-        } else if (engine === 'dalle3') {
-            versionLabel = document.getElementById('dalleVersion')?.value || '';
-        }
-        const titleEl = document.getElementById('engineBadgeTitle');
-        titleEl.textContent = versionLabel ? `${cfg.title} · ${versionLabel}` : cfg.title;
+    function applyPreset(key, buttonEl) {
+        const preset = PRESETS[key];
+        if (!preset) return;
+
+        activePresetKey = key;
+
+        // Vizual: marchează chip-ul activ
+        document.querySelectorAll('.preset-chip').forEach(el => el.classList.remove('active'));
+        if (buttonEl) buttonEl.classList.add('active');
+
+        applyPresetSettings(preset.settings, preset.name);
     }
 
     // ============================================================
-    // ENGINE PANEL RENDERING
-    // ============================================================
-    function updateEnginePanel() {
-        const engine = document.getElementById('targetEngine').value;
-        const panel = document.getElementById('engineParams');
-        panel.innerHTML = '';
-
-        updateEngineBadge(engine);
-
-        const config = ENGINE_CONFIGS[engine];
-        config.params.forEach(p => {
-            const group = document.createElement('div');
-            group.className = 'setting-group';
-
-            const label = document.createElement('label');
-            label.innerText = p.label;
-            group.appendChild(label);
-
-            let input;
-            if (p.type === 'select') {
-                input = document.createElement('select');
-                if (Array.isArray(p.options)) {
-                    p.options.forEach(optGroup => {
-                        const og = document.createElement('optgroup');
-                        og.label = optGroup.group;
-                        optGroup.vals.forEach(val => {
-                            const o = document.createElement('option');
-                            o.value = val; o.innerText = val;
-                            og.appendChild(o);
-                        });
-                        input.appendChild(og);
-                    });
-                } else {
-                    p.options.forEach(val => {
-                        const o = document.createElement('option');
-                        o.value = val; o.innerText = val;
-                        input.appendChild(o);
-                    });
-                }
-            } else if (p.type === 'checkbox') {
-                const cbWrapper = document.createElement('label');
-                cbWrapper.style.cssText = 'display:flex; align-items:center; gap:10px; background:var(--input-bg); border:1px solid var(--border-color); padding:12px; border-radius:12px; cursor:pointer; font-weight:normal; color:var(--text-color); font-size:1rem;';
-
-                input = document.createElement('input');
-                input.type = 'checkbox';
-                input.checked = !!p.default;
-                input.style.cssText = 'width:20px; height:20px; accent-color:var(--accent-color); cursor:pointer; margin:0;';
-
-                const cbLabel = document.createElement('span');
-                cbLabel.innerText = p.checkboxLabel || 'Enable';
-
-                cbWrapper.appendChild(input);
-                cbWrapper.appendChild(cbLabel);
-
-                input.id = p.id;
-                group.appendChild(cbWrapper);
-                panel.appendChild(group);
-                return;
-            } else {
-                input = document.createElement('input');
-                input.type = p.type;
-                input.value = p.default;
-                if (p.min !== undefined) input.min = p.min;
-                if (p.max !== undefined) input.max = p.max;
-                if (p.step !== undefined) input.step = p.step;
-            }
-            input.id = p.id;
-            group.appendChild(input);
-            panel.appendChild(group);
-        });
-
-        const versionSelectIds = ['mjVersion', 'sdVersion', 'fluxVariant', 'dalleVersion'];
-        versionSelectIds.forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.addEventListener('change', () => {
-                refreshBadgeVersion(engine);
-                scheduleSave();
-                renderScore();
-            });
-        });
-
-        refreshBadgeVersion(engine);
-    }
-
-    // ============================================================
-    // DRAG & DROP (#9.1)
+    // DRAG & DROP
     // ============================================================
     function processSubjectFile(file) {
         const reader = new FileReader();
@@ -2197,7 +2619,7 @@
                 smartRandomize(subjectQueue[0]);
                 showToast(`📁 ${subjectQueue.length} subjects loaded`);
             } else {
-                showToast('❌ Fișier gol', true);
+                showToast('❌ Empty file', true);
             }
         };
         reader.readAsText(file);
@@ -2209,16 +2631,14 @@
 
         ['dragenter', 'dragover'].forEach(evt => {
             dropZone.addEventListener(evt, (e) => {
-                e.preventDefault();
-                e.stopPropagation();
+                e.preventDefault(); e.stopPropagation();
                 dropZone.classList.add('drag-over');
             });
         });
 
         ['dragleave', 'drop'].forEach(evt => {
             dropZone.addEventListener(evt, (e) => {
-                e.preventDefault();
-                e.stopPropagation();
+                e.preventDefault(); e.stopPropagation();
                 dropZone.classList.remove('drag-over');
             });
         });
@@ -2227,7 +2647,7 @@
             const file = e.dataTransfer.files[0];
             if (!file) return;
             if (!file.name.endsWith('.txt')) {
-                showToast('❌ Doar fișiere .txt sunt acceptate', true);
+                showToast('❌ Only .txt files are accepted', true);
                 return;
             }
             processSubjectFile(file);
@@ -2318,40 +2738,40 @@
         const palette = document.getElementById('colorPalette').value.toLowerCase();
 
         if (motion.includes('long exposure') && motion.includes('high speed')) {
-            conflicts.push({ level: 'error', msg: '🚫 Long Exposure și High Speed Shutter nu pot coexista.' });
+            conflicts.push({ level: 'error', msg: '🚫 Long Exposure and High Speed Shutter cannot coexist.' });
         }
         if (lighting.includes('god rays') && lQual.includes('hard light')) {
-            conflicts.push({ level: 'warn', msg: '⚠️ Volumetric God Rays funcționează mai bine cu Soft Light.' });
+            conflicts.push({ level: 'warn', msg: '⚠️ Volumetric God Rays work better with Soft Light.' });
         }
         if (aperture.includes('f/1.2') && aperture.includes('f/16')) {
-            conflicts.push({ level: 'error', msg: '🚫 f/1.2 și f/16 nu pot fi simultane.' });
+            conflicts.push({ level: 'error', msg: '🚫 f/1.2 and f/16 cannot be simultaneous.' });
         }
         if (camera.includes('macro') && composition.includes('extreme wide')) {
-            conflicts.push({ level: 'error', msg: '🚫 Macro Lens nu poate filma Extreme Wide Shot.' });
+            conflicts.push({ level: 'error', msg: '🚫 Macro Lens cannot shoot Extreme Wide Shot.' });
         }
         if (interaction.includes('snow') && (background.includes('tropical') || background.includes('desert'))) {
-            conflicts.push({ level: 'warn', msg: '⚠️ Zăpadă într-un mediu tropical e neobișnuită.' });
+            conflicts.push({ level: 'warn', msg: '⚠️ Snow in a tropical environment is unusual.' });
         }
         if (interaction.includes('rain') && (background.includes('volcanic') || background.includes('desert'))) {
-            conflicts.push({ level: 'warn', msg: '⚠️ Ploaie în deșert sau pe lavă — verifică contextul.' });
+            conflicts.push({ level: 'warn', msg: '⚠️ Rain in desert — check context.' });
         }
         if ((style.includes('anime') || style.includes('ghibli')) && quality.includes('raw')) {
-            conflicts.push({ level: 'warn', msg: '⚠️ Anime + RAW Photo = stil contradictoriu.' });
+            conflicts.push({ level: 'warn', msg: '⚠️ Anime + RAW Photo = contradictory style.' });
         }
         if (lighting.includes('studio softbox') && (background.includes('redwood') || background.includes('arctic') || background.includes('jungle'))) {
-            conflicts.push({ level: 'warn', msg: '💡 Studio Softbox cu background outdoor — sugerează studio setup.' });
+            conflicts.push({ level: 'warn', msg: '💡 Studio Softbox with outdoor background.' });
         }
         if (lighting.includes('neon') && lighting.includes('golden hour')) {
-            conflicts.push({ level: 'error', msg: '🚫 Cyberpunk Neon și Golden Hour sunt incompatibile.' });
+            conflicts.push({ level: 'error', msg: '🚫 Cyberpunk Neon and Golden Hour are incompatible.' });
         }
         if (palette.includes('black and white') && palette.includes('neon')) {
-            conflicts.push({ level: 'error', msg: '🚫 B&W și Neon Vibrant nu pot coexista.' });
+            conflicts.push({ level: 'error', msg: '🚫 B&W and Neon Vibrant cannot coexist.' });
         }
         if (document.getElementById('filmStock').value.toLowerCase().includes('high iso') && quality.includes('commercial')) {
-            conflicts.push({ level: 'warn', msg: '⚠️ High ISO (grain) contrazice Commercial Studio (clean).' });
+            conflicts.push({ level: 'warn', msg: '⚠️ High ISO (grain) contradicts Commercial Studio.' });
         }
         if (composition.includes('symmetr') && composition.includes('dutch')) {
-            conflicts.push({ level: 'error', msg: '🚫 Simetrie + Dutch Angle = contradicție.' });
+            conflicts.push({ level: 'error', msg: '🚫 Symmetry + Dutch Angle = contradiction.' });
         }
 
         return conflicts;
@@ -2371,30 +2791,18 @@
     }
 
     // ============================================================
-    // PROMPT SCORE (#9.3)
+    // PROMPT SCORE
     // ============================================================
     function calculatePromptScore(subjectText, engine) {
         let score = 0;
-
-        if (subjectText && subjectText.length > 3 && subjectText !== "A stunning subject") {
-            score += subjectText.length > 20 ? 20 : 12;
-        }
-
+        if (subjectText && subjectText.length > 3 && subjectText !== "A stunning subject") score += subjectText.length > 20 ? 20 : 12;
         if (document.getElementById('style').value) score += 15;
         if (document.getElementById('composition').value) score += 10;
-
-        ['lighting', 'lightDirection', 'lightQuality', 'lightTemp'].forEach(id => {
-            if (document.getElementById(id).value) score += 5;
-        });
-
-        ['camera', 'aperture', 'filmStock'].forEach(id => {
-            if (document.getElementById(id).value) score += 5;
-        });
-
+        ['lighting', 'lightDirection', 'lightQuality', 'lightTemp'].forEach(id => { if (document.getElementById(id).value) score += 5; });
+        ['camera', 'aperture', 'filmStock'].forEach(id => { if (document.getElementById(id).value) score += 5; });
         if (document.getElementById('qualityStandard').value) score += 5;
         if (document.getElementById('colorPalette').value) score += 5;
         if (document.getElementById('renderTech').value) score += 5;
-
         if (document.getElementById('background').value) score += 5;
         if (document.getElementById('interaction').value) score += 5;
 
@@ -2421,11 +2829,9 @@
         const subject = document.getElementById('subject').value;
         const engine = document.getElementById('targetEngine').value;
         const score = calculatePromptScore(subject, engine);
-
         let cls = score >= 80 ? 'good' : score >= 50 ? 'warn' : 'bad';
         el.className = 'prompt-score ' + cls;
         el.textContent = `${score}/100`;
-        el.title = score >= 80 ? 'Excellent prompt' : score >= 50 ? 'Good, but could be more specific' : 'Add more details for better results';
     }
 
     // ============================================================
@@ -2436,45 +2842,45 @@
         if (!input) { alert("Please enter a vision description first!"); return; }
 
         const subjectMatch = input.match(/^(.*?)(?=\s(in a|with|on|at|during|by|background)\b)/i);
-        const extractedSubject = subjectMatch ? subjectMatch[1] : input;
-        document.getElementById('subject').value = extractedSubject;
+        document.getElementById('subject').value = subjectMatch ? subjectMatch[1] : input;
 
-        const styleSelect = document.getElementById('style');
-        const compSelect = document.getElementById('composition');
-        const lightSelect = document.getElementById('lighting');
-        const camSelect = document.getElementById('camera');
-        const renderSelect = document.getElementById('renderTech');
-        const apertureSelect = document.getElementById('aperture');
-        const motionSelect = document.getElementById('motion');
-        const interactionSelect = document.getElementById('interaction');
-        const dirSelect = document.getElementById('lightDirection');
-        const qualSelect = document.getElementById('lightQuality');
+        const maps = [
+            ['style', SEMANTIC_MAP.styles],
+            ['composition', SEMANTIC_MAP.compositions],
+            ['lighting', SEMANTIC_MAP.lighting],
+            ['camera', SEMANTIC_MAP.cameras],
+            ['renderTech', SEMANTIC_MAP.render]
+        ];
+        maps.forEach(([id, map]) => {
+            for (let key in map) {
+                if (input.includes(key)) {
+                    const el = document.getElementById(id);
+                    const exists = Array.from(el.options).some(o => o.value === map[key]);
+                    if (exists) { el.value = map[key]; break; }
+                }
+            }
+        });
 
-        for (let key in SEMANTIC_MAP.styles) { if (input.includes(key)) { styleSelect.value = SEMANTIC_MAP.styles[key]; break; } }
-        for (let key in SEMANTIC_MAP.compositions) { if (input.includes(key)) { compSelect.value = SEMANTIC_MAP.compositions[key]; break; } }
-        for (let key in SEMANTIC_MAP.lighting) { if (input.includes(key)) { lightSelect.value = SEMANTIC_MAP.lighting[key]; break; } }
-        for (let key in SEMANTIC_MAP.cameras) { if (input.includes(key)) { camSelect.value = SEMANTIC_MAP.cameras[key]; break; } }
-        for (let key in SEMANTIC_MAP.render) { if (input.includes(key)) { renderSelect.value = SEMANTIC_MAP.render[key]; break; } }
-
-        if (input.includes("bokeh") || input.includes("blurred background")) apertureSelect.value = "shot at f/1.2, ultra-shallow depth of field, creamy bokeh";
-        if (input.includes("sharp") || input.includes("clear background")) apertureSelect.value = "shot at f/8, sharp detail across the frame, deep focus";
-        if (input.includes("waterfall") || input.includes("long exposure")) motionSelect.value = "long exposure, motion blur, silky textures";
-        if (input.includes("frozen") || input.includes("action")) motionSelect.value = "high speed shutter, frozen action, zero motion blur";
-        if (input.includes("dusty") || input.includes("sunbeam")) interactionSelect.value = "floating dust motes in sunbeams, airborne micro-particles";
-        if (input.includes("rainy") || input.includes("wet")) interactionSelect.value = "rain-splashed surfaces, water droplets bouncing off subject";
-        if (input.includes("windy") || input.includes("movement")) interactionSelect.value = "wind-blown textures, fabric fluttering, hair movement";
-
-        if (input.includes("moody") || input.includes("mysterious") || input.includes("dramatic")) {
-            dirSelect.value = "side lighting, split lighting, deep facial shadows";
-            qualSelect.value = "hard light, sharp shadows, high contrast";
-        }
-        if (input.includes("soft") || input.includes("ethereal")) {
-            qualSelect.value = "soft light, diffused shadows, smooth gradients";
+        if (input.includes("bokeh") || input.includes("blurred background")) document.getElementById('aperture').value = "shot at f/1.2, ultra-shallow depth of field, creamy bokeh";
+        if (input.includes("long exposure")) document.getElementById('motion').value = "long exposure, motion blur, silky textures";
+        if (input.includes("frozen") || input.includes("action")) document.getElementById('motion').value = "high speed shutter, frozen action, zero motion blur";
+        if (input.includes("rainy") || input.includes("wet")) document.getElementById('interaction').value = "rain-splashed surfaces, water droplets bouncing off subject";
+        if (input.includes("moody") || input.includes("dramatic")) {
+            document.getElementById('lightDirection').value = "side lighting, split lighting, deep facial shadows";
+            document.getElementById('lightQuality').value = "hard light, sharp shadows, high contrast";
         }
 
         updateLogic();
         generatePrompt();
     }
+
+    const SEMANTIC_MAP = {
+        styles: { 'luxury': 'Editorial Fashion Photography', 'neon': 'Cyberpunk aesthetic, neon-infused, high tech', 'nature': 'National Geographic style', 'photo': 'Hyper-realistic', 'ghibli': 'Studio Ghibli anime aesthetic, lush landscapes, magical lighting' },
+        compositions: { 'landscape': 'Extreme wide shot, expansive scene', 'portrait': 'Close-up portrait', 'detail': 'Extreme close-up, macro focus' },
+        lighting: { 'dark': 'Dramatic chiaroscuro, extreme contrast', 'sun': 'Golden hour natural sunlight', 'neon': 'Cyberpunk neon lighting, magenta and cyan', 'soft': 'Professional softbox studio lighting' },
+        cameras: { 'macro': 'Macro lens, extreme close-up', 'wide': 'Shot on 14mm ultra-wide lens', 'bokeh': 'Shot on 85mm lens' },
+        render: { 'skin': 'subsurface scattering, realistic skin diffusion', 'glass': 'caustics lighting, light refraction through glass' }
+    };
 
     // ============================================================
     // SMART RANDOMIZE
@@ -2483,16 +2889,14 @@
         const subLow = (subjectText || document.getElementById('subject').value).toLowerCase();
         const styleSelect = document.getElementById('style');
 
-        if (subLow.includes("cyberpunk") || subLow.includes("futuristic")) styleSelect.value = "Cyberpunk aesthetic, neon-infused, high tech";
+        if (subLow.includes("cyberpunk")) styleSelect.value = "Cyberpunk aesthetic, neon-infused, high tech";
         else if (subLow.includes("portrait") || subLow.includes("woman") || subLow.includes("man")) styleSelect.value = "Hyper-realistic";
         else styleSelect.selectedIndex = Math.floor(Math.random() * styleSelect.options.length);
 
         const compSelect = document.getElementById('composition');
-        if (subLow.includes("city") || subLow.includes("landscape")) {
-            compSelect.value = "Extreme wide shot, expansive scene";
-        } else if (subLow.includes("watch") || subLow.includes("detail")) {
-            compSelect.value = "Extreme close-up, macro focus";
-        } else {
+        if (subLow.includes("city") || subLow.includes("landscape")) compSelect.value = "Extreme wide shot, expansive scene";
+        else if (subLow.includes("detail")) compSelect.value = "Extreme close-up, macro focus";
+        else {
             const options = Array.from(compSelect.options).filter(o => o.dataset.tag !== 'wide');
             compSelect.value = options[Math.floor(Math.random() * options.length)].value;
         }
@@ -2502,20 +2906,10 @@
         else if (compSelect.value.includes("wide")) camSelect.value = "Shot on 14mm ultra-wide lens";
         else camSelect.selectedIndex = Math.floor(Math.random() * camSelect.options.length);
 
-        const bgSelect = document.getElementById('background');
-        const bgVal = bgSelect.value.toLowerCase();
-        const intSelect = document.getElementById('interaction');
-
-        if (bgVal.includes("rainy")) intSelect.value = "rain-splashed surfaces, water droplets bouncing off subject";
-        else if (bgVal.includes("jungle") || bgVal.includes("glade")) intSelect.value = "floating pollen and iridescent spores, ethereal particles";
-        else if (bgVal.includes("volcanic") || bgVal.includes("wasteland")) intSelect.value = "floating embers and ash, scorched air, volcanic particles";
-        else if (bgVal.includes("industrial") || bgVal.includes("decay")) intSelect.value = "floating dust motes in sunbeams, airborne micro-particles";
-        else intSelect.selectedIndex = Math.floor(Math.random() * intSelect.options.length);
-
-        const others = ['lighting', 'lightDirection', 'lightQuality', 'lightTemp', 'aperture', 'motion', 'filmStock', 'qualityStandard', 'colorPalette', 'renderTech', 'background'];
+        const others = ['lighting', 'lightDirection', 'lightQuality', 'lightTemp', 'aperture', 'motion', 'filmStock', 'qualityStandard', 'colorPalette', 'renderTech', 'background', 'interaction'];
         others.forEach(id => {
             const sel = document.getElementById(id);
-            sel.selectedIndex = Math.floor(Math.random() * sel.options.length);
+            if (sel) sel.selectedIndex = Math.floor(Math.random() * sel.options.length);
         });
 
         updateLogic();
@@ -2523,28 +2917,28 @@
     }
 
     // ============================================================
-    // QUEUE NAVIGATION
+    // QUEUE
     // ============================================================
     function nextSubject() {
-        if (subjectQueue.length === 0) { alert("Please upload a .txt file first!"); return; }
+        if (subjectQueue.length === 0) { alert("Upload a .txt file first!"); return; }
         if (currentQueueIndex < subjectQueue.length - 1) {
             currentQueueIndex++;
             const nextSub = subjectQueue[currentQueueIndex];
             document.getElementById('subject').value = nextSub;
             smartRandomize(nextSub);
             updateQueueStatus();
-        } else { alert("Reached the end of the list!"); }
+        } else alert("End of list!");
     }
 
     function prevSubject() {
-        if (subjectQueue.length === 0) { alert("Please upload a .txt file first!"); return; }
+        if (subjectQueue.length === 0) { alert("Upload a .txt file first!"); return; }
         if (currentQueueIndex > 0) {
             currentQueueIndex--;
             const prevSub = subjectQueue[currentQueueIndex];
             document.getElementById('subject').value = prevSub;
             smartRandomize(prevSub);
             updateQueueStatus();
-        } else { alert("You are at the first subject!"); }
+        } else alert("First subject!");
     }
 
     // ============================================================
@@ -2620,8 +3014,9 @@
         else if (engine === 'stable_diffusion') {
             const version = document.getElementById('sdVersion')?.value || "SDXL 1.0";
             const model = document.getElementById('sdModel')?.value || "SDXL";
+            const trigger = document.getElementById('sdTrigger')?.value.trim() || '';
             const cfg = document.getElementById('sdCfg')?.value || 7;
-            const steps = document.getElementById('sdSteps')?.value || 20;
+            const steps = document.getElementById('sdSteps')?.value || 25;
             const sampler = document.getElementById('sdSampler')?.value || "Euler a";
             const hires = document.getElementById('sdHires')?.checked || false;
             const refiner = document.getElementById('sdRefiner')?.checked || false;
@@ -2633,6 +3028,8 @@
             if (faceRestore) postProcess.push('Face Restoration');
             const postStr = postProcess.length ? `, Post-Process: ${postProcess.join(' + ')}` : '';
 
+            const triggerPrefix = trigger ? `${trigger}, ` : '';
+
             if (version.startsWith('SD 3')) {
                 const sd3Prompt =
                     `A ${style.toLowerCase()} image of ${subjectText}, composed as a ${composition.toLowerCase()}, ` +
@@ -2640,21 +3037,17 @@
                     `Lighting: ${lightString.slice(0, -2)}. Captured with ${camera.toLowerCase()}, ${opticalsString.slice(0, -2)}. ` +
                     `Color palette: ${colorPalette.toLowerCase()}. Rendered with ${renderTech.toLowerCase()}. ` +
                     `Quality: ${qualityStd.toLowerCase()}.`;
-                return `${sd3Prompt} [${version} | ${model} | CFG ${cfg} | Steps ${steps} | Sampler ${sampler}${postStr}]`;
+                return `${triggerPrefix}${sd3Prompt} [${version} | ${model} | CFG ${cfg} | Steps ${steps} | Sampler ${sampler}${postStr}]`;
             }
 
-            const lightningBoost = model.includes("Lightning") ? ':1.2' : '';
-            const subjectBoost = model.includes("Lightning") ? ':1.3' : '';
-            return `(masterpiece${lightningBoost}), (best quality${lightningBoost}), ${version} ${model} style, (${subjectText}${subjectBoost}), ${composition}, ${style}, ${background}, ${lightString}${camera}, ${opticalsString}${colorPalette}, ${renderTech}, ${interaction}, ${qualityStd}, CFG ${cfg}, Steps ${steps}, Sampler ${sampler}${postStr}`;
+            const lightningBoost = model.includes("Lightning") || model.includes("Turbo") ? ':1.2' : '';
+            const subjectBoost = model.includes("Lightning") || model.includes("Turbo") ? ':1.3' : '';
+            return `${triggerPrefix}(masterpiece${lightningBoost}), (best quality${lightningBoost}), ${version} ${model} style, (${subjectText}${subjectBoost}), ${composition}, ${style}, ${background}, ${lightString}${camera}, ${opticalsString}${colorPalette}, ${renderTech}, ${interaction}, ${qualityStd}, CFG ${cfg}, Steps ${steps}, Sampler ${sampler}${postStr}`;
         }
         else if (engine === 'dalle3') {
             const dalleVersion = document.getElementById('dalleVersion')?.value || 'DALL-E 3';
             const dalleStyle = document.getElementById('dalleStyle')?.value || 'Vivid';
-
-            const hdBoost = dalleVersion.includes('HD')
-                ? ' Render in ultra high detail with crisp textures, sharp text, and refined micro-details.'
-                : '';
-
+            const hdBoost = dalleVersion.includes('HD') ? ' Render in ultra high detail.' : '';
             return `A professional ${style} image of ${subjectText}. The scene is composed as a ${composition}, set against a ${background}. The lighting is ${lightString}${camera}. ${opticalsString}The image features ${interaction}, with a color mood and palette of ${colorPalette}, using ${renderTech}. The overall quality is ${qualityStd}.${hdBoost} Style: ${dalleStyle}. Aspect ratio: ${finalRatio}.`;
         }
         return "";
@@ -2690,22 +3083,31 @@
         renderScore();
     }
 
+    const NEGATIVE_ENGINE = {
+        core: "lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, distorted, deformed",
+        organic: "mutated hands, poorly drawn face, fused fingers, extra limbs, cloned face, gross proportions, malformed limbs, missing arms, missing legs, deformed iris, cross-eyed",
+        conflict: {
+            real: "cartoon, anime, illustration, 3d render, painting, drawing, sketch, CGI, vector art, flat color",
+            digital: "grainy, noise, blurred edges, low poly, amateur render, flat lighting",
+            art: "photorealistic, photography, camera lens, raw photo, realistic skin pores",
+            graphic: "depth of field, photorealistic, 3d render, realistic shadows",
+            sketch: "photorealistic, 3d render, glossy, colorful, photo"
+        },
+        quality: "flat lighting, overexposed, underexposed, washed out colors, dull skin, plastic skin, airbrushed"
+    };
+
     // ============================================================
     // EXPORT SD BATCH
     // ============================================================
     function exportSDBatch() {
-        if (subjectQueue.length === 0) {
-            alert("No subject list uploaded. Please upload a .txt file first.");
-            return;
-        }
+        if (subjectQueue.length === 0) { alert("Upload a .txt file first."); return; }
         if (document.getElementById('targetEngine').value !== 'stable_diffusion') {
-            if (!confirm("You are not currently using the Stable Diffusion engine. Exporting will still work, but the prompt format might not be optimal for SD. Continue?")) return;
+            if (!confirm("You are not on SD engine. Continue?")) return;
         }
         let batchContent = "";
-        subjectQueue.forEach((subject) => {
+        subjectQueue.forEach(subject => {
             const prompt = buildPromptString(subject);
-            const cleanPrompt = prompt.replace(/\r?\n|\r/g, " ").trim();
-            batchContent += cleanPrompt + "\n";
+            batchContent += prompt.replace(/\r?\n|\r/g, " ").trim() + "\n";
         });
         const blob = new Blob([batchContent], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
@@ -2719,19 +3121,17 @@
     }
 
     // ============================================================
-    // BATCH MULTI-ENGINE (#9.5)
+    // BATCH MULTI-ENGINE
     // ============================================================
     function batchMultiEngine() {
         const subject = document.getElementById('subject').value.trim();
-        if (!subject) {
-            showToast('❌ Adaugă un subject mai întâi', true);
-            return;
-        }
+        if (!subject) { showToast('❌ Add a subject first', true); return; }
 
         const currentEngine = document.getElementById('targetEngine').value;
         const engines = ['midjourney', 'flux', 'stable_diffusion', 'dalle3'];
         const results = {};
 
+        suppressArchToast = true;
         engines.forEach(eng => {
             document.getElementById('targetEngine').value = eng;
             updateEnginePanel();
@@ -2749,19 +3149,14 @@
         const old = document.getElementById('batchModal');
         if (old) old.remove();
 
-        const engineNames = {
-            midjourney: '🎨 Midjourney',
-            flux: '⚡ FLUX.1',
-            stable_diffusion: '🔧 Stable Diffusion',
-            dalle3: '🖼️ DALL-E 3'
-        };
+        const engineNames = { midjourney: '🎨 Midjourney', flux: '⚡ FLUX.1', stable_diffusion: '🔧 Stable Diffusion', dalle3: '🖼️ DALL-E 3' };
 
         const modal = document.createElement('div');
         modal.id = 'batchModal';
-        modal.style.cssText = 'position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px; animation: fadeIn 0.3s ease;';
+        modal.style.cssText = 'position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:10000; display:flex; align-items:center; justify-content:center; padding:20px;';
 
         const content = document.createElement('div');
-        content.style.cssText = 'background: var(--card-bg); border: 2px solid var(--accent-color); border-radius: 20px; max-width: 900px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.8);';
+        content.style.cssText = 'background:var(--card-bg); border:2px solid var(--accent-color); border-radius:20px; max-width:900px; width:100%; max-height:90vh; overflow-y:auto; padding:30px;';
 
         let html = `
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:1px solid var(--border-color); padding-bottom:15px;">
@@ -2785,11 +3180,7 @@
             `;
         });
 
-        html += `
-            <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:20px;">
-                <button class="btn-export" onclick="copyAllBatch()" style="background:#10b981;">📋 Copy All</button>
-            </div>
-        `;
+        html += `<div style="display:flex; gap:10px; justify-content:flex-end; margin-top:20px;"><button class="btn-export" onclick="copyAllBatch()" style="background:#10b981;">📋 Copy All</button></div>`;
 
         content.innerHTML = html;
         modal.appendChild(content);
@@ -2797,9 +3188,8 @@
 
         content.querySelectorAll('[data-prompt-idx]').forEach(btn => {
             btn.onclick = () => {
-                const eng = btn.dataset.promptIdx;
-                navigator.clipboard.writeText(results[eng]);
-                btn.textContent = '✓ Copied';
+                navigator.clipboard.writeText(results[btn.dataset.promptIdx]);
+                btn.textContent = '✓';
                 setTimeout(() => btn.textContent = 'Copy', 1500);
             };
         });
@@ -2810,17 +3200,12 @@
     function copyAllBatch() {
         const results = window._batchResults;
         if (!results) return;
-        const text = Object.entries(results).map(([eng, p]) => `=== ${eng.toUpperCase()} ===\n${p}\n`).join('\n');
-        navigator.clipboard.writeText(text);
-        showToast('📋 Toate prompt-urile copiate');
-    }
-
-    function escapeHtml(s) {
-        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        navigator.clipboard.writeText(Object.entries(results).map(([e, p]) => `=== ${e.toUpperCase()} ===\n${p}\n`).join('\n'));
+        showToast('📋 All copied');
     }
 
     // ============================================================
-    // COPY PROMPT
+    // COPY
     // ============================================================
     function copyPrompt(id) {
         const copyText = document.getElementById(id);
@@ -2828,22 +3213,23 @@
         copyText.select();
         navigator.clipboard.writeText(copyText.value);
         const btn = event.target;
-        const originalText = btn.innerText;
+        const orig = btn.innerText;
         btn.innerText = "Copied! ✅";
-        setTimeout(() => btn.innerText = originalText, 2000);
+        setTimeout(() => btn.innerText = orig, 2000);
     }
 
     // ============================================================
-    // IMPORT / EXPORT JSON
+    // IMPORT/EXPORT JSON
     // ============================================================
     function exportSettingsJSON() {
         try {
             const data = {
-                version: 'v22.2',
+                version: 'v22.8',
                 exportDate: new Date().toISOString(),
                 settings: {},
                 history: getHistory(),
                 customPresets: getCustomPresets(),
+                customModels: getCustomModels(),
                 theme: localStorage.getItem(THEME_KEY) || 'dark'
             };
             PERSISTED_FIELDS.forEach(id => {
@@ -2860,10 +3246,8 @@
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-            showToast('📤 Setări exportate');
-        } catch (e) {
-            showToast('❌ Eroare la export', true);
-        }
+            showToast('📤 Exported');
+        } catch (e) { showToast('❌ Export error', true); }
     }
 
     document.getElementById('importJSON').addEventListener('change', function(e) {
@@ -2873,8 +3257,9 @@
         reader.onload = (event) => {
             try {
                 const data = JSON.parse(event.target.result);
-                if (!data.settings) throw new Error('Invalid format');
+                if (!data.settings) throw new Error('Invalid');
 
+                suppressArchToast = true;
                 Object.entries(data.settings).forEach(([id, value]) => {
                     const el = document.getElementById(id);
                     if (!el) return;
@@ -2885,31 +3270,18 @@
                     } else el.value = value;
                 });
 
-                if (data.history && Array.isArray(data.history)) {
-                    saveHistory(data.history);
-                    renderHistory();
-                }
-
-                if (data.customPresets) {
-                    saveCustomPresets(data.customPresets);
-                    renderCustomPresets();
-                }
-
-                if (data.theme) {
-                    localStorage.setItem(THEME_KEY, data.theme);
-                    applyTheme(data.theme);
-                }
+                if (data.history) { saveHistory(data.history); renderHistory(); }
+                if (data.customPresets) { saveCustomPresets(data.customPresets); renderCustomPresets(); }
+                if (data.customModels) { saveCustomModels(data.customModels); }
+                if (data.theme) { localStorage.setItem(THEME_KEY, data.theme); applyTheme(data.theme); }
 
                 updateEnginePanel();
                 updateLogic();
                 handleRatioChange();
                 generatePrompt();
 
-                showToast(`📥 Import reușit (${Object.keys(data.settings).length} setări)`);
-            } catch (err) {
-                showToast('❌ Fișier JSON invalid', true);
-                console.error(err);
-            }
+                showToast(`📥 Import successful`);
+            } catch (err) { showToast('❌ Invalid JSON', true); }
             e.target.value = '';
         };
         reader.readAsText(file);
@@ -2924,8 +3296,8 @@
             const mod = isMac ? e.metaKey : e.ctrlKey;
 
             if (mod && e.key === 's') { e.preventDefault(); manualSave(); }
-            if (mod && e.key === 'Enter') { e.preventDefault(); generatePrompt(); showToast('🚀 Prompt generat'); }
-            if (mod && e.shiftKey && (e.key === 'R' || e.key === 'r')) { e.preventDefault(); smartRandomize(); showToast('🎲 Randomizat'); }
+            if (mod && e.key === 'Enter') { e.preventDefault(); generatePrompt(); showToast('🚀 Generated'); }
+            if (mod && e.shiftKey && (e.key === 'R' || e.key === 'r')) { e.preventDefault(); smartRandomize(); showToast('🎲 Randomized'); }
             if (mod && e.key === 'e') { e.preventDefault(); exportSDBatch(); }
             if (mod && e.key === 'h') { e.preventDefault(); toggleHistory(); }
             if (e.key === 'Escape' && document.activeElement) document.activeElement.blur();
@@ -2936,11 +3308,7 @@
     // ============================================================
     // RANDOMIZE PER-FIELD
     // ============================================================
-    const RANDOMIZABLE_FIELDS = [
-        'style', 'composition', 'lighting', 'lightDirection', 'lightQuality', 'lightTemp',
-        'camera', 'aperture', 'motion', 'filmStock', 'qualityStandard',
-        'colorPalette', 'renderTech', 'interaction', 'background'
-    ];
+    const RANDOMIZABLE_FIELDS = ['style', 'composition', 'lighting', 'lightDirection', 'lightQuality', 'lightTemp', 'camera', 'aperture', 'motion', 'filmStock', 'qualityStandard', 'colorPalette', 'renderTech', 'interaction', 'background'];
 
     function attachRandomizeButtons() {
         RANDOMIZABLE_FIELDS.forEach(id => {
@@ -2952,18 +3320,16 @@
             const btn = document.createElement('button');
             btn.className = 'randomize-mini';
             btn.innerHTML = '🎲';
-            btn.title = 'Randomize this field';
+            btn.title = 'Randomize';
             btn.type = 'button';
             btn.onclick = (e) => {
                 e.preventDefault();
                 const options = Array.from(el.options).filter(o => o.style.display !== 'none' && o.value !== '');
                 if (options.length === 0) return;
-                const picked = options[Math.floor(Math.random() * options.length)];
-                el.value = picked.value;
+                el.value = options[Math.floor(Math.random() * options.length)].value;
                 updateLogic();
                 generatePrompt();
                 scheduleSave();
-
                 el.style.transition = 'box-shadow 0.3s';
                 el.style.boxShadow = '0 0 15px var(--accent-color)';
                 setTimeout(() => { el.style.boxShadow = ''; }, 500);
@@ -2974,19 +3340,17 @@
             btn.style.cssText = 'position:absolute; right:8px; top:50%; transform:translateY(-50%); width:28px; height:28px; padding:0; border-radius:50%; background:rgba(56,189,248,0.15); border:1px solid var(--accent-color); color:var(--accent-color); font-size:0.9rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s; z-index:2;';
             btn.onmouseenter = () => { btn.style.background = 'var(--accent-color)'; btn.style.color = 'var(--bg-color)'; };
             btn.onmouseleave = () => { btn.style.background = 'rgba(56,189,248,0.15)'; btn.style.color = 'var(--accent-color)'; };
-
             wrapper.appendChild(btn);
         });
     }
 
     // ============================================================
-    // INITIALIZATION
+    // INIT
     // ============================================================
     window.onload = () => {
-        // 1. Theme (înainte de orice)
         applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
 
-        // 2. Setări
+        suppressArchToast = true;
         const hadSaved = loadSettings();
         updateEnginePanel();
 
@@ -3001,7 +3365,6 @@
         const engine = document.getElementById('targetEngine').value;
         refreshBadgeVersion(engine);
 
-        // 3. Funcționalități noi
         attachRandomizeButtons();
         attachKeyboardShortcuts();
         attachDragAndDrop();
@@ -3010,29 +3373,30 @@
         renderConflicts();
         renderScore();
 
-        // 4. Notificare
-        if (hadSaved) showToast('✅ Setările au fost restaurate');
+        if (engine === 'stable_diffusion') setTimeout(updateModelInfoPanel, 100);
 
-        // 5. Auto-save listeners
+        if (hadSaved) showToast('✅ Settings restored');
+        suppressArchToast = false;
+
         attachAutoSaveListeners();
 
-        // 6. Ascultă preferința OS pentru auto theme
         window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
             if (localStorage.getItem(THEME_KEY) === 'auto') applyTheme('auto');
         });
 
-        // 7. Cross-tab sync
         window.addEventListener('storage', (e) => {
             if (e.key === STORAGE_KEY && e.newValue) {
+                suppressArchToast = true;
                 loadSettings();
                 updateLogic();
-                const eng = document.getElementById('targetEngine').value;
-                refreshBadgeVersion(eng);
-                showToast('🔄 Setări sincronizate din alt tab');
+                refreshBadgeVersion(document.getElementById('targetEngine').value);
+                showToast('🔄 Synced');
+                suppressArchToast = false;
             }
             if (e.key === HISTORY_KEY) renderHistory();
             if (e.key === THEME_KEY) applyTheme(e.newValue || 'dark');
             if (e.key === CUSTOM_PRESETS_KEY) renderCustomPresets();
+            if (e.key === CUSTOM_MODELS_KEY) updateEnginePanel();
         });
     };
 </script>
