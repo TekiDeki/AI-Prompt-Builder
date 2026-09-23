@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Prompt Builder v19.0 - The Parametric Hub</title>
+    <title>AI Prompt Builder v20.0 - The Aesthetics Encyclopedia</title>
     <style>
         :root {
             --bg-color: #0f172a;
@@ -107,7 +107,6 @@
             transform: translateY(-2px);
         }
 
-        /* DYNAMIC ENGINE PANEL */
         .engine-panel {
             background-color: #020617;
             padding: 25px;
@@ -343,18 +342,17 @@
 <body>
 
 <div class="container">
-    <h1>🧠 AI Prompt Builder v19.0</h1>
-    <p class="subtitle">The Parametric Hub: Advanced Engine Control & Logic</p>
+    <h1>🧠 AI Prompt Builder v20.0</h1>
+    <p class="subtitle">The Aesthetics Encyclopedia: Professional Art Direction & Model Matrix</p>
 
     <div class="ai-analysis-panel">
         <div class="ai-panel-header">✨ AI Prompt Analysis & Optimization</div>
         <div class="ai-input-group">
-            <input type="text" id="aiInput" placeholder="Describe your vision... (ex: A cyberpunk city, wide shot, moody lighting)">
+            <input type="text" id="aiInput" placeholder="Describe your vision... (ex: A portrait in the style of Wes Anderson, soft pastel colors)">
             <button class="btn-analyze" onclick="analyzePrompt()">Analyze & Optimize</button>
         </div>
     </div>
 
-    <!-- DYNAMIC ENGINE PANEL -->
     <div class="engine-panel">
         <div class="engine-main-row">
             <div class="setting-group" style="flex: 1;">
@@ -367,7 +365,7 @@
             </div>
         </div>
         <div id="engineParams" class="engine-params-grid">
-            <!-- Dynamic Params’ will be injected here by JS -->
+            <!-- Dynamic Params will be injected here -->
         </div>
     </div>
 
@@ -391,30 +389,43 @@
                 <optgroup label="Photorealism & Cinematic">
                     <option value="Photorealistic" data-tag="real">Photorealism</option>
                     <option value="Hyper-realistic" data-tag="real">Hyper-realism</option>
-                    <option value="Cinematic" data-tag="real">Cinematic (Hollywood)</option>
+                    <option value="Cinematic (Hollywood)" data-tag="real">Cinematic</option>
                     <option value="Street Photography" data-tag="real">Street Photography</option>
                     <option value="Editorial Fashion Photography" data-tag="real">Editorial/Fashion</option>
                     <option value="National Geographic style" data-tag="real">National Geographic</option>
                 </optgroup>
-                <optgroup label="3D & Digital Modern">
-                    <option value="Unreal Engine 5 render, Octane Render" data-tag="digital">UE5 / Octane Render</option>
-                    <option value="Pixar and Disney 3D style" data-tag="digital">Pixar / Disney Style</option>
-                    <option value="Cyberpunk aesthetic" data-tag="digital">Cyberpunk</option>
-                    <option value="Isometric 3D Render" data-tag="digital">Isometric 3D</option>
-                    <option value="Voxel Art professional render" data-tag="digital">Voxel Art</option>
+                <optgroup label="Cinematic Archetypes">
+                    <option value="staged in the whimsical, symmetrical style of Wes Anderson" data-tag="cinematic">Wes Anderson Style</option>
+                    <option value="Blade Runner 2049 cinematic noir, rainy neon atmosphere" data-tag="cinematic">Blade Runner Noir</option>
+                    <option value="Studio Ghibli anime aesthetic, lush landscapes, magical lighting" data-tag="anime">Studio Ghibli</option>
+                    <option value="Tim Burton gothic aesthetic, pale tones, distorted forms" data-tag="cinematic">Tim Burton Style</option>
                 </optgroup>
-                <optgroup label="Classical Art & Concept">
-                    <option value="Professional Concept Art" data-tag="art">Concept Art</option>
-                    <option value="Surrealism style" data-tag="art">Surrealism (Dalí)</option>
-                    <option value="Oil Painting on canvas" data-tag="art">Oil Painting</option>
-                    <option value="Soft Watercolor painting" data-tag="art">Watercolor</option>
-                    <option value="Traditional Japanese Ukiyo-e" data-tag="art">Ukiyo-e</option>
+                <optgroup label="Fine Art & History">
+                    <option value="High Renaissance oil painting, balanced composition, divine light" data-tag="art">Renaissance</option>
+                    <option value="Dramatic Baroque painting, deep chiaroscuro, intense emotion" data-tag="art">Baroque</option>
+                    <option value="Claude Monet Impressionism, visible brushstrokes, light play" data-tag="art">Impressionism</option>
+                    <option value="Art Nouveau decorative style, organic lines, floral patterns" data-tag="art">Art Nouveau</option>
+                    <option value="Traditional Japanese Ukiyo-e woodblock print" data-tag="art">Ukiyo-e</option>
+                </optgroup>
+                <optgroup label="Modern Digital & New Media">
+                    <option value="Unreal Engine 5 render, Octane Render" data-tag="digital">UE5 / Octane Render</option>
+                    <option value="Cyberpunk aesthetic, neon-infused, high tech" data-tag="digital">Cyberpunk</option>
+                    <option value="Vaporwave aesthetic, pastel neon, 80s nostalgia" data-tag="digital">Vaporwave</option>
+                    <option value="Dreamcore / Weirdcore surrealism, liminal space" data-tag="digital">Dreamcore</option>
+                    <option value="Low Poly digital art, geometric minimalism" data-tag="digital">Low Poly</option>
+                    <option value="Professional Claymation / Stop-motion style" data-tag="digital">Claymation</option>
+                    <option value="Glitch Art, digital distortion, scanlines" data-tag="digital">Glitch Art</option>
+                </optgroup>
+                <optgroup label="Tactile Mediums">
+                    <option value="Professional Charcoal and Graphite sketch on textured paper" data-tag="sketch">Charcoal / Graphite</option>
+                    <option value="Double Exposure photography, surreal blended images" data-tag="real">Double Exposure</option>
+                    <option value="Intricate Origami and Papercraft art, paper folds" data-tag="digital">Origami / Papercraft</option>
+                    <option value="Stained Glass mosaic, vibrant translucent colors" data-tag="art">Stained Glass</option>
                 </optgroup>
                 <optgroup label="Graphic & Illustration">
                     <option value="Flat Design minimalist" data-tag="graphic">Flat Design</option>
                     <option value="Professional Vector Art" data-tag="graphic">Vector Art</option>
-                    <option value="Minimalist Line Art" data-tag="graphic">Line Art</option>
-                    <option value="Studio Ghibli Anime style" data-tag="graphic">Anime (Studio Ghibli)</option>
+                    <option value="Studio Ghibli Anime style" data-tag="anime">Anime (Ghibli)</option>
                 </optgroup>
             </select>
         </div>
@@ -694,7 +705,8 @@
             real: "cartoon, anime, illustration, 3d render, painting, drawing, sketch, CGI, vector art, flat color",
             digital: "grainy, noise, blurred edges, low poly, amateur render, flat lighting, oil painting, watercolor",
             art: "photorealistic, photography, camera lens, raw photo, realistic skin pores",
-            graphic: "depth of field, photorealistic, 3d render, realistic shadows, complex gradients"
+            graphic: "depth of field, photorealistic, 3d render, realistic shadows, complex gradients",
+            sketch: "photorealistic, 3d render, glossy, colorful, photo, high resolution"
         },
         quality: "flat lighting, overexposed, underexposed, washed out colors, dull skin, plastic skin, airbrushed"
     };
@@ -706,7 +718,12 @@
             'nature': 'National Geographic style',
             'painting': 'Oil Painting on canvas',
             'modern': 'Unreal Engine 5 render, Octane Render',
-            'photo': 'Hyper-realistic'
+            'photo': 'Hyper-realistic',
+            'wes anderson': 'staged in the whimsical, symmetrical style of Wes Anderson',
+            'ghibli': 'Studio Ghibli anime aesthetic, lush landscapes, magical lighting',
+            'burton': 'Tim Burton gothic aesthetic, pale tones, distorted forms',
+            'sketch': 'Professional Charcoal and Graphite sketch on textured paper',
+            'origami': 'Intricate Origami and Papercraft art, paper folds'
         },
         compositions: {
             'landscape': 'Extreme wide shot, expansive scene',
@@ -736,7 +753,6 @@
         }
     };
 
-    // DYNAMIC PANEL DEFINITIONS
     const ENGINE_CONFIGS = {
         midjourney: {
             params: [
@@ -1031,7 +1047,6 @@
         
         if (document.getElementById('targetEngine').value === 'stable_diffusion') negParts.push("watermark, text, logo, lowpoly, bad proportions, blurry, distorted");
 
-        // MIDJOURNEY NEGATIVE BRIDGE
         if (document.getElementById('targetEngine').value === 'midjourney') {
             const currentPrompt = document.getElementById('finalPrompt').value;
             const negString = negParts.join(", ");
