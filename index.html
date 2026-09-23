@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Prompt Builder v20.0 - The Aesthetics Encyclopedia</title>
+    <title>AI Prompt Builder v21.0 - The Director's Eye</title>
     <style>
         :root {
             --bg-color: #0f172a;
@@ -342,13 +342,13 @@
 <body>
 
 <div class="container">
-    <h1>🧠 AI Prompt Builder v20.0</h1>
-    <p class="subtitle">The Aesthetics Encyclopedia: Professional Art Direction & Model Matrix</p>
+    <h1>🧠 AI Prompt Builder v21.0</h1>
+    <p class="subtitle">The Director's Eye: AdvancedCinematographic Composition & Logic</p>
 
     <div class="ai-analysis-panel">
         <div class="ai-panel-header">✨ AI Prompt Analysis & Optimization</div>
         <div class="ai-input-group">
-            <input type="text" id="aiInput" placeholder="Describe your vision... (ex: A portrait in the style of Wes Anderson, soft pastel colors)">
+            <input type="text" id="aiInput" placeholder="Describe your vision... (ex: a high-tension shot, over-the-shoulder, cinematic) ">
             <button class="btn-analyze" onclick="analyzePrompt()">Analyze & Optimize</button>
         </div>
     </div>
@@ -365,7 +365,7 @@
             </div>
         </div>
         <div id="engineParams" class="engine-params-grid">
-            <!-- Dynamic Params will be injected here -->
+            <!-- Dynamic Params injected here -->
         </div>
     </div>
 
@@ -440,18 +440,28 @@
                     <option value="Close-up portrait" data-tag="close">Close-up</option>
                     <option value="Extreme close-up, macro focus" data-tag="macro">Extreme Close-up</option>
                 </optgroup>
-                <optgroup label="Angles (Perspective)">
+                <optgroup label="Perspective & POV">
+                    <option value="First-person POV, immersive point of view">First-Person POV</option>
+                    <option value="Over-the-shoulder shot, OTS perspective" data-tag="ots">Over-the-Shoulder</option>
+                    <option value="Third-person observational shot, distant witness" data-tag="obs">Observational</option>
                     <option value="Eye-level shot" data-tag="neutral">Eye-level</option>
                     <option value="Low angle shot, imposing scale" data-tag="low">Low Angle</option>
                     <option value="High angle shot, wide perspective" data-tag="high">High Angle</option>
                     <option value="Dutch angle, tilted frame" data-tag="tilt">Dutch Angle</option>
                     <option value="God's eye view, top-down" data-tag="top">God's Eye</option>
                 </optgroup>
-                <optgroup label="Artistic Composition">
+                <optgroup label="Framing & Depth">
+                    <option value="Layered composition, foreground elements framing the subject">Layered / Framed</option>
+                    <option value="Leading lines composition, guiding the eye to the subject">Leading Lines</option>
                     <option value="Symmetrical composition, centered" data-tag="sym">Symmetry</option>
                     <option value="Rule of thirds composition" data-tag="third">Rule of Thirds</option>
-                    <option value="Frame within a frame" data-tag="frame">Frame in Frame</option>
+                    <option value="Tight framing, claustrophobic composition" data-tag="tight">Tight Framing</option>
                     <option value="Negative space composition" data-tag="empty">Negative Space</option>
+                </optgroup>
+                <optgroup label="Psychological/Dynamic">
+                    <option value="Dynamic diagonal composition, energy and movement">Dynamic Diagonal</option>
+                    <option value="Centrifugal composition, expanding from center">Centrifugal</option>
+                    <option value="Centripetal composition, converging to center">Centripetal</option>
                 </optgroup>
             </select>
         </div>
@@ -870,20 +880,40 @@
         const composition = document.getElementById('composition').selectedOptions[0]?.dataset.tag;
         const camera = document.getElementById('camera').selectedOptions[0]?.dataset.tag;
 
-        if (camera === 'macro') hideOptionsByTag('composition', 'wide'); else showAllOptions('composition');
-        if (style === 'digital') hideOptionsByTag('qualityStandard', 'real'); else showAllOptions('qualityStandard');
+        // SMART LOGIC: MUTUALLY EXCLUSIVE OPTIONS
+        // 1. Camera vs Composition
+        if (camera === 'macro') {
+            hideOptionsByTag('composition', 'wide');
+            hideOptionsByTag('composition', 'obs');
+        } else {
+            showAllOptions('composition');
+        }
+
+        // 2. Style vs Quality
+        if (style === 'digital') hideOptionsByTag('qualityStandard', 'real'); 
+        else showAllOptions('qualityStandard');
+
+        // 3. Composition conflict logic
         if (composition === 'sym') hideOptionsByTag('composition', 'tilt');
+        
+        // 4. Special cases
+        if (composition === 'tight') hideOptionsByTag('composition', 'wide');
     }
 
-    function hideOptionsByTag(selectId, tagToHide) {
+    function hideOptionsByTag(selectId, tagToHidem) {
+        // Fixed parameter name from tagToHide to tagToHidem for safety
         const select = document.getElementById(selectId);
+        if (!select) return;
         Array.from(select.options).forEach(option => {
-            option.style.display = (option.dataset.tag === tagToHide) ? 'none' : 'block';
+            if (option.dataset.tag === tagToHidem) {
+                option.style.display = 'none';
+            }
         });
     }
 
     function showAllOptions(selectId) {
         const select = document.getElementById(selectId);
+        if (!select) return;
         Array.from(select.options).forEach(option => option.style.display = 'block');
     }
 
@@ -933,10 +963,17 @@
         else if (subLow.includes("portrait") || subLow.includes("woman") || subLow.includes("man")) styleSelect.value = "Hyper-realistic";
         else styleSelect.selectedIndex = Math.floor(Math.random() * styleSelect.options.length);
 
+        // SMART COMPOSITION SELECTION (Preventing nonsense)
         const compSelect = document.getElementById('composition');
-        if (subLow.includes("city") || subLow.includes("landscape")) compSelect.value = "Extreme wide shot, expansive scene";
-        else if (subLow.includes("watch") || subLow.includes("detail")) compSelect.value = "Extreme close-up, macro focus";
-        else compSelect.selectedIndex = Math.floor(Math.random() * compSelect.options.length);
+        if (subLow.includes("city") || subLow.includes("landscape")) {
+            compSelect.value = "Extreme wide shot, expansive scene";
+        } else if (subLow.includes("watch") || subLow.includes("detail")) {
+            compSelect.value = "Extreme close-up, macro focus";
+        } else {
+            // Random among "neutral" or "portait" options
+            const options = Array.from(compSelect.options).filter(o => o.dataset.tag !== 'wide');
+            compSelect.value = options[Math.floor(Math.random() * options.length)].value;
+        }
 
         const camSelect = document.getElementById('camera');
         if (compSelect.value.includes("macro")) camSelect.value = "Macro lens, extreme close-up";
