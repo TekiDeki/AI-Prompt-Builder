@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Prompt Builder v21.0 - The Director's Eye</title>
+    <title>AI Prompt Builder v22.0 - The Luminance Master</title>
     <style>
         :root {
             --bg-color: #0f172a;
@@ -342,13 +342,13 @@
 <body>
 
 <div class="container">
-    <h1>🧠 AI Prompt Builder v21.0</h1>
-    <p class="subtitle">The Director's Eye: AdvancedCinematographic Composition & Logic</p>
+    <h1>🧠 AI Prompt Builder v22.0</h1>
+    <p class="subtitle">The Luminance Master: Physical-Based Lighting & Optic Control</p>
 
     <div class="ai-analysis-panel">
         <div class="ai-panel-header">✨ AI Prompt Analysis & Optimization</div>
         <div class="ai-input-group">
-            <input type="text" id="aiInput" placeholder="Describe your vision... (ex: a high-tension shot, over-the-shoulder, cinematic) ">
+            <input type="text" id="aiInput" placeholder="Describe your vision... (ex: A portrait, mysterious side lighting, moody)">
             <button class="btn-analyze" onclick="analyzePrompt()">Analyze & Optimize</button>
         </div>
     </div>
@@ -360,7 +360,7 @@
                 <select id="targetEngine" onchange="updateEnginePanel()">
                     <option value="midjourney">Midjourney v6</option>
                     <option value="stable_diffusion">Stable Diffusion (SDXL/1.5)</option>
-                    <option value="dalle3">DALL-E 3</option>
+                    <option, value="dalle3">DALL-E 3</option>
                 </select>
             </div>
         </div>
@@ -466,13 +466,14 @@
             </select>
         </div>
 
+        <!-- LIGHTING MASTER SUITE -->
         <div class="setting-group">
-            <label>💡 Lighting Control</label>
+            <label>💡 Primary Light Source</label>
             <select id="lighting" onchange="updateLogic()">
                 <optgroup label="Natural Light">
                     <option value="Golden hour natural sunlight">Golden Hour</option>
                     <option value="Blue hour ethereal lighting">Blue Hour</option>
-                    <option value="High noon harsh sunlight">High Noon</option>
+                    <option value="High noon harsh sunlight" data-tag="noon">High Noon</option>
                 </optgroup>
                 <optgroup label="Studio & Cinematic">
                     <option value="Professional softbox studio lighting">Studio Softbox</option>
@@ -481,6 +482,37 @@
                     <option value="Volumetric god rays, atmospheric haze">Volumetric God Rays</option>
                     <option value="Cyberpunk neon lighting, magenta and cyan">Neon Cyberpunk</option>
                 </optgroup>
+            </select>
+        </div>
+
+        <div class="setting-group">
+            <label>📐 Light Direction (Angle)</label>
+            <select id="lightDirection" onchange="updateLogic()">
+                <option value="">Auto / Natural</option>
+                <option value="front lighting, flat lighting, clear visibility">Front Lighting</option>
+                <option value="side lighting, split lighting, deep facial shadows">Side Lighting (Split)</option>
+                <option value="backlighting, rim light, halo effect around subject">Backlighting (Rim)</option>
+                <option value="top lighting, butterfly lighting, overhead source">Top Lighting (Overhead)</option>
+            </select>
+        </div>
+
+        <div class="setting-group">
+            <label>✨ Light Quality (Texture)</label>
+            <select id="lightQuality" onchange="updateLogic()">
+                <option value="">Auto / Balanced</option>
+                <option value="hard light, sharp shadows, high contrast">Hard Light (Sharp)</option>
+                <option value="soft light, diffused shadows, smooth gradients">Soft Light (Diffused)</option>
+                <option value="dappled light, filtered sunlight through leaves">Dappled Light (Patterned)</option>
+            </select>
+        </div>
+
+        <div class="setting-group">
+            <label>🌡️ Color Temperature</label>
+            <select id="lightTemp" onchange="updateLogic()">
+                <option value="">Auto / Balanced</option>
+                <option value="warm color temperature, amber hues, cozy atmosphere">Warm (Amber/Golden)</option>
+                <option value="cool color temperature, blue hues, clinical atmosphere">Cool (Blue/Sterile)</option>
+                <option value="mixed lighting, contrast between warm and cool tones">Bicolor (Mixed)</option>
             </select>
         </div>
 
@@ -879,9 +911,15 @@
         const style = document.getElementById('style').selectedOptions[0]?.dataset.tag;
         const composition = document.getElementById('composition').selectedOptions[0]?.dataset.tag;
         const camera = document.getElementById('camera').selectedOptions[0]?.dataset.tag;
+        const lightingSource = document.getElementById('lighting').selectedOptions[0]?.dataset.tag;
 
-        // SMART LOGIC: MUTUALLY EXCLUSIVE OPTIONS
-        // 1. Camera vs Composition
+        // 1. PHYSICS LOCK: High Noon forces Hard Light and Top Lighting
+        if (lightingSource === 'noon') {
+            document.getElementById('lightQuality').value = "hard light, sharp shadows, high contrast";
+            document.getElementById('lightDirection').value = "top lighting, butterfly lighting, overhead source";
+        }
+
+        // 2. Camera vs Composition
         if (camera === 'macro') {
             hideOptionsByTag('composition', 'wide');
             hideOptionsByTag('composition', 'obs');
@@ -889,23 +927,20 @@
             showAllOptions('composition');
         }
 
-        // 2. Style vs Quality
+        // 3. Style vs Quality
         if (style === 'digital') hideOptionsByTag('qualityStandard', 'real'); 
         else showAllOptions('qualityStandard');
 
-        // 3. Composition conflict logic
+        // 4. Composition conflict logic
         if (composition === 'sym') hideOptionsByTag('composition', 'tilt');
-        
-        // 4. Special cases
         if (composition === 'tight') hideOptionsByTag('composition', 'wide');
     }
 
-    function hideOptionsByTag(selectId, tagToHidem) {
-        // Fixed parameter name from tagToHide to tagToHidem for safety
+    function hideOptionsByTag(selectId, tagToHide) {
         const select = document.getElementById(selectId);
         if (!select) return;
         Array.from(select.options).forEach(option => {
-            if (option.dataset.tag === tagToHidem) {
+            if (option.dataset.tag === tagToHide) {
                 option.style.display = 'none';
             }
         });
@@ -936,6 +971,9 @@
         const apertureSelect = document.getElementById('aperture');
         const motionSelect = document.getElementById('motion');
         const interactionSelect = document.getElementById('interaction');
+        const dirSelect = document.getElementById('lightDirection');
+        const qualSelect = document.getElementById('lightQuality');
+        const tempSelect = document.getElementById('lightTemp');
 
         for (let key in SEMANTIC_MAP.styles) { if (input.includes(key)) { styleSelect.value = SEMANTIC_MAP.styles[key]; break; } }
         for (let key in SEMANTIC_MAP.compositions) { if (input.includes(key)) { compSelect.value = SEMANTIC_MAP.compositions[key]; break; } }
@@ -951,6 +989,15 @@
         if (input.includes("rainy") || input.includes("wet")) interactionSelect.value = "rain-splashed surfaces, water droplets bouncing off subject";
         if (input.includes("windy") || input.includes("movement")) interactionSelect.value = "wind-blown textures, fabric fluttering, hair movement";
 
+        // LIGHTING SEMANTICS
+        if (input.includes("moody") || input.includes("mysterious") || input.includes("dramatic")) {
+            dirSelect.value = "side lighting, split lighting, deep facial shadows";
+            qualSelect.value = "hard light, sharp shadows, high contrast";
+        }
+        if (input.includes("soft") || input.includes("ethereal")) {
+            qualSelect.value = "soft light, diffused shadows, smooth gradients";
+        }
+
         updateLogic();
         generatePrompt();
     }
@@ -963,14 +1010,12 @@
         else if (subLow.includes("portrait") || subLow.includes("woman") || subLow.includes("man")) styleSelect.value = "Hyper-realistic";
         else styleSelect.selectedIndex = Math.floor(Math.random() * styleSelect.options.length);
 
-        // SMART COMPOSITION SELECTION (Preventing nonsense)
         const compSelect = document.getElementById('composition');
         if (subLow.includes("city") || subLow.includes("landscape")) {
             compSelect.value = "Extreme wide shot, expansive scene";
         } else if (subLow.includes("watch") || subLow.includes("detail")) {
             compSelect.value = "Extreme close-up, macro focus";
         } else {
-            // Random among "neutral" or "portait" options
             const options = Array.from(compSelect.options).filter(o => o.dataset.tag !== 'wide');
             compSelect.value = options[Math.floor(Math.random() * options.length)].value;
         }
@@ -990,7 +1035,7 @@
         else if (bgVal.includes("industrial") || bgVal.includes("decay")) intSelect.value = "floating dust motes in sunbeams, airborne micro-particles";
         else intSelect.selectedIndex = Math.floor(Math.random() * intSelect.options.length);
 
-        const others = ['lighting', 'aperture', 'motion', 'filmStock', 'qualityStandard', 'colorPalette', 'renderTech', 'background'];
+        const others = ['lighting', 'lightDirection', 'lightQuality', 'lightTemp', 'aperture', 'motion', 'filmStock', 'qualityStandard', 'colorPalette', 'renderTech', 'background'];
         others.forEach(id => {
             const sel = document.getElementById(id);
             sel.selectedIndex = Math.floor(Math.random() * sel.options.length);
@@ -1026,7 +1071,10 @@
         const engine = document.getElementById('targetEngine').value;
         const style = document.getElementById('style').value;
         const composition = document.getElementById('composition').value;
-        const lighting = document.getElementById('lighting').value;
+        const lightingSrc = document.getElementById('lighting').value;
+        const lDir = document.getElementById('lightDirection').value;
+        const lQual = document.getElementById('lightQuality').value;
+        const lTemp = document.getElementById('lightTemp').value;
         const camera = document.getElementById('camera').value;
         const aperture = document.getElementById('aperture').value;
         const motion = document.getElementById('motion').value;
@@ -1044,12 +1092,16 @@
         const opticals = [aperture, motion, film].filter(Boolean).join(", ");
         const opticalsString = opticals ? `${opticals}, ` : "";
 
+        // Full Lighting Stack
+        const lightStack = [lightingSrc, lDir, lQual, lTemp].filter(Boolean).join(", ");
+        const lightString = lightStack ? `${lightStack}, ` : "";
+
         if (engine === 'midjourney') {
             const stylize = document.getElementById('mjStylize')?.value || 250;
             const chaos = document.getElementById('mjChaos')?.value || 0;
             const weird = document.getElementById('mjWeird')?.value || 0;
             const ratioString = finalRatio ? `--ar ${finalRatio}` : '';
-            return `${composition}, ${style} of ${subjectText}, ${background}, ${interaction}, ${lighting}, ${camera}, ${opticalsString}${colorPalette}, ${qualityStd}, ${renderTech}. ${ratioString} --v 6.0 --stylize ${stylize} --chaos ${chaos} --weird ${weird}`;
+            return `${composition}, ${style} of ${subjectText}, ${background}, ${interaction}, ${lightString}${camera}, ${opticalsString}${colorPalette}, ${qualityStd}, ${renderTech}. ${ratioString} --v 6.0 --stylize ${stylize} --chaos ${chaos} --weird ${weird}`;
         } 
         else if (engine === 'stable_diffusion') {
             const model = document.getElementById('sdModel')?.value || "SDXL";
@@ -1058,14 +1110,13 @@
             const sampler = document.getElementById('sdSampler')?.value || "Euler a";
             
             if (model.includes("Lightning")) {
-                return `(masterpiece:1.2), (best quality:1.2), highly detailed, 8k uhd, ${model} style, (${subjectText}:1.3), (${style}:1.2), ${composition}, ${background}, ${lighting}, ${camera}, ${opticalsString}${colorPalette}, ${renderTech}, ${interaction}, ${qualityStd}, CFG ${cfg}, Steps ${steps}, Sampler ${sampler}`;
+                return `(masterpiece:1.2), (best quality:1.2), highly detailed, 8k uhd, ${model} style, (${subjectText}:1.3), (${style}:1.2), ${composition}, ${background}, ${lightString}${camera}, ${opticalsString}${colorPalette}, ${renderTech}, ${interaction}, ${qualityStd}, CFG ${cfg}, Steps ${steps}, Sampler ${sampler}`;
             } else {
-                return `(masterpiece), (best quality), ${model} style, ${subjectText}, ${composition}, ${style}, ${background}, ${lighting}, ${camera}, ${opticalsString}${colorPalette}, ${renderTech}, ${interaction}, ${qualityStd}, CFG ${cfg}, Steps ${steps}, Sampler ${sampler}`;
+                return `(masterpiece), (best quality), ${model} style, ${subjectText}, ${composition}, ${style}, ${background}, ${lightString}${camera}, ${opticalsString}${colorPalette}, ${renderTech}, ${interaction}, ${qualityStd}, CFG ${cfg}, Steps ${steps}, Sampler ${sampler}`;
             }
         } 
         else if (engine === 'dalle3') {
-            const styleMode = document.getElementById('dalleStyle')?.value || "Vivid";
-            return `A professional ${style} image of ${subjectText} in ${styleMode} style. The scene is composed as a ${composition}, set against a ${background}. The lighting is ${lighting} and captured with a ${camera}. ${opticalsString}The image features ${interaction}, with a color mood and palette of ${colorPalette}, using ${renderTech}. The overall quality is ${qualityStd}. Aspect ratio: ${finalRatio}.`;
+            return `A professional ${style} image of ${subjectText}. The scene is composed as a ${composition}, set against a ${background}. The lighting is ${lightString}${camera}. ${opticalsString}The image features ${interaction}, with a color mood and palette of ${colorPalette}, using ${renderTech}. The overall quality is ${qualityStd}. Aspect ratio: ${finalRatio}.`;
         }
         return "";
     }
