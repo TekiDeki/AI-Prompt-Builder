@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Prompt Builder v22.0 - The Luminance Master</title>
+    <title>AI Prompt Builder v22.2 - The Luminance Master</title>
     <style>
         :root {
             --bg-color: #0f172a;
@@ -25,6 +25,76 @@
             --engine-dalle: #a855f7;
         }
 
+        /* ===== LIGHT THEME (#9.2) ===== */
+        :root.theme-light {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #0f172a;
+            --accent-color: #0284c7;
+            --accent-hover: #0369a1;
+            --input-bg: #f1f5f9;
+            --border-color: #cbd5e1;
+            --negative-color: #e11d48;
+            --ai-color: #7c3aed;
+            --engine-color: #d97706;
+            --export-color: #db2777;
+            --donate-color: #eab308;
+        }
+
+        :root.theme-light body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        :root.theme-light .result-area,
+        :root.theme-light .history-panel,
+        :root.theme-light .engine-panel,
+        :root.theme-light .ai-analysis-panel,
+        :root.theme-light .file-upload-container,
+        :root.theme-light .history-header,
+        :root.theme-light .history-item,
+        :root.theme-light .engine-params-grid {
+            background-color: #f1f5f9;
+        }
+
+        :root.theme-light #finalPrompt,
+        :root.theme-light #negativePrompt {
+            color: #0f172a;
+        }
+
+        :root.theme-light .presets-bar {
+            background: rgba(2, 132, 199, 0.05);
+            border-color: rgba(2, 132, 199, 0.2);
+        }
+
+        :root.theme-light .preset-chip {
+            background: rgba(2, 132, 199, 0.1);
+            color: var(--text-color);
+        }
+
+        :root.theme-light .preset-chip:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        :root.theme-light .shortcuts-help,
+        :root.theme-light .drop-hint {
+            color: #475569;
+        }
+
+        :root.theme-light .toast {
+            background: linear-gradient(135deg, #ffffff, #f1f5f9);
+            color: #0f172a;
+        }
+
+        :root.theme-light label {
+            color: #334155;
+        }
+
+        :root.theme-light .history-item {
+            color: #334155;
+        }
+
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
@@ -33,6 +103,7 @@
             display: flex;
             justify-content: center;
             padding: 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .container {
@@ -43,6 +114,7 @@
             border-radius: 24px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.6);
             border: 1px solid var(--border-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         h1 {
@@ -56,8 +128,48 @@
         p.subtitle {
             text-align: center;
             color: #94a3b8;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             font-size: 1.2rem;
+        }
+
+        /* ===== PRESETS ===== */
+        .presets-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            padding: 15px 20px;
+            background: rgba(56, 189, 248, 0.05);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 16px;
+        }
+
+        .presets-label {
+            font-weight: 700;
+            color: var(--accent-color);
+            font-size: 0.95rem;
+            margin-right: 5px;
+        }
+
+        .preset-chip {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .preset-chip:hover {
+            background: var(--accent-color);
+            color: var(--bg-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
         }
 
         .ai-analysis-panel {
@@ -87,7 +199,7 @@
         .ai-input-group input {
             flex: 1;
             background-color: var(--input-bg);
-            color: white;
+            color: var(--text-color);
             border: 1px solid var(--border-color);
             padding: 15px;
             border-radius: 12px;
@@ -172,7 +284,7 @@
 
         select, input {
             background-color: var(--input-bg);
-            color: white;
+            color: var(--text-color);
             border: 1px solid var(--border-color);
             padding: 12px;
             border-radius: 12px;
@@ -181,6 +293,12 @@
             transition: all 0.3s ease;
         }
 
+        .setting-group select,
+        .setting-group input[type="text"] {
+            padding-right: 40px;
+        }
+
+        /* ===== DRAG & DROP (#9.1) ===== */
         .file-upload-container {
             background-color: #020617;
             padding: 15px;
@@ -190,11 +308,26 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload-container.drag-over {
+            border-color: var(--accent-color);
+            border-style: solid;
+            background: rgba(56, 189, 248, 0.1);
+            transform: scale(1.01);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+        }
+
+        .drop-hint {
+            color: #64748b;
+            font-size: 0.85rem;
+            font-style: italic;
         }
 
         .upload-label {
-            color: var(--accent-color); 
-            font-size: 1.1rem; 
+            color: var(--accent-color);
+            font-size: 1.1rem;
             cursor: pointer;
             font-weight: bold;
             display: flex;
@@ -268,6 +401,23 @@
             text-transform: uppercase;
             font-weight: bold;
         }
+
+        /* ===== PROMPT SCORE (#9.3) ===== */
+        .prompt-score {
+            display: inline-block;
+            margin-left: 10px;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            background: rgba(56,189,248,0.15);
+            color: var(--accent-color);
+            transition: all 0.3s ease;
+        }
+
+        .prompt-score.good { background: rgba(16,185,129,0.2); color: #6ee7b7; }
+        .prompt-score.warn { background: rgba(251,191,36,0.2); color: #fcd34d; }
+        .prompt-score.bad { background: rgba(251,113,133,0.2); color: var(--negative-color); }
 
         #finalPrompt, #negativePrompt {
             width: 100%;
@@ -370,9 +520,7 @@
             transition: left 0.6s ease;
         }
 
-        .engine-badge:hover::before {
-            left: 100%;
-        }
+        .engine-badge:hover::before { left: 100%; }
 
         @keyframes badgeFadeIn {
             from { opacity: 0; transform: translateX(15px); }
@@ -474,6 +622,155 @@
             border-color: var(--negative-color);
         }
 
+        /* ===== HISTORY ===== */
+        .history-panel {
+            margin-top: 25px;
+            background: #020617;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            cursor: pointer;
+            background: rgba(56, 189, 248, 0.05);
+            font-weight: 700;
+            color: var(--accent-color);
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        .history-header:hover { background: rgba(56, 189, 248, 0.1); }
+
+        .history-count {
+            background: var(--accent-color);
+            color: var(--bg-color);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            margin-left: 5px;
+        }
+
+        .history-toggle { transition: transform 0.3s ease; }
+
+        .history-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .history-body.open {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .history-list {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .history-item {
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 14px;
+            cursor: pointer;
+            font-family: 'Consolas', monospace;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .history-item:hover {
+            background: rgba(56, 189, 248, 0.1);
+            border-color: var(--accent-color);
+            color: var(--text-color);
+        }
+
+        .history-item-time {
+            color: #64748b;
+            font-size: 0.7rem;
+            margin-right: 8px;
+        }
+
+        .history-clear {
+            margin: 10px;
+            background: transparent;
+            color: var(--negative-color);
+            border: 1px solid var(--negative-color);
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            width: calc(100% - 20px);
+        }
+
+        .history-clear:hover { background: var(--negative-color); color: white; }
+
+        /* ===== CONFLICT WARNINGS ===== */
+        .conflict-warnings {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .conflict-warnings:empty { display: none; }
+
+        .conflict-warning {
+            background: rgba(251, 191, 36, 0.1);
+            border-left: 4px solid #fbbf24;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #fcd34d;
+            animation: warningSlide 0.3s ease;
+        }
+
+        .conflict-warning.error {
+            background: rgba(251, 113, 133, 0.1);
+            border-left-color: var(--negative-color);
+            color: var(--negative-color);
+        }
+
+        @keyframes warningSlide {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* ===== SHORTCUTS HELP ===== */
+        .shortcuts-help {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        .shortcuts-title {
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-right: 8px;
+        }
+
+        kbd {
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-bottom-width: 2px;
+            border-radius: 5px;
+            padding: 2px 6px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.75rem;
+            color: var(--text-color);
+            margin: 0 2px;
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .engine-badge {
@@ -482,7 +779,7 @@
                 align-self: stretch;
                 margin-bottom: 0;
             }
-            
+
             .engine-main-row {
                 flex-direction: column;
                 align-items: stretch;
@@ -493,8 +790,34 @@
 <body>
 
 <div class="container">
-    <h1>🧠 AI Prompt Builder v22.0</h1>
+    <h1>🧠 AI Prompt Builder v22.2</h1>
     <p class="subtitle">The Luminance Master: Physical-Based Lighting & Optic Control</p>
+
+    <!-- ===== PRESETS ===== -->
+    <div class="presets-bar">
+        <span class="presets-label">⚡ Quick Presets:</span>
+        <button class="preset-chip" onclick="saveCurrentAsPreset()" style="background: rgba(16,185,129,0.15); border-color: #10b981; color: #6ee7b7;">➕ Save Current</button>
+        <button class="preset-chip" onclick="applyPreset('cinematic_portrait')">🎬 Cinematic Portrait</button>
+        <button class="preset-chip" onclick="applyPreset('epic_landscape')">🏔️ Epic Landscape</button>
+        <button class="preset-chip" onclick="applyPreset('neon_cyberpunk')">🌃 Neon Cyberpunk</button>
+        <button class="preset-chip" onclick="applyPreset('vintage_film')">📽️ Vintage Film</button>
+        <button class="preset-chip" onclick="applyPreset('product_shoot')">📦 Product Shoot</button>
+        <button class="preset-chip" onclick="applyPreset('fantasy_art')">🐉 Fantasy Art</button>
+        <button class="preset-chip" onclick="applyPreset('documentary')">📰 Documentary</button>
+        <button class="preset-chip" onclick="applyPreset('anime_ghibli')">🌸 Anime Ghibli</button>
+        <button class="preset-chip" onclick="applyPreset('watercolor_dream')">🎨 Watercolor Dream</button>
+        <button class="preset-chip" onclick="applyPreset('architectural')">🏛️ Architectural</button>
+        <button class="preset-chip" onclick="applyPreset('studio_beauty')">👤 Studio Beauty</button>
+        <button class="preset-chip" onclick="applyPreset('cosmic_scifi')">🌌 Cosmic Sci-Fi</button>
+        <button class="preset-chip" onclick="applyPreset('food_editorial')">🍔 Food Editorial</button>
+        <button class="preset-chip" onclick="applyPreset('film_noir_bw')">🎭 Film Noir B&W</button>
+    </div>
+
+    <!-- ===== CUSTOM PRESETS (#9.4) ===== -->
+    <div class="presets-bar" id="customPresetsBar" style="display: none; border-color: rgba(16,185,129,0.3);">
+        <span class="presets-label" style="color: #10b981;">💾 My Presets:</span>
+        <div id="customPresetsList" style="display: flex; flex-wrap: wrap; gap: 10px;"></div>
+    </div>
 
     <div class="ai-analysis-panel">
         <div class="ai-panel-header">✨ AI Prompt Analysis & Optimization</div>
@@ -533,10 +856,12 @@
         </div>
     </div>
 
-    <div class="file-upload-container">
+    <!-- ===== DRAG & DROP (#9.1) ===== -->
+    <div class="file-upload-container" id="dropZone">
         <div style="display: flex; align-items: center; gap: 15px;">
             <label for="fileInput" class="upload-label">📁 Upload Subject List (.txt)</label>
             <input type="file" id="fileInput" accept=".txt" style="display: none;">
+            <span class="drop-hint">or drag & drop here</span>
         </div>
         <div id="queueStatus" style="font-size: 0.9rem; color: #94a3b8;">Queue: 0 / 0 Subjects</div>
     </div>
@@ -878,12 +1203,17 @@
         <button class="btn-random" onclick="smartRandomize()">🎲 Smart Randomize</button>
         <button class="btn-generate" onclick="generatePrompt()">🚀 Generate Prompt</button>
         <button class="btn-export" onclick="exportSDBatch()">💾 Export SD Batch (.txt)</button>
+        <button class="btn-export" onclick="batchMultiEngine()" style="background: #a855f7; box-shadow: 0 4px 15px rgba(168,85,247,0.4);">🎯 Batch All Engines</button>
         <button class="btn-reset" onclick="manualSave()" style="color: var(--accent-color); border-color: var(--accent-color);">💾 Save Now</button>
+        <button class="btn-reset" onclick="cycleTheme()" id="themeBtn" title="Switch theme">🌙 Theme</button>
     </div>
+
+    <!-- ===== CONFLICT WARNINGS ===== -->
+    <div id="conflictWarnings" class="conflict-warnings"></div>
 
     <div class="result-area">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <div class="result-label">Main Prompt</div>
+            <div class="result-label">Main Prompt <span id="promptScore" class="prompt-score">--</span></div>
             <button class="copy-btn" onclick="copyPrompt('finalPrompt')">Copy Prompt</button>
         </div>
         <textarea id="finalPrompt" rows="4" readonly placeholder="Your intelligent prompt will appear here..."></textarea>
@@ -895,12 +1225,40 @@
         <textarea id="negativePrompt" rows="3" readonly placeholder="Negative prompt will appear here..."></textarea>
     </div>
 
+    <!-- ===== HISTORY PANEL ===== -->
+    <div class="history-panel">
+        <div class="history-header" onclick="toggleHistory()">
+            <span>📜 Prompt History <span id="historyCount" class="history-count">0</span></span>
+            <span id="historyToggleIcon" class="history-toggle">▼</span>
+        </div>
+        <div id="historyBody" class="history-body">
+            <div id="historyList" class="history-list">
+                <!-- Items injected here -->
+            </div>
+            <button class="history-clear" onclick="clearHistory()">🗑️ Clear History</button>
+        </div>
+    </div>
+
+    <!-- ===== SHORTCUTS HELP ===== -->
+    <div class="shortcuts-help">
+        <span class="shortcuts-title">⌨️ Shortcuts:</span>
+        <kbd>Ctrl+S</kbd> Save •
+        <kbd>Ctrl+↵</kbd> Generate •
+        <kbd>Ctrl+⇧+R</kbd> Randomize •
+        <kbd>Ctrl+E</kbd> Export •
+        <kbd>Ctrl+H</kbd> History •
+        <kbd>Ctrl+K</kbd> AI Input
+    </div>
+
     <div class="support-footer">
         <span class="support-text">ENJOYED IT? ❤️ Help me create more.</span>
         <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
             <a href="https://paypal.me/TekiDeki" target="_blank" class="btn-donate">☕ Buy me a Coffee</a>
+            <button class="btn-reset" onclick="exportSettingsJSON()">📤 Export JSON</button>
+            <button class="btn-reset" onclick="document.getElementById('importJSON').click()">📥 Import JSON</button>
             <button class="btn-reset" onclick="resetAllSettings()">🔄 Reset Settings</button>
         </div>
+        <input type="file" id="importJSON" accept=".json" style="display: none;">
     </div>
 </div>
 
@@ -916,27 +1274,24 @@
     let toastTimeout = null;
 
     // ============================================================
-    // PERSISTENCE (Pasul 6)
+    // PERSISTENCE (#6)
     // ============================================================
     const STORAGE_KEY = 'aiPromptBuilder_v22';
+    const HISTORY_KEY = 'aiPromptBuilder_history';
+    const THEME_KEY = 'aiPromptBuilder_theme';
+    const CUSTOM_PRESETS_KEY = 'aiPromptBuilder_customPresets';
+    const HISTORY_MAX = 20;
+
     const PERSISTED_FIELDS = [
-        // Engine principal
         'targetEngine',
-        // Parametrii dinamici Midjourney
         'mjVersion', 'mjStylize', 'mjChaos', 'mjWeird', 'mjStyleRaw', 'mjTile',
-        // Parametrii dinamici SD
         'sdVersion', 'sdModel', 'sdCfg', 'sdSteps', 'sdSampler', 'sdHires', 'sdRefiner', 'sdFaceRestore',
-        // Parametrii dinamici FLUX
         'fluxVariant', 'fluxGuidance', 'fluxSteps', 'fluxSeed', 'fluxRefiner',
-        // Parametrii dinamici DALL-E 3
         'dalleVersion', 'dalleStyle',
-        // Setări statice
         'style', 'composition', 'lighting', 'lightDirection', 'lightQuality', 'lightTemp',
         'camera', 'aperture', 'motion', 'filmStock', 'qualityStandard',
         'colorPalette', 'renderTech', 'interaction', 'background',
-        // Aspect ratio
         'ratioPreset', 'customRatio',
-        // Subiect + input AI
         'subject', 'aiInput'
     ];
 
@@ -997,10 +1352,7 @@
         try {
             localStorage.removeItem(STORAGE_KEY);
             return true;
-        } catch (e) {
-            console.warn('Failed to clear settings:', e);
-            return false;
-        }
+        } catch (e) { return false; }
     }
 
     function scheduleSave() {
@@ -1015,8 +1367,6 @@
             const eventType = (el.tagName === 'SELECT' || el.type === 'checkbox') ? 'change' : 'input';
             el.addEventListener(eventType, scheduleSave);
         });
-
-        // Event delegation pentru input-urile dinamice din #engineParams
         const engineParams = document.getElementById('engineParams');
         if (engineParams) {
             engineParams.addEventListener('change', scheduleSave);
@@ -1032,6 +1382,8 @@
     function resetAllSettings() {
         if (!confirm('Sigur vrei să resetezi toate setările salvate? Această acțiune nu poate fi anulată.')) return;
         clearSettings();
+        localStorage.removeItem(HISTORY_KEY);
+        localStorage.removeItem(CUSTOM_PRESETS_KEY);
         showToast('🔄 Setările au fost resetate. Se reîncarcă...');
         setTimeout(() => window.location.reload(), 800);
     }
@@ -1046,15 +1398,532 @@
         toast.className = 'toast' + (isError ? ' error' : '');
         void toast.offsetWidth;
         toast.classList.add('show');
-
         if (toastTimeout) clearTimeout(toastTimeout);
-        toastTimeout = setTimeout(() => {
-            toast.classList.remove('show');
-        }, 2500);
+        toastTimeout = setTimeout(() => toast.classList.remove('show'), 2500);
     }
 
     // ============================================================
-    // NEGATIVE PROMPT ENGINE
+    // THEME SWITCHER (#9.2)
+    // ============================================================
+    const THEMES = ['dark', 'light', 'auto'];
+    const THEME_ICONS = { dark: '🌙 Dark', light: '☀️ Light', auto: '🌗 Auto' };
+
+    function applyTheme(theme) {
+        const root = document.documentElement;
+        root.classList.remove('theme-light', 'theme-dark');
+
+        let effective = theme;
+        if (theme === 'auto') {
+            effective = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+
+        if (effective === 'light') root.classList.add('theme-light');
+        else root.classList.add('theme-dark');
+
+        const btn = document.getElementById('themeBtn');
+        if (btn) btn.innerHTML = THEME_ICONS[theme];
+    }
+
+    function cycleTheme() {
+        const current = localStorage.getItem(THEME_KEY) || 'dark';
+        const idx = THEMES.indexOf(current);
+        const next = THEMES[(idx + 1) % THEMES.length];
+        localStorage.setItem(THEME_KEY, next);
+        applyTheme(next);
+        showToast(`🎨 Theme: ${next}`);
+    }
+
+    // ============================================================
+    // HISTORY (#7.2)
+    // ============================================================
+    function getHistory() {
+        try {
+            const raw = localStorage.getItem(HISTORY_KEY);
+            return raw ? JSON.parse(raw) : [];
+        } catch (e) { return []; }
+    }
+
+    function saveHistory(history) {
+        try {
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(history.slice(0, HISTORY_MAX)));
+        } catch (e) {}
+    }
+
+    function addToHistory(promptText) {
+        if (!promptText || promptText.length < 10) return;
+        const history = getHistory();
+        if (history.length > 0 && history[0].text === promptText) return;
+        history.unshift({
+            text: promptText,
+            time: new Date().toISOString(),
+            subject: document.getElementById('subject').value,
+            engine: document.getElementById('targetEngine').value
+        });
+        saveHistory(history);
+        renderHistory();
+    }
+
+    function renderHistory() {
+        const list = document.getElementById('historyList');
+        if (!list) return;
+        const history = getHistory();
+        document.getElementById('historyCount').textContent = history.length;
+
+        if (history.length === 0) {
+            list.innerHTML = '<div style="color:#64748b; font-size:0.85rem; text-align:center; padding:15px;">No prompts generated yet.</div>';
+            return;
+        }
+
+        list.innerHTML = '';
+        history.forEach((item, idx) => {
+            const el = document.createElement('div');
+            el.className = 'history-item';
+            el.title = item.text;
+            const time = new Date(item.time);
+            const timeStr = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            el.innerHTML = `<span class="history-item-time">${timeStr}</span>${item.text.slice(0, 120)}${item.text.length > 120 ? '…' : ''}`;
+            el.onclick = () => loadFromHistory(idx);
+            list.appendChild(el);
+        });
+    }
+
+    function loadFromHistory(idx) {
+        const history = getHistory();
+        if (!history[idx]) return;
+        navigator.clipboard.writeText(history[idx].text);
+        document.getElementById('finalPrompt').value = history[idx].text;
+        showToast('📋 Prompt restaurat & copiat');
+    }
+
+    function clearHistory() {
+        if (!confirm('Ștergi tot istoricul de prompt-uri?')) return;
+        localStorage.removeItem(HISTORY_KEY);
+        renderHistory();
+        showToast('🗑️ Istoric șters');
+    }
+
+    function toggleHistory() {
+        const body = document.getElementById('historyBody');
+        const icon = document.getElementById('historyToggleIcon');
+        body.classList.toggle('open');
+        icon.style.transform = body.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0)';
+    }
+
+    // ============================================================
+    // CUSTOM PRESETS (#9.4)
+    // ============================================================
+    function getCustomPresets() {
+        try {
+            return JSON.parse(localStorage.getItem(CUSTOM_PRESETS_KEY) || '{}');
+        } catch (e) { return {}; }
+    }
+
+    function saveCustomPresets(presets) {
+        localStorage.setItem(CUSTOM_PRESETS_KEY, JSON.stringify(presets));
+    }
+
+    function saveCurrentAsPreset() {
+        const name = prompt('Nume preset:');
+        if (!name || !name.trim()) return;
+
+        const settings = {};
+        PERSISTED_FIELDS.forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            if (el.type === 'checkbox') settings[id] = el.checked;
+            else settings[id] = el.value;
+        });
+
+        const presets = getCustomPresets();
+        const key = 'custom_' + Date.now();
+        presets[key] = { name: '💾 ' + name.trim(), settings, createdAt: new Date().toISOString() };
+        saveCustomPresets(presets);
+        renderCustomPresets();
+        showToast(`💾 Preset "${name}" saved`);
+    }
+
+    function deleteCustomPreset(key) {
+        if (!confirm('Ștergi acest preset?')) return;
+        const presets = getCustomPresets();
+        delete presets[key];
+        saveCustomPresets(presets);
+        renderCustomPresets();
+        showToast('🗑️ Preset șters');
+    }
+
+    function renderCustomPresets() {
+        const bar = document.getElementById('customPresetsBar');
+        const list = document.getElementById('customPresetsList');
+        if (!bar || !list) return;
+
+        const presets = getCustomPresets();
+        const keys = Object.keys(presets);
+
+        if (keys.length === 0) {
+            bar.style.display = 'none';
+            return;
+        }
+
+        bar.style.display = 'flex';
+        list.innerHTML = '';
+
+        keys.forEach(key => {
+            const p = presets[key];
+            const wrap = document.createElement('div');
+            wrap.style.cssText = 'display:flex; align-items:center; background:rgba(16,185,129,0.1); border:1px solid #10b981; border-radius:20px; overflow:hidden;';
+
+            const btn = document.createElement('button');
+            btn.textContent = p.name;
+            btn.style.cssText = 'background:transparent; border:none; color:#6ee7b7; padding:8px 14px; font-size:0.9rem; font-weight:600; cursor:pointer;';
+            btn.onclick = () => {
+                Object.entries(p.settings).forEach(([id, value]) => {
+                    const el = document.getElementById(id);
+                    if (!el) return;
+                    if (el.type === 'checkbox') el.checked = !!value;
+                    else if (el.tagName === 'SELECT') {
+                        const exists = Array.from(el.options).some(o => o.value === value);
+                        if (exists) el.value = value;
+                    } else el.value = value;
+                });
+                updateLogic();
+                generatePrompt();
+                scheduleSave();
+                showToast(`⚡ Preset aplicat: ${p.name}`);
+            };
+
+            const del = document.createElement('button');
+            del.textContent = '×';
+            del.title = 'Delete preset';
+            del.style.cssText = 'background:transparent; border:none; color:#6ee7b7; padding:8px 12px; font-size:1.2rem; font-weight:800; cursor:pointer; border-left:1px solid rgba(16,185,129,0.3);';
+            del.onclick = (e) => { e.stopPropagation(); deleteCustomPreset(key); };
+
+            wrap.appendChild(btn);
+            wrap.appendChild(del);
+            list.appendChild(wrap);
+        });
+    }
+
+    // ============================================================
+    // BUILT-IN PRESETS (#7.1 + 14 total)
+    // ============================================================
+    const PRESETS = {
+        cinematic_portrait: {
+            name: '🎬 Cinematic Portrait',
+            settings: {
+                style: 'Cinematic (Hollywood)',
+                composition: 'Close-up portrait',
+                lighting: 'Cinematic rim lighting, backlit silhouette',
+                lightDirection: 'side lighting, split lighting, deep facial shadows',
+                lightQuality: 'soft light, diffused shadows, smooth gradients',
+                lightTemp: 'warm color temperature, amber hues, cozy atmosphere',
+                camera: 'Shot on 85mm lens',
+                aperture: 'shot at f/2.8, soft background blur, professional bokeh',
+                motion: '',
+                filmStock: 'shot on Kodak Portra 400, analog film grain, warm skin tones',
+                qualityStandard: 'Vogue aesthetic, high fashion',
+                colorPalette: 'Teal and Orange cinematic color grading',
+                renderTech: 'subsurface scattering, realistic skin diffusion',
+                interaction: 'light wrapping, background light bleeding over edges',
+                background: 'dark void, single spotlight, high contrast, deep shadows',
+                ratioPreset: '4:5'
+            }
+        },
+        epic_landscape: {
+            name: '🏔️ Epic Landscape',
+            settings: {
+                style: 'National Geographic style',
+                composition: 'Extreme wide shot, expansive scene',
+                lighting: 'Golden hour natural sunlight',
+                lightDirection: '',
+                lightQuality: 'soft light, diffused shadows, smooth gradients',
+                lightTemp: 'warm color temperature, amber hues, cozy atmosphere',
+                camera: 'Shot on 14mm ultra-wide lens',
+                aperture: 'shot at f/8, sharp detail across the frame, deep focus',
+                motion: '',
+                filmStock: 'medium format photography, Hasselblad quality, extreme detail',
+                qualityStandard: 'Ultra-High Definition UHD',
+                colorPalette: 'Vibrant neon colors, high saturation',
+                renderTech: 'Global Illumination, soft ambient occlusion',
+                interaction: 'floating dust motes in sunbeams, airborne micro-particles',
+                background: 'ancient redwood forest, giant trees, dappled sunlight, morning mist',
+                ratioPreset: '21:9'
+            }
+        },
+        neon_cyberpunk: {
+            name: '🌃 Neon Cyberpunk',
+            settings: {
+                style: 'Cyberpunk aesthetic, neon-infused, high tech',
+                composition: 'Medium shot, waist-up',
+                lighting: 'Cyberpunk neon lighting, magenta and cyan',
+                lightDirection: 'backlighting, rim light, halo effect around subject',
+                lightQuality: 'hard light, sharp shadows, high contrast',
+                lightTemp: 'mixed lighting, contrast between warm and cool tones',
+                camera: 'Anamorphic lens, wide cinematic aspect',
+                aperture: 'shot at f/1.2, ultra-shallow depth of field, creamy bokeh',
+                motion: 'light trails, long exposure night photography',
+                filmStock: 'high ISO grain, gritty documentary texture',
+                qualityStandard: 'Vogue aesthetic, high fashion',
+                colorPalette: 'Vibrant neon colors, high saturation',
+                renderTech: 'Unreal Engine 5, ray tracing, octane render',
+                interaction: 'rain-splashed surfaces, water droplets bouncing off subject',
+                background: 'cyberpunk megacity cityscape, towering skyscrapers, hologram billboards',
+                ratioPreset: '21:9'
+            }
+        },
+        vintage_film: {
+            name: '📽️ Vintage Film',
+            settings: {
+                style: 'Street Photography',
+                composition: 'Medium shot, waist-up',
+                lighting: 'Golden hour natural sunlight',
+                lightDirection: 'side lighting, split lighting, deep facial shadows',
+                lightQuality: 'soft light, diffused shadows, smooth gradients',
+                lightTemp: 'warm color temperature, amber hues, cozy atmosphere',
+                camera: 'Shot on 50mm prime lens',
+                aperture: 'shot at f/2.8, soft background blur, professional bokeh',
+                motion: '',
+                filmStock: 'shot on 35mm film, nostalgic analog texture, slight grain',
+                qualityStandard: 'Candid photography, snapshot style',
+                colorPalette: 'Muted colors, desaturated mood',
+                renderTech: 'Chromatic aberration, analog lens fringe',
+                interaction: 'floating dust motes in sunbeams, airborne micro-particles',
+                background: 'blurred rainy city street background, wet asphalt, reflections',
+                ratioPreset: '4:5'
+            }
+        },
+        product_shoot: {
+            name: '📦 Product Shoot',
+            settings: {
+                style: 'Editorial Fashion Photography',
+                composition: 'Extreme close-up, macro focus',
+                lighting: 'Professional softbox studio lighting',
+                lightDirection: 'front lighting, flat lighting, clear visibility',
+                lightQuality: 'soft light, diffused shadows, smooth gradients',
+                lightTemp: '',
+                camera: 'Macro lens, extreme close-up',
+                aperture: 'shot at f/8, sharp detail across the frame, deep focus',
+                motion: '',
+                filmStock: 'medium format photography, Hasselblad quality, extreme detail',
+                qualityStandard: 'Commercial studio grade, clean',
+                colorPalette: 'Teal and Orange cinematic color grading',
+                renderTech: 'Physically Based Rendering (PBR)',
+                interaction: 'environmental reflections on subject surface, ray-traced reflections',
+                background: 'luxury white marble hall, polished floors, high ceilings, symmetry',
+                ratioPreset: '1:1'
+            }
+        },
+        fantasy_art: {
+            name: '🐉 Fantasy Art',
+            settings: {
+                style: 'High Renaissance oil painting, balanced composition, divine light',
+                composition: 'Full shot, showing entire subject',
+                lighting: 'Volumetric god rays, atmospheric haze',
+                lightDirection: 'backlighting, rim light, halo effect around subject',
+                lightQuality: 'soft light, diffused shadows, smooth gradients',
+                lightTemp: 'warm color temperature, amber hues, cozy atmosphere',
+                camera: 'Shot on 35mm lens',
+                aperture: 'shot at f/2.8, soft background blur, professional bokeh',
+                motion: 'slight motion blur, dynamic movement',
+                filmStock: '',
+                qualityStandard: 'Ultra-High Definition UHD',
+                colorPalette: 'Soft pastel color palette, dreamy',
+                renderTech: 'caustics lighting, light refraction through glass',
+                interaction: 'floating pollen and iridescent spores, ethereal particles',
+                background: 'floating astral islands, cosmic nebula, shimmering stars, gravity-defying rocks',
+                ratioPreset: '16:9'
+            }
+        },
+        documentary: {
+            name: '📰 Documentary',
+            settings: {
+                style: 'National Geographic style',
+                composition: 'Medium shot, waist-up',
+                lighting: 'Blue hour ethereal lighting',
+                lightDirection: '',
+                lightQuality: 'soft light, diffused shadows, smooth gradients',
+                lightTemp: 'cool color temperature, blue hues, clinical atmosphere',
+                camera: 'Shot on 35mm lens',
+                aperture: 'shot at f/2.8, soft background blur, professional bokeh',
+                motion: 'slight motion blur, dynamic movement',
+                filmStock: 'high ISO grain, gritty documentary texture',
+                qualityStandard: 'RAW photo, unedited, authentic',
+                colorPalette: 'Muted colors, desaturated mood',
+                renderTech: 'Ambient Occlusion, deep realistic shadows',
+                interaction: 'floating dust motes in sunbeams, airborne micro-particles',
+                background: 'abandoned brutalist concrete architecture, decaying walls, dust motes',
+                ratioPreset: '16:9'
+            }
+        },
+        anime_ghibli: {
+            name: '🌸 Anime Ghibli',
+            settings: {
+                style: 'Studio Ghibli anime aesthetic, lush landscapes, magical lighting',
+                composition: 'Full shot, showing entire subject',
+                lighting: 'Golden hour natural sunlight',
+                lightDirection: 'side lighting, split lighting, deep facial shadows',
+                lightQuality: 'soft light, diffused shadows, smooth gradients',
+                lightTemp: 'warm color temperature, amber hues, cozy atmosphere',
+                camera: 'Shot on 35mm lens',
+                aperture: 'shot at f/8, sharp detail across the frame, deep focus',
+                motion: '',
+                filmStock: '',
+                qualityStandard: 'Ultra-High Definition UHD',
+                colorPalette: 'Soft pastel color palette, dreamy',
+                renderTech: 'Global Illumination, soft ambient occlusion',
+                interaction: 'floating pollen and iridescent spores, ethereal particles',
+                background: 'ancient redwood forest, giant trees, dappled sunlight, morning mist',
+                ratioPreset: '16:9'
+            }
+        },
+        watercolor_dream: {
+            name: '🎨 Watercolor Dream',
+            settings: {
+                style: 'Claude Monet Impressionism, visible brushstrokes, light play',
+                composition: 'Medium shot, waist-up',
+                lighting: 'Blue hour ethereal lighting',
+                lightDirection: '',
+                lightQuality: 'soft light, diffused shadows, smooth gradients',
+                lightTemp: 'cool color temperature, blue hues, clinical atmosphere',
+                camera: 'Shot on 50mm prime lens',
+                aperture: 'shot at f/2.8, soft background blur, professional bokeh',
+                motion: '',
+                filmStock: '',
+                qualityStandard: 'Tack sharp focus, zero blur',
+                colorPalette: 'Soft pastel color palette, dreamy',
+                renderTech: 'Fresnel effect, angle-based reflections',
+                interaction: 'floating pollen and iridescent spores, ethereal particles',
+                background: 'soft pastel gradient background, ethereal air, dreamlike',
+                ratioPreset: '4:5'
+            }
+        },
+        architectural: {
+            name: '🏛️ Architectural',
+            settings: {
+                style: 'Photorealistic',
+                composition: 'Extreme wide shot, expansive scene',
+                lighting: 'Blue hour ethereal lighting',
+                lightDirection: '',
+                lightQuality: 'soft light, diffused shadows, smooth gradients',
+                lightTemp: 'cool color temperature, blue hues, clinical atmosphere',
+                camera: 'Shot on 24mm wide angle lens',
+                aperture: 'shot at f/8, sharp detail across the frame, deep focus',
+                motion: '',
+                filmStock: 'medium format photography, Hasselblad quality, extreme detail',
+                qualityStandard: 'Commercial studio grade, clean',
+                colorPalette: 'Teal and Orange cinematic color grading',
+                renderTech: 'Physically Based Rendering (PBR)',
+                interaction: 'environmental reflections on subject surface, ray-traced reflections',
+                background: 'modern minimalist art gallery, white walls, soft gallery lighting',
+                ratioPreset: '16:9'
+            }
+        },
+        studio_beauty: {
+            name: '👤 Studio Beauty',
+            settings: {
+                style: 'Editorial Fashion Photography',
+                composition: 'Close-up portrait',
+                lighting: 'Professional softbox studio lighting',
+                lightDirection: 'front lighting, flat lighting, clear visibility',
+                lightQuality: 'soft light, diffused shadows, smooth gradients',
+                lightTemp: '',
+                camera: 'Shot on 85mm lens',
+                aperture: 'shot at f/2.8, soft background blur, professional bokeh',
+                motion: '',
+                filmStock: 'medium format photography, Hasselblad quality, extreme detail',
+                qualityStandard: 'Vogue aesthetic, high fashion',
+                colorPalette: 'Muted colors, desaturated mood',
+                renderTech: 'subsurface scattering, realistic skin diffusion',
+                interaction: 'light wrapping, background light bleeding over edges',
+                background: 'soft pastel gradient background, ethereal air, dreamlike',
+                ratioPreset: '4:5'
+            }
+        },
+        cosmic_scifi: {
+            name: '🌌 Cosmic Sci-Fi',
+            settings: {
+                style: 'Unreal Engine 5 render, Octane Render',
+                composition: 'Full shot, showing entire subject',
+                lighting: 'Volumetric god rays, atmospheric haze',
+                lightDirection: 'backlighting, rim light, halo effect around subject',
+                lightQuality: 'hard light, sharp shadows, high contrast',
+                lightTemp: 'cool color temperature, blue hues, clinical atmosphere',
+                camera: 'Anamorphic lens, wide cinematic aspect',
+                aperture: 'shot at f/2.8, soft background blur, professional bokeh',
+                motion: 'slight motion blur, dynamic movement',
+                filmStock: '',
+                qualityStandard: 'Ultra-High Definition UHD',
+                colorPalette: 'Vibrant neon colors, high saturation',
+                renderTech: 'Unreal Engine 5, ray tracing, octane render',
+                interaction: 'floating dust motes in sunbeams, airborne micro-particles',
+                background: 'floating astral islands, cosmic nebula, shimmering stars, gravity-defying rocks',
+                ratioPreset: '21:9'
+            }
+        },
+        food_editorial: {
+            name: '🍔 Food Editorial',
+            settings: {
+                style: 'Commercial studio grade, clean',
+                composition: 'Close-up portrait',
+                lighting: 'Professional softbox studio lighting',
+                lightDirection: 'side lighting, split lighting, deep facial shadows',
+                lightQuality: 'soft light, diffused shadows, smooth gradients',
+                lightTemp: 'warm color temperature, amber hues, cozy atmosphere',
+                camera: 'Macro lens, extreme close-up',
+                aperture: 'shot at f/2.8, soft background blur, professional bokeh',
+                motion: '',
+                filmStock: 'medium format photography, Hasselblad quality, extreme detail',
+                qualityStandard: 'Commercial studio grade, clean',
+                colorPalette: 'Vibrant neon colors, high saturation',
+                renderTech: 'Physically Based Rendering (PBR)',
+                interaction: 'ambient occlusion, deep contact shadows, perfectly grounded',
+                background: 'luxury white marble hall, polished floors, high ceilings, symmetry',
+                ratioPreset: '4:5'
+            }
+        },
+        film_noir_bw: {
+            name: '🎭 Film Noir B&W',
+            settings: {
+                style: 'Cinematic (Hollywood)',
+                composition: 'Medium shot, waist-up',
+                lighting: 'Dramatic chiaroscuro, extreme contrast',
+                lightDirection: 'side lighting, split lighting, deep facial shadows',
+                lightQuality: 'hard light, sharp shadows, high contrast',
+                lightTemp: '',
+                camera: 'Anamorphic lens, wide cinematic aspect',
+                aperture: 'shot at f/2.8, soft background blur, professional bokeh',
+                motion: '',
+                filmStock: 'shot on 35mm film, nostalgic analog texture, slight grain',
+                qualityStandard: 'Tack sharp focus, zero blur',
+                colorPalette: 'High contrast black and white',
+                renderTech: 'Ambient Occlusion, deep realistic shadows',
+                interaction: 'floating dust motes in sunbeams, airborne micro-particles',
+                background: 'blurred rainy city street background, wet asphalt, reflections',
+                ratioPreset: '16:9'
+            }
+        }
+    };
+
+    function applyPreset(key) {
+        const preset = PRESETS[key];
+        if (!preset) return;
+        Object.entries(preset.settings).forEach(([id, value]) => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            if (el.tagName === 'SELECT') {
+                const exists = Array.from(el.options).some(o => o.value === value);
+                if (exists) el.value = value;
+            } else {
+                el.value = value;
+            }
+        });
+        updateLogic();
+        generatePrompt();
+        scheduleSave();
+        showToast(`⚡ Preset aplicat: ${preset.name}`);
+    }
+
+    // ============================================================
+    // NEGATIVE ENGINE
     // ============================================================
     const NEGATIVE_ENGINE = {
         core: "lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, distorted, deformed",
@@ -1069,9 +1938,6 @@
         quality: "flat lighting, overexposed, underexposed, washed out colors, dull skin, plastic skin, airbrushed"
     };
 
-    // ============================================================
-    // SEMANTIC MAP
-    // ============================================================
     const SEMANTIC_MAP = {
         styles: {
             'luxury': 'Editorial Fashion Photography',
@@ -1115,110 +1981,76 @@
     };
 
     // ============================================================
-    // ENGINE CONFIGS (Pașii 2, 3, 4)
+    // ENGINE CONFIGS
     // ============================================================
     const ENGINE_CONFIGS = {
         midjourney: {
             params: [
-                { 
-                    id: 'mjVersion', label: '📌 Model Version', type: 'select', 
-                    options: [
-                        { group: 'Latest', vals: ['7', '6.1', '6.0'] },
-                        { group: 'Legacy', vals: ['5.2', '5.1', 'niji 6'] }
-                    ]
-                },
+                { id: 'mjVersion', label: '📌 Model Version', type: 'select',
+                  options: [
+                    { group: 'Latest', vals: ['7', '6.1', '6.0'] },
+                    { group: 'Legacy', vals: ['5.2', '5.1', 'niji 6'] }
+                  ] },
                 { id: 'mjStylize', label: '🎨 Stylize', type: 'number', default: 250, min: 0, max: 1000 },
                 { id: 'mjChaos', label: '🌪️ Chaos', type: 'number', default: 0, min: 0, max: 100 },
                 { id: 'mjWeird', label: '🌀 Weird', type: 'number', default: 0, min: 0, max: 3000 },
                 { id: 'mjStyleRaw', label: '📷 Style Mode', type: 'checkbox', default: false, checkboxLabel: 'Style Raw (photographic)' },
-                { id: 'mjTile', label: '🧩 Pattern Mode', type: 'checkbox', default: false, checkboxLabel: 'Seamless Tile' },
+                { id: 'mjTile', label: '🧩 Pattern Mode', type: 'checkbox', default: false, checkboxLabel: 'Seamless Tile' }
             ]
         },
         flux: {
             params: [
-                { 
-                    id: 'fluxVariant', label: '⚡ Variant', type: 'select', 
-                    options: [
-                        { group: 'Black Forest Labs', vals: ['FLUX.1 [pro]', 'FLUX.1 [dev]', 'FLUX.1 [schnell]'] },
-                        { group: 'Fine-tunes', vals: ['FLUX.1 [dev] Realism', 'FLUX.1 [schnell] Photo'] }
-                    ]
-                },
+                { id: 'fluxVariant', label: '⚡ Variant', type: 'select',
+                  options: [
+                    { group: 'Black Forest Labs', vals: ['FLUX.1 [pro]', 'FLUX.1 [dev]', 'FLUX.1 [schnell]'] },
+                    { group: 'Fine-tunes', vals: ['FLUX.1 [dev] Realism', 'FLUX.1 [schnell] Photo'] }
+                  ] },
                 { id: 'fluxGuidance', label: '🎯 Guidance Scale', type: 'number', default: 3.5, min: 0, max: 10 },
                 { id: 'fluxSteps', label: '📉 Inference Steps', type: 'number', default: 28, min: 1, max: 50 },
                 { id: 'fluxSeed', label: '🎲 Seed (0 = random)', type: 'number', default: 0, min: 0, max: 999999999 },
-                { id: 'fluxRefiner', label: '🎨 Post-Process', type: 'checkbox', default: false, checkboxLabel: 'Enable Refiner Pass' },
+                { id: 'fluxRefiner', label: '🎨 Post-Process', type: 'checkbox', default: false, checkboxLabel: 'Enable Refiner Pass' }
             ]
         },
         stable_diffusion: {
             params: [
-                { 
-                    id: 'sdVersion', label: '📌 Architecture', type: 'select', 
-                    options: [
-                        { group: 'Modern', vals: ['SD 3.5 Large', 'SD 3.5 Medium', 'SDXL 1.0', 'SDXL Turbo'] },
-                        { group: 'Legacy', vals: ['SD 1.5', 'SD 2.1'] }
-                    ]
-                },
-                { 
-                    id: 'sdModel', label: '📦 Checkpoint', type: 'select', 
-                    options: [
-                        { group: 'Lightning', vals: ['DreamShaper XL Lightning', 'Realistic Vision Lightning'] },
-                        { group: 'Photorealistic', vals: ['Realistic Vision v5.1', 'AbsoluteReality'] },
-                        { group: 'Artistic', vals: ['DreamShaper 8', 'Rev Animated'] }
-                    ] 
-                },
+                { id: 'sdVersion', label: '📌 Architecture', type: 'select',
+                  options: [
+                    { group: 'Modern', vals: ['SD 3.5 Large', 'SD 3.5 Medium', 'SDXL 1.0', 'SDXL Turbo'] },
+                    { group: 'Legacy', vals: ['SD 1.5', 'SD 2.1'] }
+                  ] },
+                { id: 'sdModel', label: '📦 Checkpoint', type: 'select',
+                  options: [
+                    { group: 'Lightning', vals: ['DreamShaper XL Lightning', 'Realistic Vision Lightning'] },
+                    { group: 'Photorealistic', vals: ['Realistic Vision v5.1', 'AbsoluteReality'] },
+                    { group: 'Artistic', vals: ['DreamShaper 8', 'Rev Animated'] }
+                  ] },
                 { id: 'sdCfg', label: '🎯 CFG Scale', type: 'number', default: 7, min: 1, max: 30 },
                 { id: 'sdSteps', label: '📉 Steps', type: 'number', default: 20, min: 1, max: 100 },
-                { 
-                    id: 'sdSampler', label: '⚙️ Sampler', type: 'select', 
-                    options: ['Euler a', 'DPM++ 2M Karras', 'DDIM', 'Heun'] 
-                },
+                { id: 'sdSampler', label: '⚙️ Sampler', type: 'select',
+                  options: ['Euler a', 'DPM++ 2M Karras', 'DDIM', 'Heun'] },
                 { id: 'sdHires', label: '🔍 Upscaling', type: 'checkbox', default: false, checkboxLabel: 'Hires Fix (2x)' },
                 { id: 'sdRefiner', label: '🎨 Refiner Pass', type: 'checkbox', default: false, checkboxLabel: 'Enable Refiner' },
-                { id: 'sdFaceRestore', label: '👤 Post-Process', type: 'checkbox', default: false, checkboxLabel: 'Face Restoration' },
+                { id: 'sdFaceRestore', label: '👤 Post-Process', type: 'checkbox', default: false, checkboxLabel: 'Face Restoration' }
             ]
         },
         dalle3: {
             params: [
-                { 
-                    id: 'dalleVersion', label: '📌 Model', type: 'select', 
-                    options: ['DALL-E 3', 'DALL-E 3 HD']
-                },
-                { 
-                    id: 'dalleStyle', label: '🖼️ Style Mode', type: 'select', 
-                    options: ['Vivid', 'Natural'] 
-                },
+                { id: 'dalleVersion', label: '📌 Model', type: 'select',
+                  options: ['DALL-E 3', 'DALL-E 3 HD'] },
+                { id: 'dalleStyle', label: '🖼️ Style Mode', type: 'select',
+                  options: ['Vivid', 'Natural'] }
             ]
         }
     };
 
     // ============================================================
-    // ENGINE BADGES (Pasul 5)
+    // ENGINE BADGES
     // ============================================================
     const ENGINE_BADGES = {
-        midjourney: {
-            icon: '🎨',
-            title: 'Midjourney',
-            chips: ['Parametric', 'Discord', '--ar/--stylize'],
-            tooltip: 'Sintaxă parametrică pe Discord. Ideal pentru artă stilizată.'
-        },
-        flux: {
-            icon: '⚡',
-            title: 'FLUX.1',
-            chips: ['Natural Language', '12B params', 'SOTA'],
-            tooltip: 'Model de ultimă generație. Preferă limbaj natural descriptiv.'
-        },
-        stable_diffusion: {
-            icon: '🔧',
-            title: 'Stable Diffusion',
-            chips: ['Local', 'LoRA', 'ControlNet'],
-            tooltip: 'Rulează local, complet configurabil. Bogat în ecosistem.'
-        },
-        dalle3: {
-            icon: '🖼️',
-            title: 'DALL-E 3',
-            chips: ['ChatGPT', 'Safety-first', '1024px'],
-            tooltip: 'Integrat în ChatGPT. Excelent pentru text în imagine.'
-        }
+        midjourney: { icon: '🎨', title: 'Midjourney', chips: ['Parametric', 'Discord', '--ar/--stylize'], tooltip: 'Sintaxă parametrică pe Discord. Ideal pentru artă stilizată.' },
+        flux: { icon: '⚡', title: 'FLUX.1', chips: ['Natural Language', '12B params', 'SOTA'], tooltip: 'Model de ultimă generație. Preferă limbaj natural descriptiv.' },
+        stable_diffusion: { icon: '🔧', title: 'Stable Diffusion', chips: ['Local', 'LoRA', 'ControlNet'], tooltip: 'Rulează local, complet configurabil. Bogat în ecosistem.' },
+        dalle3: { icon: '🖼️', title: 'DALL-E 3', chips: ['ChatGPT', 'Safety-first', '1024px'], tooltip: 'Integrat în ChatGPT. Excelent pentru text în imagine.' }
     };
 
     function updateEngineBadge(engine) {
@@ -1241,7 +2073,6 @@
         });
 
         badge.title = cfg.tooltip;
-
         badge.style.animation = 'none';
         void badge.offsetWidth;
         badge.style.animation = 'badgeFadeIn 0.5s ease';
@@ -1250,7 +2081,6 @@
     function refreshBadgeVersion(engine) {
         const cfg = ENGINE_BADGES[engine];
         if (!cfg) return;
-
         let versionLabel = '';
         if (engine === 'midjourney') {
             const v = document.getElementById('mjVersion')?.value;
@@ -1263,13 +2093,12 @@
         } else if (engine === 'dalle3') {
             versionLabel = document.getElementById('dalleVersion')?.value || '';
         }
-
         const titleEl = document.getElementById('engineBadgeTitle');
         titleEl.textContent = versionLabel ? `${cfg.title} · ${versionLabel}` : cfg.title;
     }
 
     // ============================================================
-    // ENGINE PANEL RENDERING (Pașii 2, 3, 4)
+    // ENGINE PANEL RENDERING
     // ============================================================
     function updateEnginePanel() {
         const engine = document.getElementById('targetEngine').value;
@@ -1310,7 +2139,7 @@
                 }
             } else if (p.type === 'checkbox') {
                 const cbWrapper = document.createElement('label');
-                cbWrapper.style.cssText = 'display:flex; align-items:center; gap:10px; background:var(--input-bg); border:1px solid var(--border-color); padding:12px; border-radius:12px; cursor:pointer; font-weight:normal; color:white; font-size:1rem;';
+                cbWrapper.style.cssText = 'display:flex; align-items:center; gap:10px; background:var(--input-bg); border:1px solid var(--border-color); padding:12px; border-radius:12px; cursor:pointer; font-weight:normal; color:var(--text-color); font-size:1rem;';
 
                 input = document.createElement('input');
                 input.type = 'checkbox';
@@ -1340,36 +2169,74 @@
             panel.appendChild(group);
         });
 
-        // Listener-i pe select-uri de versiune pentru re-badge
         const versionSelectIds = ['mjVersion', 'sdVersion', 'fluxVariant', 'dalleVersion'];
         versionSelectIds.forEach(id => {
             const el = document.getElementById(id);
-            if (el) {
-                el.addEventListener('change', () => refreshBadgeVersion(engine));
-            }
+            if (el) el.addEventListener('change', () => {
+                refreshBadgeVersion(engine);
+                scheduleSave();
+                renderScore();
+            });
         });
 
         refreshBadgeVersion(engine);
     }
 
     // ============================================================
-    // FILE UPLOAD
+    // DRAG & DROP (#9.1)
     // ============================================================
-    document.getElementById('fileInput').addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (!file) return;
+    function processSubjectFile(file) {
         const reader = new FileReader();
         reader.onload = function(event) {
             const text = event.target.result;
-            subjectQueue = text.split(/\r?\n/).map(line => line.trim()).filter(line => line !== "");
+            subjectQueue = text.split(/\r?\n/).map(l => l.trim()).filter(l => l !== "");
             if (subjectQueue.length > 0) {
                 currentQueueIndex = 0;
                 document.getElementById('subject').value = subjectQueue[0];
                 updateQueueStatus();
                 smartRandomize(subjectQueue[0]);
+                showToast(`📁 ${subjectQueue.length} subjects loaded`);
+            } else {
+                showToast('❌ Fișier gol', true);
             }
         };
         reader.readAsText(file);
+    }
+
+    function attachDragAndDrop() {
+        const dropZone = document.getElementById('dropZone');
+        if (!dropZone) return;
+
+        ['dragenter', 'dragover'].forEach(evt => {
+            dropZone.addEventListener(evt, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                dropZone.classList.add('drag-over');
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(evt => {
+            dropZone.addEventListener(evt, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                dropZone.classList.remove('drag-over');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            const file = e.dataTransfer.files[0];
+            if (!file) return;
+            if (!file.name.endsWith('.txt')) {
+                showToast('❌ Doar fișiere .txt sunt acceptate', true);
+                return;
+            }
+            processSubjectFile(file);
+        });
+    }
+
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) processSubjectFile(file);
     });
 
     function updateQueueStatus() {
@@ -1384,7 +2251,7 @@
     }
 
     // ============================================================
-    // LOGIC (conflict detection)
+    // LOGIC + CONFLICTS
     // ============================================================
     function updateLogic() {
         const style = document.getElementById('style').selectedOptions[0]?.dataset.tag;
@@ -1392,13 +2259,11 @@
         const camera = document.getElementById('camera').selectedOptions[0]?.dataset.tag;
         const lightingSource = document.getElementById('lighting').selectedOptions[0]?.dataset.tag;
 
-        // 1. PHYSICS LOCK: High Noon forces Hard Light and Top Lighting
         if (lightingSource === 'noon') {
             document.getElementById('lightQuality').value = "hard light, sharp shadows, high contrast";
             document.getElementById('lightDirection').value = "top lighting, butterfly lighting, overhead source";
         }
 
-        // 2. Camera vs Composition
         if (camera === 'macro') {
             hideOptionsByTag('composition', 'wide');
             hideOptionsByTag('composition', 'obs');
@@ -1406,15 +2271,12 @@
             showAllOptions('composition');
         }
 
-        // 3. Style vs Quality
-        if (style === 'digital') hideOptionsByTag('qualityStandard', 'real'); 
+        if (style === 'digital') hideOptionsByTag('qualityStandard', 'real');
         else showAllOptions('qualityStandard');
 
-        // 4. Composition conflict logic
         if (composition === 'sym') hideOptionsByTag('composition', 'tilt');
         if (composition === 'tight') hideOptionsByTag('composition', 'wide');
 
-        // 5. Niji version → anime styles only
         const mjVersionSelect = document.getElementById('mjVersion');
         if (mjVersionSelect && mjVersionSelect.value.startsWith('niji')) {
             const styleVal = document.getElementById('style').value;
@@ -1422,15 +2284,16 @@
                 document.getElementById('style').value = "Studio Ghibli anime aesthetic, lush landscapes, magical lighting";
             }
         }
+
+        renderConflicts();
+        renderScore();
     }
 
     function hideOptionsByTag(selectId, tagToHide) {
         const select = document.getElementById(selectId);
         if (!select) return;
         Array.from(select.options).forEach(option => {
-            if (option.dataset.tag === tagToHide) {
-                option.style.display = 'none';
-            }
+            if (option.dataset.tag === tagToHide) option.style.display = 'none';
         });
     }
 
@@ -1440,15 +2303,137 @@
         Array.from(select.options).forEach(option => option.style.display = 'block');
     }
 
+    function detectConflicts() {
+        const conflicts = [];
+        const lighting = document.getElementById('lighting').value.toLowerCase();
+        const lQual = document.getElementById('lightQuality').value.toLowerCase();
+        const motion = document.getElementById('motion').value.toLowerCase();
+        const aperture = document.getElementById('aperture').value.toLowerCase();
+        const composition = document.getElementById('composition').value.toLowerCase();
+        const camera = document.getElementById('camera').value.toLowerCase();
+        const interaction = document.getElementById('interaction').value.toLowerCase();
+        const background = document.getElementById('background').value.toLowerCase();
+        const style = document.getElementById('style').value.toLowerCase();
+        const quality = document.getElementById('qualityStandard').value.toLowerCase();
+        const palette = document.getElementById('colorPalette').value.toLowerCase();
+
+        if (motion.includes('long exposure') && motion.includes('high speed')) {
+            conflicts.push({ level: 'error', msg: '🚫 Long Exposure și High Speed Shutter nu pot coexista.' });
+        }
+        if (lighting.includes('god rays') && lQual.includes('hard light')) {
+            conflicts.push({ level: 'warn', msg: '⚠️ Volumetric God Rays funcționează mai bine cu Soft Light.' });
+        }
+        if (aperture.includes('f/1.2') && aperture.includes('f/16')) {
+            conflicts.push({ level: 'error', msg: '🚫 f/1.2 și f/16 nu pot fi simultane.' });
+        }
+        if (camera.includes('macro') && composition.includes('extreme wide')) {
+            conflicts.push({ level: 'error', msg: '🚫 Macro Lens nu poate filma Extreme Wide Shot.' });
+        }
+        if (interaction.includes('snow') && (background.includes('tropical') || background.includes('desert'))) {
+            conflicts.push({ level: 'warn', msg: '⚠️ Zăpadă într-un mediu tropical e neobișnuită.' });
+        }
+        if (interaction.includes('rain') && (background.includes('volcanic') || background.includes('desert'))) {
+            conflicts.push({ level: 'warn', msg: '⚠️ Ploaie în deșert sau pe lavă — verifică contextul.' });
+        }
+        if ((style.includes('anime') || style.includes('ghibli')) && quality.includes('raw')) {
+            conflicts.push({ level: 'warn', msg: '⚠️ Anime + RAW Photo = stil contradictoriu.' });
+        }
+        if (lighting.includes('studio softbox') && (background.includes('redwood') || background.includes('arctic') || background.includes('jungle'))) {
+            conflicts.push({ level: 'warn', msg: '💡 Studio Softbox cu background outdoor — sugerează studio setup.' });
+        }
+        if (lighting.includes('neon') && lighting.includes('golden hour')) {
+            conflicts.push({ level: 'error', msg: '🚫 Cyberpunk Neon și Golden Hour sunt incompatibile.' });
+        }
+        if (palette.includes('black and white') && palette.includes('neon')) {
+            conflicts.push({ level: 'error', msg: '🚫 B&W și Neon Vibrant nu pot coexista.' });
+        }
+        if (document.getElementById('filmStock').value.toLowerCase().includes('high iso') && quality.includes('commercial')) {
+            conflicts.push({ level: 'warn', msg: '⚠️ High ISO (grain) contrazice Commercial Studio (clean).' });
+        }
+        if (composition.includes('symmetr') && composition.includes('dutch')) {
+            conflicts.push({ level: 'error', msg: '🚫 Simetrie + Dutch Angle = contradicție.' });
+        }
+
+        return conflicts;
+    }
+
+    function renderConflicts() {
+        const container = document.getElementById('conflictWarnings');
+        if (!container) return;
+        const conflicts = detectConflicts();
+        container.innerHTML = '';
+        conflicts.forEach(c => {
+            const div = document.createElement('div');
+            div.className = 'conflict-warning' + (c.level === 'error' ? ' error' : '');
+            div.textContent = c.msg;
+            container.appendChild(div);
+        });
+    }
+
+    // ============================================================
+    // PROMPT SCORE (#9.3)
+    // ============================================================
+    function calculatePromptScore(subjectText, engine) {
+        let score = 0;
+
+        if (subjectText && subjectText.length > 3 && subjectText !== "A stunning subject") {
+            score += subjectText.length > 20 ? 20 : 12;
+        }
+
+        if (document.getElementById('style').value) score += 15;
+        if (document.getElementById('composition').value) score += 10;
+
+        ['lighting', 'lightDirection', 'lightQuality', 'lightTemp'].forEach(id => {
+            if (document.getElementById(id).value) score += 5;
+        });
+
+        ['camera', 'aperture', 'filmStock'].forEach(id => {
+            if (document.getElementById(id).value) score += 5;
+        });
+
+        if (document.getElementById('qualityStandard').value) score += 5;
+        if (document.getElementById('colorPalette').value) score += 5;
+        if (document.getElementById('renderTech').value) score += 5;
+
+        if (document.getElementById('background').value) score += 5;
+        if (document.getElementById('interaction').value) score += 5;
+
+        if (engine === 'midjourney') {
+            if (document.getElementById('mjVersion')?.value && document.getElementById('mjStylize')?.value) score += 10;
+        } else if (engine === 'stable_diffusion') {
+            if (document.getElementById('sdModel')?.value && document.getElementById('sdCfg')?.value) score += 10;
+        } else if (engine === 'flux') {
+            if (document.getElementById('fluxVariant')?.value && document.getElementById('fluxGuidance')?.value) score += 10;
+        } else if (engine === 'dalle3') {
+            if (document.getElementById('dalleVersion')?.value && document.getElementById('dalleStyle')?.value) score += 10;
+        }
+
+        const conflicts = detectConflicts();
+        score -= conflicts.filter(c => c.level === 'error').length * 8;
+        score -= conflicts.filter(c => c.level === 'warn').length * 3;
+
+        return Math.max(0, Math.min(100, score));
+    }
+
+    function renderScore() {
+        const el = document.getElementById('promptScore');
+        if (!el) return;
+        const subject = document.getElementById('subject').value;
+        const engine = document.getElementById('targetEngine').value;
+        const score = calculatePromptScore(subject, engine);
+
+        let cls = score >= 80 ? 'good' : score >= 50 ? 'warn' : 'bad';
+        el.className = 'prompt-score ' + cls;
+        el.textContent = `${score}/100`;
+        el.title = score >= 80 ? 'Excellent prompt' : score >= 50 ? 'Good, but could be more specific' : 'Add more details for better results';
+    }
+
     // ============================================================
     // AI ANALYSIS
     // ============================================================
     function analyzePrompt() {
         const input = document.getElementById('aiInput').value.toLowerCase();
-        if (!input) {
-            alert("Please enter a vision description first!");
-            return;
-        }
+        if (!input) { alert("Please enter a vision description first!"); return; }
 
         const subjectMatch = input.match(/^(.*?)(?=\s(in a|with|on|at|during|by|background)\b)/i);
         const extractedSubject = subjectMatch ? subjectMatch[1] : input;
@@ -1498,7 +2483,7 @@
         const subLow = (subjectText || document.getElementById('subject').value).toLowerCase();
         const styleSelect = document.getElementById('style');
 
-        if (subLow.includes("cyberpunk") || subLow.includes("futuristic")) styleSelect.value = "Cyberpunk aesthetic";
+        if (subLow.includes("cyberpunk") || subLow.includes("futuristic")) styleSelect.value = "Cyberpunk aesthetic, neon-infused, high tech";
         else if (subLow.includes("portrait") || subLow.includes("woman") || subLow.includes("man")) styleSelect.value = "Hyper-realistic";
         else styleSelect.selectedIndex = Math.floor(Math.random() * styleSelect.options.length);
 
@@ -1563,7 +2548,7 @@
     }
 
     // ============================================================
-    // BUILD PROMPT (Pașii 2, 3, 4)
+    // BUILD PROMPT
     // ============================================================
     function buildPromptString(subjectText) {
         const engine = document.getElementById('targetEngine').value;
@@ -1604,7 +2589,6 @@
 
             const isNiji = version.startsWith('niji');
             const versionFlag = isNiji ? `--niji ${version.split(' ')[1]}` : `--v ${version}`;
-
             const supportsWeird = !version.startsWith('5');
             const weirdFlag = supportsWeird ? ` --weird ${weird}` : '';
 
@@ -1702,6 +2686,8 @@
         document.getElementById('negativePrompt').value = negParts.join(", ");
 
         scheduleSave();
+        addToHistory(document.getElementById('finalPrompt').value);
+        renderScore();
     }
 
     // ============================================================
@@ -1712,18 +2698,15 @@
             alert("No subject list uploaded. Please upload a .txt file first.");
             return;
         }
-
         if (document.getElementById('targetEngine').value !== 'stable_diffusion') {
             if (!confirm("You are not currently using the Stable Diffusion engine. Exporting will still work, but the prompt format might not be optimal for SD. Continue?")) return;
         }
-
         let batchContent = "";
         subjectQueue.forEach((subject) => {
             const prompt = buildPromptString(subject);
             const cleanPrompt = prompt.replace(/\r?\n|\r/g, " ").trim();
             batchContent += cleanPrompt + "\n";
         });
-
         const blob = new Blob([batchContent], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -1733,6 +2716,107 @@
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
+    }
+
+    // ============================================================
+    // BATCH MULTI-ENGINE (#9.5)
+    // ============================================================
+    function batchMultiEngine() {
+        const subject = document.getElementById('subject').value.trim();
+        if (!subject) {
+            showToast('❌ Adaugă un subject mai întâi', true);
+            return;
+        }
+
+        const currentEngine = document.getElementById('targetEngine').value;
+        const engines = ['midjourney', 'flux', 'stable_diffusion', 'dalle3'];
+        const results = {};
+
+        engines.forEach(eng => {
+            document.getElementById('targetEngine').value = eng;
+            updateEnginePanel();
+            results[eng] = buildPromptString(subject);
+        });
+
+        document.getElementById('targetEngine').value = currentEngine;
+        updateEnginePanel();
+        generatePrompt();
+
+        showBatchModal(subject, results);
+    }
+
+    function showBatchModal(subject, results) {
+        const old = document.getElementById('batchModal');
+        if (old) old.remove();
+
+        const engineNames = {
+            midjourney: '🎨 Midjourney',
+            flux: '⚡ FLUX.1',
+            stable_diffusion: '🔧 Stable Diffusion',
+            dalle3: '🖼️ DALL-E 3'
+        };
+
+        const modal = document.createElement('div');
+        modal.id = 'batchModal';
+        modal.style.cssText = 'position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px; animation: fadeIn 0.3s ease;';
+
+        const content = document.createElement('div');
+        content.style.cssText = 'background: var(--card-bg); border: 2px solid var(--accent-color); border-radius: 20px; max-width: 900px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.8);';
+
+        let html = `
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:1px solid var(--border-color); padding-bottom:15px;">
+                <div>
+                    <h2 style="margin:0; color:var(--accent-color);">🎯 Multi-Engine Batch</h2>
+                    <p style="margin:5px 0 0 0; color:#94a3b8; font-size:0.9rem;">Subject: <strong>${escapeHtml(subject)}</strong></p>
+                </div>
+                <button onclick="document.getElementById('batchModal').remove()" style="background:transparent; border:none; color:var(--negative-color); font-size:2rem; cursor:pointer; padding:0 10px;">×</button>
+            </div>
+        `;
+
+        Object.entries(results).forEach(([eng, prompt]) => {
+            html += `
+                <div style="margin-bottom:20px; background:#020617; border:1px solid var(--border-color); border-radius:12px; padding:15px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                        <strong style="color:var(--accent-color);">${engineNames[eng]}</strong>
+                        <button class="copy-btn" data-prompt-idx="${eng}">Copy</button>
+                    </div>
+                    <textarea readonly style="width:100%; background:transparent; border:none; color:#e2e8f0; font-family:Consolas,monospace; font-size:0.9rem; resize:vertical; min-height:80px; outline:none; line-height:1.5;">${escapeHtml(prompt)}</textarea>
+                </div>
+            `;
+        });
+
+        html += `
+            <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:20px;">
+                <button class="btn-export" onclick="copyAllBatch()" style="background:#10b981;">📋 Copy All</button>
+            </div>
+        `;
+
+        content.innerHTML = html;
+        modal.appendChild(content);
+        document.body.appendChild(modal);
+
+        content.querySelectorAll('[data-prompt-idx]').forEach(btn => {
+            btn.onclick = () => {
+                const eng = btn.dataset.promptIdx;
+                navigator.clipboard.writeText(results[eng]);
+                btn.textContent = '✓ Copied';
+                setTimeout(() => btn.textContent = 'Copy', 1500);
+            };
+        });
+
+        window._batchResults = results;
+    }
+
+    function copyAllBatch() {
+        const results = window._batchResults;
+        if (!results) return;
+        const text = Object.entries(results).map(([eng, p]) => `=== ${eng.toUpperCase()} ===\n${p}\n`).join('\n');
+        navigator.clipboard.writeText(text);
+        showToast('📋 Toate prompt-urile copiate');
+    }
+
+    function escapeHtml(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
 
     // ============================================================
@@ -1750,38 +2834,194 @@
     }
 
     // ============================================================
-    // INITIALIZATION (Pasul 6 — ordine corectă)
+    // IMPORT / EXPORT JSON
+    // ============================================================
+    function exportSettingsJSON() {
+        try {
+            const data = {
+                version: 'v22.2',
+                exportDate: new Date().toISOString(),
+                settings: {},
+                history: getHistory(),
+                customPresets: getCustomPresets(),
+                theme: localStorage.getItem(THEME_KEY) || 'dark'
+            };
+            PERSISTED_FIELDS.forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                data.settings[id] = (el.type === 'checkbox') ? el.checked : el.value;
+            });
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ai_prompt_builder_${Date.now()}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('📤 Setări exportate');
+        } catch (e) {
+            showToast('❌ Eroare la export', true);
+        }
+    }
+
+    document.getElementById('importJSON').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            try {
+                const data = JSON.parse(event.target.result);
+                if (!data.settings) throw new Error('Invalid format');
+
+                Object.entries(data.settings).forEach(([id, value]) => {
+                    const el = document.getElementById(id);
+                    if (!el) return;
+                    if (el.type === 'checkbox') el.checked = !!value;
+                    else if (el.tagName === 'SELECT') {
+                        const exists = Array.from(el.options).some(o => o.value === value);
+                        if (exists) el.value = value;
+                    } else el.value = value;
+                });
+
+                if (data.history && Array.isArray(data.history)) {
+                    saveHistory(data.history);
+                    renderHistory();
+                }
+
+                if (data.customPresets) {
+                    saveCustomPresets(data.customPresets);
+                    renderCustomPresets();
+                }
+
+                if (data.theme) {
+                    localStorage.setItem(THEME_KEY, data.theme);
+                    applyTheme(data.theme);
+                }
+
+                updateEnginePanel();
+                updateLogic();
+                handleRatioChange();
+                generatePrompt();
+
+                showToast(`📥 Import reușit (${Object.keys(data.settings).length} setări)`);
+            } catch (err) {
+                showToast('❌ Fișier JSON invalid', true);
+                console.error(err);
+            }
+            e.target.value = '';
+        };
+        reader.readAsText(file);
+    });
+
+    // ============================================================
+    // KEYBOARD SHORTCUTS
+    // ============================================================
+    function attachKeyboardShortcuts() {
+        document.addEventListener('keydown', (e) => {
+            const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+            const mod = isMac ? e.metaKey : e.ctrlKey;
+
+            if (mod && e.key === 's') { e.preventDefault(); manualSave(); }
+            if (mod && e.key === 'Enter') { e.preventDefault(); generatePrompt(); showToast('🚀 Prompt generat'); }
+            if (mod && e.shiftKey && (e.key === 'R' || e.key === 'r')) { e.preventDefault(); smartRandomize(); showToast('🎲 Randomizat'); }
+            if (mod && e.key === 'e') { e.preventDefault(); exportSDBatch(); }
+            if (mod && e.key === 'h') { e.preventDefault(); toggleHistory(); }
+            if (e.key === 'Escape' && document.activeElement) document.activeElement.blur();
+            if (mod && e.key === 'k') { e.preventDefault(); document.getElementById('aiInput').focus(); }
+        });
+    }
+
+    // ============================================================
+    // RANDOMIZE PER-FIELD
+    // ============================================================
+    const RANDOMIZABLE_FIELDS = [
+        'style', 'composition', 'lighting', 'lightDirection', 'lightQuality', 'lightTemp',
+        'camera', 'aperture', 'motion', 'filmStock', 'qualityStandard',
+        'colorPalette', 'renderTech', 'interaction', 'background'
+    ];
+
+    function attachRandomizeButtons() {
+        RANDOMIZABLE_FIELDS.forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            const existingBtn = el.parentNode.querySelector('.randomize-mini');
+            if (existingBtn) return;
+
+            const btn = document.createElement('button');
+            btn.className = 'randomize-mini';
+            btn.innerHTML = '🎲';
+            btn.title = 'Randomize this field';
+            btn.type = 'button';
+            btn.onclick = (e) => {
+                e.preventDefault();
+                const options = Array.from(el.options).filter(o => o.style.display !== 'none' && o.value !== '');
+                if (options.length === 0) return;
+                const picked = options[Math.floor(Math.random() * options.length)];
+                el.value = picked.value;
+                updateLogic();
+                generatePrompt();
+                scheduleSave();
+
+                el.style.transition = 'box-shadow 0.3s';
+                el.style.boxShadow = '0 0 15px var(--accent-color)';
+                setTimeout(() => { el.style.boxShadow = ''; }, 500);
+            };
+
+            const wrapper = el.parentNode;
+            wrapper.style.position = 'relative';
+            btn.style.cssText = 'position:absolute; right:8px; top:50%; transform:translateY(-50%); width:28px; height:28px; padding:0; border-radius:50%; background:rgba(56,189,248,0.15); border:1px solid var(--accent-color); color:var(--accent-color); font-size:0.9rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s; z-index:2;';
+            btn.onmouseenter = () => { btn.style.background = 'var(--accent-color)'; btn.style.color = 'var(--bg-color)'; };
+            btn.onmouseleave = () => { btn.style.background = 'rgba(56,189,248,0.15)'; btn.style.color = 'var(--accent-color)'; };
+
+            wrapper.appendChild(btn);
+        });
+    }
+
+    // ============================================================
+    // INITIALIZATION
     // ============================================================
     window.onload = () => {
-        // 1. Restaurează setările (inclusiv targetEngine)
-        const hadSaved = loadSettings();
+        // 1. Theme (înainte de orice)
+        applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
 
-        // 2. Randează panel-ul engine-ului (cu engine-ul restaurat)
+        // 2. Setări
+        const hadSaved = loadSettings();
         updateEnginePanel();
 
-        // 3. Acum că panel-ul e randat, restaurează parametrii dinamici
         const dynamicFields = PERSISTED_FIELDS.filter(id =>
             id.startsWith('mj') || id.startsWith('sd') || id.startsWith('flux') || id.startsWith('dalle')
         );
         loadSettings(dynamicFields);
 
-        // 4. Re-aplică logica condiționată
         updateLogic();
-
-        // 5. Ratio custom enabled/disabled
         handleRatioChange();
 
-        // 6. Re-randează badge-ul cu versiunea corectă
         const engine = document.getElementById('targetEngine').value;
         refreshBadgeVersion(engine);
 
-        // 7. Notificare restaurare
+        // 3. Funcționalități noi
+        attachRandomizeButtons();
+        attachKeyboardShortcuts();
+        attachDragAndDrop();
+        renderHistory();
+        renderCustomPresets();
+        renderConflicts();
+        renderScore();
+
+        // 4. Notificare
         if (hadSaved) showToast('✅ Setările au fost restaurate');
 
-        // 8. Auto-save listeners
+        // 5. Auto-save listeners
         attachAutoSaveListeners();
 
-        // 9. Cross-tab sync
+        // 6. Ascultă preferința OS pentru auto theme
+        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
+            if (localStorage.getItem(THEME_KEY) === 'auto') applyTheme('auto');
+        });
+
+        // 7. Cross-tab sync
         window.addEventListener('storage', (e) => {
             if (e.key === STORAGE_KEY && e.newValue) {
                 loadSettings();
@@ -1790,6 +3030,9 @@
                 refreshBadgeVersion(eng);
                 showToast('🔄 Setări sincronizate din alt tab');
             }
+            if (e.key === HISTORY_KEY) renderHistory();
+            if (e.key === THEME_KEY) applyTheme(e.newValue || 'dark');
+            if (e.key === CUSTOM_PRESETS_KEY) renderCustomPresets();
         });
     };
 </script>
