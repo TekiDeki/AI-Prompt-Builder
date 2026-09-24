@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<!-- saved from url=(0045)https://tekideki.github.io/AI-Prompt-Builder/ -->
+<html lang="en" class="theme-dark"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Prompt Builder v22.8 - The Luminance Master</title>
     <style>
@@ -767,7 +767,7 @@
 
 <div class="container">
     <h1>🧠 AI Prompt Builder v22.8</h1>
-    <p class="subtitle">The Luminance Master: Physical-Based Lighting & Optic Control</p>
+    <p class="subtitle">The Luminance Master: Physical-Based Lighting &amp; Optic Control</p>
 
     <div class="presets-bar">
         <span class="presets-label">⚡ Quick Presets:</span>
@@ -785,7 +785,7 @@
         <button class="preset-chip" onclick="applyPreset('studio_beauty', this)">👤 Studio Beauty</button>
         <button class="preset-chip" onclick="applyPreset('cosmic_scifi', this)">🌌 Cosmic Sci-Fi</button>
         <button class="preset-chip" onclick="applyPreset('food_editorial', this)">🍔 Food Editorial</button>
-        <button class="preset-chip" onclick="applyPreset('film_noir_bw', this)">🎭 Film Noir B&W</button>
+        <button class="preset-chip" onclick="applyPreset('film_noir_bw', this)">🎭 Film Noir B&amp;W</button>
     </div>
 
     <div class="presets-bar" id="customPresetsBar" style="display: none; border-color: rgba(16,185,129,0.3);">
@@ -794,10 +794,10 @@
     </div>
 
     <div class="ai-analysis-panel">
-        <div class="ai-panel-header">✨ AI Prompt Analysis & Optimization</div>
+        <div class="ai-panel-header">✨ AI Prompt Analysis &amp; Optimization</div>
         <div class="ai-input-group">
             <input type="text" id="aiInput" placeholder="Describe your vision... (ex: A portrait, mysterious side lighting, moody)">
-            <button class="btn-analyze" onclick="analyzePrompt()">Analyze & Optimize</button>
+            <button class="btn-analyze" onclick="analyzePrompt()">Analyze &amp; Optimize</button>
         </div>
     </div>
 
@@ -814,25 +814,46 @@
                     </optgroup>
                 </select>
             </div>
-            <div id="engineBadge" class="engine-badge theme-midjourney">
-                <div class="engine-badge-icon" id="engineBadgeIcon">🎨</div>
+            <div id="engineBadge" class="engine-badge theme-stable_diffusion" title="Runs locally, fully configurable." style="animation: 0.5s ease 0s 1 normal none running badgeFadeIn;">
+                <div class="engine-badge-icon" id="engineBadgeIcon">🔧</div>
                 <div class="engine-badge-content">
-                    <div class="engine-badge-title" id="engineBadgeTitle">Midjourney</div>
-                    <div class="engine-badge-chips" id="engineBadgeChips">
-                        <span class="chip">Parametric</span>
-                        <span class="chip">Discord</span>
-                    </div>
+                    <div class="engine-badge-title" id="engineBadgeTitle">Stable Diffusion · SDXL 1.0</div>
+                    <div class="engine-badge-chips" id="engineBadgeChips"><span class="chip">Local</span><span class="chip">LoRA</span><span class="chip">ControlNet</span></div>
                 </div>
             </div>
         </div>
-        <div id="engineParams" class="engine-params-grid"></div>
+        <div id="engineParams" class="engine-params-grid"><div class="setting-group"><label>📌 Architecture</label><select id="sdVersion"><optgroup label="Modern (Recommended)"><option value="SDXL 1.0">SDXL 1.0</option><option value="SDXL Turbo">SDXL Turbo</option></optgroup><optgroup label="Latest Generation"><option value="SD 3.5 Large">SD 3.5 Large</option><option value="SD 3.5 Medium">SD 3.5 Medium</option></optgroup><optgroup label="Legacy"><option value="SD 1.5">SD 1.5</option><option value="SD 2.1">SD 2.1</option></optgroup></select></div><div class="setting-group"><label>📦 Checkpoint</label><select id="sdModel"><optgroup label="Human Realism"><option value="Juggernaut XL v9">Juggernaut XL v9</option><option value="CyberRealistic XL">CyberRealistic XL</option><option value="AbsoluteReality">AbsoluteReality</option></optgroup><optgroup label="Landscape"><option value="OdysseyXL-MK2-Alpha">OdysseyXL-MK2-Alpha</option></optgroup><optgroup label="Anime"><option value="Illustrious Anime v4">Illustrious Anime v4</option><option value="Pony Diffusion V6 XL">Pony Diffusion V6 XL</option></optgroup><optgroup label="Turbo"><option value="DreamShaper XL Lightning">DreamShaper XL Lightning</option></optgroup></select><button type="button" style="margin-top: 6px; padding: 8px 12px; font-size: 0.8rem; background: transparent; border-color: var(--border-color); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; color: rgb(148, 163, 184); border-radius: 8px; cursor: pointer; font-weight: 600;">➕ Add custom model</button></div><div class="setting-group"><label>🏷️ Trigger Words (auto)</label><input type="text" placeholder="auto-populated per model" id="sdTrigger"></div><div class="setting-group"><label>🎯 CFG Scale</label><input type="number" min="1" max="30" id="sdCfg"></div><div class="setting-group"><label>📉 Steps</label><input type="number" min="1" max="100" id="sdSteps"></div><div class="setting-group"><label>⚙️ Sampler</label><select id="sdSampler"><option value="Euler a">Euler a</option><option value="DPM++ 2M Karras">DPM++ 2M Karras</option><option value="DPM++ 2M SDE Karras">DPM++ 2M SDE Karras</option><option value="DPM++ 3M SDE Karras">DPM++ 3M SDE Karras</option><option value="DPM++ SDE Karras">DPM++ SDE Karras</option><option value="DDIM">DDIM</option><option value="Heun">Heun</option></select></div><div class="setting-group"><label>🔍 Upscaling</label><label style="display: flex; align-items: center; gap: 10px; background: var(--input-bg); border: 1px solid var(--border-color); padding: 12px; border-radius: 12px; cursor: pointer; font-weight: normal; color: var(--text-color); font-size: 1rem;"><input type="checkbox" id="sdHires" style="width: 20px; height: 20px; accent-color: var(--accent-color); cursor: pointer; margin: 0px;"><span>Hires Fix (2x)</span></label></div><div class="setting-group"><label>🎨 Refiner Pass</label><label style="display: flex; align-items: center; gap: 10px; background: var(--input-bg); border: 1px solid var(--border-color); padding: 12px; border-radius: 12px; cursor: pointer; font-weight: normal; color: var(--text-color); font-size: 1rem;"><input type="checkbox" id="sdRefiner" style="width: 20px; height: 20px; accent-color: var(--accent-color); cursor: pointer; margin: 0px;"><span>Enable Refiner</span></label></div><div class="setting-group"><label>👤 Post-Process</label><label style="display: flex; align-items: center; gap: 10px; background: var(--input-bg); border: 1px solid var(--border-color); padding: 12px; border-radius: 12px; cursor: pointer; font-weight: normal; color: var(--text-color); font-size: 1rem;"><input type="checkbox" id="sdFaceRestore" style="width: 20px; height: 20px; accent-color: var(--accent-color); cursor: pointer; margin: 0px;"><span>Face Restoration</span></label></div><div id="modelInfoPanel" class="model-info-panel visible">
+            <div class="model-info-row">
+                <span class="model-badge arch-match">📐 SDXL 1.0</span>
+                <span class="model-badge">📂 Turbo</span>
+                <span class="model-badge vae-builtin">✅ Built-in VAE</span>
+                <span class="model-badge">💾 6.5 GB</span>
+                <span class="model-badge">🖼️ 1024x1024</span>
+            </div>
+            <div class="model-info-row">
+                <div class="model-trigger-input">
+                    <label style="font-size:0.85rem; color:#cbd5e1; white-space:nowrap;">🏷️ Trigger:</label>
+                    <input type="text" id="sdTriggerInfo" value="" placeholder="trigger words...">
+                </div>
+            </div>
+            <div class="model-recommendation">
+                <strong>💡 Recommended:</strong>
+                <span>CFG <strong>2</strong></span> ·
+                <span>Steps <strong>6</strong></span> ·
+                <span>Sampler <strong>DPM++ SDE Karras</strong></span>
+                <button class="btn-apply-recommendation" onclick="applyRecommended()">✨ Apply</button>
+            </div>
+            <div style="margin-top:8px; font-size:0.8rem; color:#94a3b8; font-style:italic;">
+                Ultra-fast generation. Only 6 steps!
+            </div>
+        </div></div>
     </div>
 
     <div class="file-upload-container" id="dropZone">
         <div style="display: flex; align-items: center; gap: 15px;">
             <label for="fileInput" class="upload-label">📁 Upload Subject List (.txt)</label>
             <input type="file" id="fileInput" accept=".txt" style="display: none;">
-            <span class="drop-hint">or drag & drop here</span>
+            <span class="drop-hint">or drag &amp; drop here</span>
         </div>
         <div id="queueStatus" style="font-size: 0.9rem; color: #94a3b8;">Queue: 0 / 0 Subjects</div>
     </div>
@@ -843,10 +864,10 @@
             <input type="text" id="subject" placeholder="Enter a subject...">
         </div>
 
-        <div class="setting-group">
+        <div class="setting-group" style="position: relative;">
             <label>🎭 Visual Style</label>
             <select id="style" onchange="updateLogic()">
-                <optgroup label="Photorealism & Cinematic">
+                <optgroup label="Photorealism &amp; Cinematic">
                     <option value="Photorealistic" data-tag="real">Photorealism</option>
                     <option value="Hyper-realistic" data-tag="real">Hyper-realism</option>
                     <option value="Cinematic (Hollywood)" data-tag="real">Cinematic</option>
@@ -860,14 +881,14 @@
                     <option value="Studio Ghibli anime aesthetic, lush landscapes, magical lighting" data-tag="anime">Studio Ghibli</option>
                     <option value="Tim Burton gothic aesthetic, pale tones, distorted forms" data-tag="cinematic">Tim Burton Style</option>
                 </optgroup>
-                <optgroup label="Fine Art & History">
+                <optgroup label="Fine Art &amp; History">
                     <option value="High Renaissance oil painting, balanced composition, divine light" data-tag="art">Renaissance</option>
                     <option value="Dramatic Baroque painting, deep chiaroscuro, intense emotion" data-tag="art">Baroque</option>
                     <option value="Claude Monet Impressionism, visible brushstrokes, light play" data-tag="art">Impressionism</option>
                     <option value="Art Nouveau decorative style, organic lines, floral patterns" data-tag="art">Art Nouveau</option>
                     <option value="Traditional Japanese Ukiyo-e woodblock print" data-tag="art">Ukiyo-e</option>
                 </optgroup>
-                <optgroup label="Modern Digital & New Media">
+                <optgroup label="Modern Digital &amp; New Media">
                     <option value="Unreal Engine 5 render, Octane Render" data-tag="digital">UE5 / Octane Render</option>
                     <option value="Cyberpunk aesthetic, neon-infused, high tech" data-tag="digital">Cyberpunk</option>
                     <option value="Vaporwave aesthetic, pastel neon, 80s nostalgia" data-tag="digital">Vaporwave</option>
@@ -882,51 +903,51 @@
                     <option value="Intricate Origami and Papercraft art, paper folds" data-tag="digital">Origami / Papercraft</option>
                     <option value="Stained Glass mosaic, vibrant translucent colors" data-tag="art">Stained Glass</option>
                 </optgroup>
-                <optgroup label="Graphic & Illustration">
+                <optgroup label="Graphic &amp; Illustration">
                     <option value="Flat Design minimalist" data-tag="graphic">Flat Design</option>
                     <option value="Professional Vector Art" data-tag="graphic">Vector Art</option>
                     <option value="Studio Ghibli Anime style" data-tag="anime">Anime (Ghibli)</option>
                 </optgroup>
             </select>
-        </div>
+        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
 
-        <div class="setting-group" id="group-composition">
-            <label>📐 Composition & Direction</label>
+        <div class="setting-group" id="group-composition" style="position: relative;">
+            <label>📐 Composition &amp; Direction</label>
             <select id="composition" onchange="updateLogic()">
                 <optgroup label="Shot Sizes">
-                    <option value="Extreme wide shot, expansive scene" data-tag="wide">Extreme Wide</option>
-                    <option value="Full shot, showing entire subject">Full Shot</option>
-                    <option value="Medium shot, waist-up" data-tag="med">Medium Shot</option>
-                    <option value="Close-up portrait" data-tag="close">Close-up</option>
-                    <option value="Extreme close-up, macro focus" data-tag="macro">Extreme Close-up</option>
+                    <option value="Extreme wide shot, expansive scene" data-tag="wide" style="display: block;">Extreme Wide</option>
+                    <option value="Full shot, showing entire subject" style="display: block;">Full Shot</option>
+                    <option value="Medium shot, waist-up" data-tag="med" style="display: block;">Medium Shot</option>
+                    <option value="Close-up portrait" data-tag="close" style="display: block;">Close-up</option>
+                    <option value="Extreme close-up, macro focus" data-tag="macro" style="display: block;">Extreme Close-up</option>
                 </optgroup>
-                <optgroup label="Perspective & POV">
-                    <option value="First-person POV, immersive point of view">First-Person POV</option>
-                    <option value="Over-the-shoulder shot, OTS perspective" data-tag="ots">Over-the-Shoulder</option>
-                    <option value="Third-person observational shot, distant witness" data-tag="obs">Observational</option>
-                    <option value="Eye-level shot" data-tag="neutral">Eye-level</option>
-                    <option value="Low angle shot, imposing scale" data-tag="low">Low Angle</option>
-                    <option value="High angle shot, wide perspective" data-tag="high">High Angle</option>
-                    <option value="Dutch angle, tilted frame" data-tag="tilt">Dutch Angle</option>
-                    <option value="God's eye view, top-down" data-tag="top">God's Eye</option>
+                <optgroup label="Perspective &amp; POV">
+                    <option value="First-person POV, immersive point of view" style="display: block;">First-Person POV</option>
+                    <option value="Over-the-shoulder shot, OTS perspective" data-tag="ots" style="display: block;">Over-the-Shoulder</option>
+                    <option value="Third-person observational shot, distant witness" data-tag="obs" style="display: block;">Observational</option>
+                    <option value="Eye-level shot" data-tag="neutral" style="display: block;">Eye-level</option>
+                    <option value="Low angle shot, imposing scale" data-tag="low" style="display: block;">Low Angle</option>
+                    <option value="High angle shot, wide perspective" data-tag="high" style="display: block;">High Angle</option>
+                    <option value="Dutch angle, tilted frame" data-tag="tilt" style="display: block;">Dutch Angle</option>
+                    <option value="God's eye view, top-down" data-tag="top" style="display: block;">God's Eye</option>
                 </optgroup>
-                <optgroup label="Framing & Depth">
-                    <option value="Layered composition, foreground elements framing the subject">Layered / Framed</option>
-                    <option value="Leading lines composition, guiding the eye to the subject">Leading Lines</option>
-                    <option value="Symmetrical composition, centered" data-tag="sym">Symmetry</option>
-                    <option value="Rule of thirds composition" data-tag="third">Rule of Thirds</option>
-                    <option value="Tight framing, claustrophobic composition" data-tag="tight">Tight Framing</option>
-                    <option value="Negative space composition" data-tag="empty">Negative Space</option>
+                <optgroup label="Framing &amp; Depth">
+                    <option value="Layered composition, foreground elements framing the subject" style="display: block;">Layered / Framed</option>
+                    <option value="Leading lines composition, guiding the eye to the subject" style="display: block;">Leading Lines</option>
+                    <option value="Symmetrical composition, centered" data-tag="sym" style="display: block;">Symmetry</option>
+                    <option value="Rule of thirds composition" data-tag="third" style="display: block;">Rule of Thirds</option>
+                    <option value="Tight framing, claustrophobic composition" data-tag="tight" style="display: block;">Tight Framing</option>
+                    <option value="Negative space composition" data-tag="empty" style="display: block;">Negative Space</option>
                 </optgroup>
                 <optgroup label="Psychological/Dynamic">
-                    <option value="Dynamic diagonal composition, energy and movement">Dynamic Diagonal</option>
-                    <option value="Centrifugal composition, expanding from center">Centrifugal</option>
-                    <option value="Centripetal composition, converging to center">Centripetal</option>
+                    <option value="Dynamic diagonal composition, energy and movement" style="display: block;">Dynamic Diagonal</option>
+                    <option value="Centrifugal composition, expanding from center" style="display: block;">Centrifugal</option>
+                    <option value="Centripetal composition, converging to center" style="display: block;">Centripetal</option>
                 </optgroup>
             </select>
-        </div>
+        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
 
-        <div class="setting-group">
+        <div class="setting-group" style="position: relative;">
             <label>💡 Primary Light Source</label>
             <select id="lighting" onchange="updateLogic()">
                 <optgroup label="Natural Light">
@@ -934,7 +955,7 @@
                     <option value="Blue hour ethereal lighting">Blue Hour</option>
                     <option value="High noon harsh sunlight" data-tag="noon">High Noon</option>
                 </optgroup>
-                <optgroup label="Studio & Cinematic">
+                <optgroup label="Studio &amp; Cinematic">
                     <option value="Professional softbox studio lighting">Studio Softbox</option>
                     <option value="Cinematic rim lighting, backlit silhouette">Rim Lighting</option>
                     <option value="Dramatic chiaroscuro, extreme contrast">Chiaroscuro</option>
@@ -942,9 +963,9 @@
                     <option value="Cyberpunk neon lighting, magenta and cyan">Neon Cyberpunk</option>
                 </optgroup>
             </select>
-        </div>
+        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
 
-        <div class="setting-group">
+        <div class="setting-group" style="position: relative;">
             <label>📐 Light Direction (Angle)</label>
             <select id="lightDirection" onchange="updateLogic()">
                 <option value="">Auto / Natural</option>
@@ -953,9 +974,9 @@
                 <option value="backlighting, rim light, halo effect around subject">Backlighting (Rim)</option>
                 <option value="top lighting, butterfly lighting, overhead source">Top Lighting (Overhead)</option>
             </select>
-        </div>
+        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
 
-        <div class="setting-group">
+        <div class="setting-group" style="position: relative;">
             <label>✨ Light Quality (Texture)</label>
             <select id="lightQuality" onchange="updateLogic()">
                 <option value="">Auto / Balanced</option>
@@ -963,9 +984,9 @@
                 <option value="soft light, diffused shadows, smooth gradients">Soft Light (Diffused)</option>
                 <option value="dappled light, filtered sunlight through leaves">Dappled Light (Patterned)</option>
             </select>
-        </div>
+        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
 
-        <div class="setting-group">
+        <div class="setting-group" style="position: relative;">
             <label>🌡️ Color Temperature</label>
             <select id="lightTemp" onchange="updateLogic()">
                 <option value="">Auto / Balanced</option>
@@ -973,9 +994,9 @@
                 <option value="cool color temperature, blue hues, clinical atmosphere">Cool (Blue/Sterile)</option>
                 <option value="mixed lighting, contrast between warm and cool tones">Bicolor (Mixed)</option>
             </select>
-        </div>
+        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
 
-        <div class="setting-group">
+        <div class="setting-group" style="position: relative;">
             <label>📷 Focal Length (Lens)</label>
             <select id="camera" onchange="updateLogic()">
                 <optgroup label="Wide Angle">
@@ -983,7 +1004,7 @@
                     <option value="Shot on 24mm wide angle lens">24mm (Arch)</option>
                     <option value="Shot on 35mm lens">35mm (Storyteller)</option>
                 </optgroup>
-                <optgroup label="Standard & Tele">
+                <optgroup label="Standard &amp; Tele">
                     <option value="Shot on 50mm prime lens">50mm (Standard)</option>
                     <option value="Shot on 85mm lens">85mm (Portrait)</option>
                     <option value="Shot on 200mm telephoto lens">200mm (Telephoto)</option>
@@ -993,9 +1014,9 @@
                     <option value="Anamorphic lens, wide cinematic aspect">Anamorphic</option>
                 </optgroup>
             </select>
-        </div>
+        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
 
-        <div class="setting-group">
+        <div class="setting-group" style="position: relative;">
             <label>⭕ Aperture (Depth of Field)</label>
             <select id="aperture" onchange="updateLogic()">
                 <option value="">Standard / Auto</option>
@@ -1004,10 +1025,10 @@
                 <option value="shot at f/8, sharp detail across the frame, deep focus">f/8 (Sharp/Commercial)</option>
                 <option value="shot at f/16, extreme deep focus, everything in focus">f/16 (Deep Focus)</option>
             </select>
-        </div>
+        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
 
-        <div class="setting-group">
-            <label>⏱️ Exposure & Motion</label>
+        <div class="setting-group" style="position: relative;">
+            <label>⏱️ Exposure &amp; Motion</label>
             <select id="motion" onchange="updateLogic()">
                 <option value="">Static / Standard</option>
                 <option value="long exposure, motion blur, silky textures">Long Exposure (Silky)</option>
@@ -1015,10 +1036,10 @@
                 <option value="slight motion blur, dynamic movement">Slight Motion Blur</option>
                 <option value="light trails, long exposure night photography">Light Trails (Night)</option>
             </select>
-        </div>
+        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
 
-        <div class="setting-group">
-            <label>🎞️ Sensor & Film Stock</label>
+        <div class="setting-group" style="position: relative;">
+            <label>🎞️ Sensor &amp; Film Stock</label>
             <select id="filmStock" onchange="updateLogic()">
                 <option value="">Digital Modern (Clean)</option>
                 <option value="shot on Kodak Portra 400, analog film grain, warm skin tones">Kodak Portra 400 (Warm)</option>
@@ -1027,39 +1048,39 @@
                 <option value="medium format photography, Hasselblad quality, extreme detail">Medium Format (Luxury)</option>
                 <option value="high ISO grain, gritty documentary texture">High ISO (Gritty)</option>
             </select>
-        </div>
+        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
 
-        <div class="setting-group">
+        <div class="setting-group" style="position: relative;">
             <label>💎 Quality Standard</label>
             <select id="qualityStandard" onchange="updateLogic()">
-                <optgroup label="RAW & Authentic">
-                    <option value="RAW photo, unedited, authentic" data-tag="real">RAW Photo</option>
-                    <option value="Candid photography, snapshot style">Unedited / Candid</option>
+                <optgroup label="RAW &amp; Authentic">
+                    <option value="RAW photo, unedited, authentic" data-tag="real" style="display: block;">RAW Photo</option>
+                    <option value="Candid photography, snapshot style" style="display: block;">Unedited / Candid</option>
                 </optgroup>
-                <optgroup label="Editorial & Luxury">
-                    <option value="Vogue aesthetic, high fashion" data-tag="lux">Vogue / High Fashion</option>
-                    <option value="Commercial studio grade, clean">Commercial Studio</option>
+                <optgroup label="Editorial &amp; Luxury">
+                    <option value="Vogue aesthetic, high fashion" data-tag="lux" style="display: block;">Vogue / High Fashion</option>
+                    <option value="Commercial studio grade, clean" style="display: block;">Commercial Studio</option>
                 </optgroup>
                 <optgroup label="Technical">
-                    <option value="Ultra-High Definition UHD" data-tag="tech">UHD (Crystalline)</option>
-                    <option value="Tack sharp focus, zero blur">Sharp Focus</option>
+                    <option value="Ultra-High Definition UHD" data-tag="tech" style="display: block;">UHD (Crystalline)</option>
+                    <option value="Tack sharp focus, zero blur" style="display: block;">Sharp Focus</option>
                 </optgroup>
             </select>
-        </div>
+        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
 
-        <div class="setting-group" id="group-colors">
+        <div class="setting-group" id="group-colors" style="position: relative;">
             <label>🎨 Color Palette (Mood)</label>
             <select id="colorPalette" onchange="updateLogic()">
-                <option value="Teal and Orange cinematic color grading">Teal & Orange (Hollywood)</option>
+                <option value="Teal and Orange cinematic color grading">Teal &amp; Orange (Hollywood)</option>
                 <option value="Monochromatic mood, deep contrast, noir aesthetic" data-tag="mono">Monochromatic / Noir</option>
                 <option value="Soft pastel color palette, dreamy">Pastel Tones</option>
                 <option value="Vibrant neon colors, high saturation">Vibrant / Neon</option>
                 <option value="Muted colors, desaturated mood">Muted (Realistic)</option>
-                <option value="High contrast black and white" data-tag="mono">B&W High Contrast</option>
+                <option value="High contrast black and white" data-tag="mono">B&amp;W High Contrast</option>
             </select>
-        </div>
+        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
 
-        <div class="setting-group" id="group-render">
+        <div class="setting-group" id="group-render" style="position: relative;">
             <label>⚙️ Render Tech</label>
             <select id="renderTech" onchange="updateLogic()">
                 <optgroup label="Digital Core">
@@ -1077,9 +1098,9 @@
                     <option value="Chromatic aberration, analog lens fringe">Chromatic Aberration</option>
                 </optgroup>
             </select>
-        </div>
+        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
 
-        <div class="setting-group">
+        <div class="setting-group" style="position: relative;">
             <label>🌀 Env Interaction</label>
             <select id="interaction" onchange="updateLogic()">
                 <optgroup label="Physical Anchoring">
@@ -1089,11 +1110,11 @@
                 </optgroup>
                 <optgroup label="Atmospheric Particles">
                     <option value="floating dust motes in sunbeams, airborne micro-particles">Dust Motes (Sunbeams)</option>
-                    <option value="floating embers and ash, scorched air, volcanic particles">Embers & Ash (Dramatic)</option>
-                    <option value="floating pollen and iridescent spores, ethereal particles">Pollen & Spores (Magic)</option>
+                    <option value="floating embers and ash, scorched air, volcanic particles">Embers &amp; Ash (Dramatic)</option>
+                    <option value="floating pollen and iridescent spores, ethereal particles">Pollen &amp; Spores (Magic)</option>
                     <option value="thick atmospheric haze, volumetric fog, depth blur">Volumetric Haze</option>
                 </optgroup>
-                <optgroup label="Weather & Dynamics">
+                <optgroup label="Weather &amp; Dynamics">
                     <option value="rain-splashed surfaces, water droplets bouncing off subject">Rain-splashed (Dynamic)</option>
                     <option value="snow accumulation on surfaces, frost crystals, winter breath">Snow Accumulation</option>
                     <option value="wind-blown textures, fabric fluttering, hair movement">Wind-blown (Dynamic)</option>
@@ -1105,12 +1126,12 @@
                     <option value="light wrapping, background light bleeding over edges">Light Wrapping</option>
                 </optgroup>
             </select>
-        </div>
+        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
 
-        <div class="setting-group">
-            <label>🌍 Background & Atmosphere</label>
+        <div class="setting-group" style="position: relative;">
+            <label>🌍 Background &amp; Atmosphere</label>
             <select id="background">
-                <optgroup label="Urban & Architecture">
+                <optgroup label="Urban &amp; Architecture">
                     <option value="blurred rainy city street background, wet asphalt, reflections">Rainy City Street</option>
                     <option value="cyberpunk megacity cityscape, towering skyscrapers, hologram billboards">Cyberpunk Megacity</option>
                     <option value="abandoned brutalist concrete architecture, decaying walls, dust motes">Brutalist Decay</option>
@@ -1128,28 +1149,28 @@
                     <option value="tropical white sand beach, crystal clear turquoise water, palm leaves">Tropical Paradise</option>
                     <option value="deep underwater abyss, coral reefs, floating plankton, caustic light">Deep Sea Abyss</option>
                 </optgroup>
-                <optgroup label="Sci-Fi & Cosmic">
+                <optgroup label="Sci-Fi &amp; Cosmic">
                     <option value="futuristic spaceship bridge, holographic controls, starfield view">Starship Bridge</option>
                     <option value="cybernetic laboratory, glowing tubes, server racks, sterile white light">Tech Lab</option>
                     <option value="floating astral islands, cosmic nebula, shimmering stars, gravity-defying rocks">Astral Islands</option>
                     <option value="dystopian wasteland, scorched earth, scrap metal, orange haze">Post-Apocalyptic</option>
                     <option value="interdimensional void, fractal geometry, floating mirrors, void energy">The Void</option>
                 </optgroup>
-                <optgroup label="Fantasy & Mythic">
+                <optgroup label="Fantasy &amp; Mythic">
                     <option value="ancient astral library, floating books, endless scrolls, magical dust">Astral Library</option>
                     <option value="enchanted fairy glade, shimmering mushrooms, floating pollen">Fairy Glade</option>
                     <option value="medieval castle courtyard, cobblestones, torchlight, banners">Medieval Castle</option>
                     <option value="underground dwarven forge, molten gold, obsidian pillars, steam">Dwarven Forge</option>
                     <option value="celestial palace, clouds of gold, ivory pillars, divine light">Celestial Palace</option>
                 </optgroup>
-                <optgroup label="Abstract & Studio">
+                <optgroup label="Abstract &amp; Studio">
                     <option value="dark void, single spotlight, high contrast, deep shadows">Dark Studio Void</option>
                     <option value="soft pastel gradient background, ethereal air, dreamlike">Pastel Dreamscape</option>
                     <option value="geometric abstract patterns, floating cubes, mathematical precision">Geometric Abstract</option>
                     <option value="liquid iridescent swirls, holographic colors, fluid motion">Iridescent Liquid</option>
                 </optgroup>
             </select>
-        </div>
+        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
 
         <div class="setting-group">
             <label>🖼️ Aspect Ratio (Format)</label>
@@ -1162,7 +1183,7 @@
                     <option value="21:9">21:9 (Ultrawide)</option>
                     <option value="custom">Custom...</option>
                 </select>
-                <input type="text" id="customRatio" placeholder="ex: 2:3" disabled>
+                <input type="text" id="customRatio" placeholder="ex: 2:3" disabled="">
             </div>
         </div>
     </div>
@@ -1175,32 +1196,32 @@
         <button class="btn-export" onclick="exportSDBatch()">💾 Export SD Batch (.txt)</button>
         <button class="btn-export" onclick="batchMultiEngine()" style="background: #a855f7; box-shadow: 0 4px 15px rgba(168,85,247,0.4);">🎯 Batch All Engines</button>
         <button class="btn-reset" onclick="manualSave()" style="color: var(--accent-color); border-color: var(--accent-color);">💾 Save Now</button>
-        <button class="btn-reset" onclick="cycleTheme()" id="themeBtn" title="Switch theme">🌙 Theme</button>
+        <button class="btn-reset" onclick="cycleTheme()" id="themeBtn" title="Switch theme">🌙 Dark</button>
     </div>
 
     <div id="conflictWarnings" class="conflict-warnings"></div>
 
     <div class="result-area">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <div class="result-label">Main Prompt <span id="promptScore" class="prompt-score">--</span></div>
+            <div class="result-label">Main Prompt <span id="promptScore" class="prompt-score good">95/100</span></div>
             <button class="copy-btn" onclick="copyPrompt('finalPrompt')">Copy Prompt</button>
         </div>
-        <textarea id="finalPrompt" rows="4" readonly placeholder="Your intelligent prompt will appear here..."></textarea>
+        <textarea id="finalPrompt" rows="4" readonly="" placeholder="Your intelligent prompt will appear here..."></textarea>
 
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; margin-bottom: 10px;">
             <div class="result-label" style="color: var(--negative-color);">Smart Negative Prompt</div>
             <button class="copy-btn" onclick="copyPrompt('negativePrompt')" style="background: var(--negative-color);">Copy Neg</button>
         </div>
-        <textarea id="negativePrompt" rows="3" readonly placeholder="Negative prompt will appear here..."></textarea>
+        <textarea id="negativePrompt" rows="3" readonly="" placeholder="Negative prompt will appear here..."></textarea>
     </div>
 
     <div class="history-panel">
         <div class="history-header" onclick="toggleHistory()">
-            <span>📜 Prompt History <span id="historyCount" class="history-count">0</span></span>
+            <span>📜 Prompt History <span id="historyCount" class="history-count">7</span></span>
             <span id="historyToggleIcon" class="history-toggle">▼</span>
         </div>
         <div id="historyBody" class="history-body">
-            <div id="historyList" class="history-list"></div>
+            <div id="historyList" class="history-list"><div class="history-item" title="(masterpiece:1.2), (best quality:1.2), SDXL 1.0 DreamShaper XL Lightning style, (a hyper-realistic, cinematic 8k portrait of the same young woman blue frok dress standing gracefully beside an easel:1.3), Close-up portrait, Hyper-realistic, blurred rainy city street background, wet asphalt, reflections, Professional softbox studio lighting, Shot on 85mm lens, shot at f/1.2, ultra-shallow depth of field, creamy bokeh, Teal and Orange cinematic color grading, subsurface scattering, realistic skin diffusion, ambient occlusion, deep contact shadows, perfectly grounded, RAW photo, unedited, authentic, CFG 2, Steps 6, Sampler DPM++ SDE Karras"><span class="history-item-time">08:43 PM</span>(masterpiece:1.2), (best quality:1.2), SDXL 1.0 DreamShaper XL Lightning style, (a hyper-realistic, cinematic 8k portrai…</div><div class="history-item" title="(masterpiece:1.2), (best quality:1.2), SDXL 1.0 DreamShaper XL Lightning style, (ultra-realistic cinematic portrait of a stylish young man sitting comfortably:1.3), Close-up portrait, Hyper-realistic, blurred rainy city street background, wet asphalt, reflections, Dramatic chiaroscuro, extreme contrast, Shot on 85mm lens, shot at f/1.2, ultra-shallow depth of field, creamy bokeh, Teal and Orange cinematic color grading, subsurface scattering, realistic skin diffusion, ambient occlusion, deep contact shadows, perfectly grounded, RAW photo, unedited, authentic, CFG 2, Steps 6, Sampler DPM++ SDE Karras"><span class="history-item-time">08:33 PM</span>(masterpiece:1.2), (best quality:1.2), SDXL 1.0 DreamShaper XL Lightning style, (ultra-realistic cinematic portrait of a…</div><div class="history-item" title="(masterpiece:1.2), (best quality:1.2), SDXL 1.0 DreamShaper XL Lightning style, (A stunning subject:1.3), Extreme wide shot, expansive scene, Photorealistic, blurred rainy city street background, wet asphalt, reflections, Golden hour natural sunlight, Shot on 14mm ultra-wide lens, Teal and Orange cinematic color grading, Unreal Engine 5, ray tracing, octane render, ambient occlusion, deep contact shadows, perfectly grounded, RAW photo, unedited, authentic, CFG 2, Steps 6, Sampler DPM++ SDE Karras"><span class="history-item-time">08:33 PM</span>(masterpiece:1.2), (best quality:1.2), SDXL 1.0 DreamShaper XL Lightning style, (A stunning subject:1.3), Extreme wide s…</div><div class="history-item" title="(masterpiece:1.2), (best quality:1.2), SDXL 1.0 DreamShaper XL Lightning style, (A stunning subject:1.3), Extreme wide shot, expansive scene, Photorealistic, blurred rainy city street background, wet asphalt, reflections, Golden hour natural sunlight, Shot on 14mm ultra-wide lens, Teal and Orange cinematic color grading, Unreal Engine 5, ray tracing, octane render, ambient occlusion, deep contact shadows, perfectly grounded, RAW photo, unedited, authentic, CFG 7, Steps 25, Sampler Euler a"><span class="history-item-time">08:32 PM</span>(masterpiece:1.2), (best quality:1.2), SDXL 1.0 DreamShaper XL Lightning style, (A stunning subject:1.3), Extreme wide s…</div><div class="history-item" title="(masterpiece), (best quality), SDXL 1.0 Juggernaut XL v9 style, (A stunning subject), Extreme wide shot, expansive scene, Photorealistic, blurred rainy city street background, wet asphalt, reflections, Golden hour natural sunlight, Shot on 14mm ultra-wide lens, Teal and Orange cinematic color grading, Unreal Engine 5, ray tracing, octane render, ambient occlusion, deep contact shadows, perfectly grounded, RAW photo, unedited, authentic, CFG 7, Steps 25, Sampler Euler a"><span class="history-item-time">08:32 PM</span>(masterpiece), (best quality), SDXL 1.0 Juggernaut XL v9 style, (A stunning subject), Extreme wide shot, expansive scene…</div><div class="history-item" title="(masterpiece:1.2), (best quality:1.2), SDXL Turbo SDXL Lightning style, (A stunning subject:1.3), Extreme wide shot, expansive scene, Photorealistic, blurred rainy city street background, wet asphalt, reflections, Golden hour natural sunlight, Shot on 14mm ultra-wide lens, Teal and Orange cinematic color grading, Unreal Engine 5, ray tracing, octane render, ambient occlusion, deep contact shadows, perfectly grounded, RAW photo, unedited, authentic, CFG 7, Steps 25, Sampler Euler a"><span class="history-item-time">08:32 PM</span>(masterpiece:1.2), (best quality:1.2), SDXL Turbo SDXL Lightning style, (A stunning subject:1.3), Extreme wide shot, exp…</div><div class="history-item" title="A photorealistic image of A stunning subject, composed as a extreme wide shot, expansive scene. The scene is set in blurred rainy city street background, wet asphalt, reflections, with ambient occlusion, deep contact shadows, perfectly grounded. Lighting: Golden hour natural sunlight. Captured with shot on 14mm ultra-wide lens, . Color palette: teal and orange cinematic color grading. Rendered with unreal engine 5, ray tracing, octane render, quality standard: raw photo, unedited, authentic. [FLUX.1 [pro] | guidance: 3.5 | steps: 28 | aspect: 1:1]"><span class="history-item-time">06:23 PM</span>A photorealistic image of A stunning subject, composed as a extreme wide shot, expansive scene. The scene is set in blur…</div></div>
             <button class="history-clear" onclick="clearHistory()">🗑️ Clear History</button>
         </div>
     </div>
@@ -1227,7 +1248,7 @@
     </div>
 </div>
 
-<div id="toast" class="toast"></div>
+<div id="toast" class="toast">✨ Recommended settings applied</div>
 
 <script>
     // ============================================================
@@ -1427,7 +1448,7 @@
             el.title = item.text;
             const time = new Date(item.time);
             const timeStr = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            el.innerHTML = `<span class="history-item-time">${timeStr}</span>${item.text.slice(0, 120)}${item.text.length > 120 ? '…' : ''}`;
+            el.innerHTML = `<span class="history-item-time">${timeStr}</span>${escapeHtml((item.text || '').slice(0, 120))}${(item.text || '').length > 120 ? '…' : ''}`;
             el.onclick = () => loadFromHistory(idx);
             list.appendChild(el);
         });
@@ -1869,7 +1890,7 @@
                 </div>
                 <div class="model-trigger-input">
                     <label style="font-size:0.85rem; color:#cbd5e1; white-space:nowrap;">🏷️ Trigger:</label>
-                    <input type="text" id="sdTrigger" value="${escapeAttr(document.getElementById('sdTrigger')?.value || '')}" placeholder="trigger words...">
+                    <input type="text" id="sdTriggerInfo" value="${escapeAttr(document.getElementById('sdTrigger')?.value || '')}" placeholder="trigger words...">
                 </div>
             `;
             attachTriggerListener();
@@ -1905,7 +1926,7 @@
             <div class="model-info-row">
                 <div class="model-trigger-input">
                     <label style="font-size:0.85rem; color:#cbd5e1; white-space:nowrap;">🏷️ Trigger:</label>
-                    <input type="text" id="sdTrigger" value="${escapeAttr(document.getElementById('sdTrigger')?.value || data.trigger || '')}" placeholder="trigger words...">
+                    <input type="text" id="sdTriggerInfo" value="${escapeAttr(document.getElementById('sdTrigger')?.value || data.trigger || '')}" placeholder="trigger words...">
                 </div>
             </div>
             <div class="model-recommendation">
@@ -1931,8 +1952,17 @@
     }
 
     function attachTriggerListener() {
+        const sync = (src) => {
+            const main = document.getElementById('sdTrigger');
+            const info = document.getElementById('sdTriggerInfo');
+            if (src === 'sdTrigger' && info) info.value = src.value;
+            if (src === 'sdTriggerInfo' && main) main.value = src.value;
+            scheduleSave();
+        };
         const triggerEl = document.getElementById('sdTrigger');
-        if (triggerEl) triggerEl.addEventListener('input', scheduleSave);
+        if (triggerEl) triggerEl.addEventListener('input', () => sync(triggerEl));
+        const infoEl = document.getElementById('sdTriggerInfo');
+        if (infoEl) infoEl.addEventListener('input', () => sync(infoEl));
     }
 
     function applyRecommended() {
@@ -3314,15 +3344,8 @@
         RANDOMIZABLE_FIELDS.forEach(id => {
             const el = document.getElementById(id);
             if (!el) return;
-            const existingBtn = el.parentNode.querySelector('.randomize-mini');
-            if (existingBtn) return;
 
-            const btn = document.createElement('button');
-            btn.className = 'randomize-mini';
-            btn.innerHTML = '🎲';
-            btn.title = 'Randomize';
-            btn.type = 'button';
-            btn.onclick = (e) => {
+            const randomizeClick = (e) => {
                 e.preventDefault();
                 const options = Array.from(el.options).filter(o => o.style.display !== 'none' && o.value !== '');
                 if (options.length === 0) return;
@@ -3337,6 +3360,23 @@
 
             const wrapper = el.parentNode;
             wrapper.style.position = 'relative';
+            let btn = wrapper.querySelector('.randomize-mini');
+
+            if (btn) {
+                // Button already exists in static HTML (saved page) — attach the handler.
+                btn.onclick = randomizeClick;
+                btn.style.cssText = 'position:absolute; right:8px; top:50%; transform:translateY(-50%); width:28px; height:28px; padding:0; border-radius:50%; background:rgba(56,189,248,0.15); border:1px solid var(--accent-color); color:var(--accent-color); font-size:0.9rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s; z-index:2;';
+                btn.onmouseenter = () => { btn.style.background = 'var(--accent-color)'; btn.style.color = 'var(--bg-color)'; };
+                btn.onmouseleave = () => { btn.style.background = 'rgba(56,189,248,0.15)'; btn.style.color = 'var(--accent-color)'; };
+                return;
+            }
+
+            btn = document.createElement('button');
+            btn.className = 'randomize-mini';
+            btn.innerHTML = '🎲';
+            btn.title = 'Randomize';
+            btn.type = 'button';
+            btn.onclick = randomizeClick;
             btn.style.cssText = 'position:absolute; right:8px; top:50%; transform:translateY(-50%); width:28px; height:28px; padding:0; border-radius:50%; background:rgba(56,189,248,0.15); border:1px solid var(--accent-color); color:var(--accent-color); font-size:0.9rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s; z-index:2;';
             btn.onmouseenter = () => { btn.style.background = 'var(--accent-color)'; btn.style.color = 'var(--bg-color)'; };
             btn.onmouseleave = () => { btn.style.background = 'rgba(56,189,248,0.15)'; btn.style.color = 'var(--accent-color)'; };
@@ -3401,5 +3441,6 @@
     };
 </script>
 
-</body>
-</html>
+
+
+</body></html>
