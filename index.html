@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<!-- saved from url=(0045)https://tekideki.github.io/AI-Prompt-Builder/ -->
 <html lang="en" class="theme-dark"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Prompt Builder v22.8 - The Luminance Master</title>
+    <title>AI Prompt Builder v22.12 - The Luminance Master</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
     <style>
         :root {
             --bg-color: #0f172a;
@@ -766,7 +766,7 @@
 <body>
 
 <div class="container">
-    <h1>🧠 AI Prompt Builder v22.8</h1>
+    <h1>🧠 AI Prompt Builder v22.12</h1>
     <p class="subtitle">The Luminance Master: Physical-Based Lighting &amp; Optic Control</p>
 
     <div class="presets-bar">
@@ -822,31 +822,7 @@
                 </div>
             </div>
         </div>
-        <div id="engineParams" class="engine-params-grid"><div class="setting-group"><label>📌 Architecture</label><select id="sdVersion"><optgroup label="Modern (Recommended)"><option value="SDXL 1.0">SDXL 1.0</option><option value="SDXL Turbo">SDXL Turbo</option></optgroup><optgroup label="Latest Generation"><option value="SD 3.5 Large">SD 3.5 Large</option><option value="SD 3.5 Medium">SD 3.5 Medium</option></optgroup><optgroup label="Legacy"><option value="SD 1.5">SD 1.5</option><option value="SD 2.1">SD 2.1</option></optgroup></select></div><div class="setting-group"><label>📦 Checkpoint</label><select id="sdModel"><optgroup label="Human Realism"><option value="Juggernaut XL v9">Juggernaut XL v9</option><option value="CyberRealistic XL">CyberRealistic XL</option><option value="AbsoluteReality">AbsoluteReality</option></optgroup><optgroup label="Landscape"><option value="OdysseyXL-MK2-Alpha">OdysseyXL-MK2-Alpha</option></optgroup><optgroup label="Anime"><option value="Illustrious Anime v4">Illustrious Anime v4</option><option value="Pony Diffusion V6 XL">Pony Diffusion V6 XL</option></optgroup><optgroup label="Turbo"><option value="DreamShaper XL Lightning">DreamShaper XL Lightning</option></optgroup></select><button type="button" style="margin-top: 6px; padding: 8px 12px; font-size: 0.8rem; background: transparent; border-color: var(--border-color); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; color: rgb(148, 163, 184); border-radius: 8px; cursor: pointer; font-weight: 600;">➕ Add custom model</button></div><div class="setting-group"><label>🏷️ Trigger Words (auto)</label><input type="text" placeholder="auto-populated per model" id="sdTrigger"></div><div class="setting-group"><label>🎯 CFG Scale</label><input type="number" min="1" max="30" id="sdCfg"></div><div class="setting-group"><label>📉 Steps</label><input type="number" min="1" max="100" id="sdSteps"></div><div class="setting-group"><label>⚙️ Sampler</label><select id="sdSampler"><option value="Euler a">Euler a</option><option value="DPM++ 2M Karras">DPM++ 2M Karras</option><option value="DPM++ 2M SDE Karras">DPM++ 2M SDE Karras</option><option value="DPM++ 3M SDE Karras">DPM++ 3M SDE Karras</option><option value="DPM++ SDE Karras">DPM++ SDE Karras</option><option value="DDIM">DDIM</option><option value="Heun">Heun</option></select></div><div class="setting-group"><label>🔍 Upscaling</label><label style="display: flex; align-items: center; gap: 10px; background: var(--input-bg); border: 1px solid var(--border-color); padding: 12px; border-radius: 12px; cursor: pointer; font-weight: normal; color: var(--text-color); font-size: 1rem;"><input type="checkbox" id="sdHires" style="width: 20px; height: 20px; accent-color: var(--accent-color); cursor: pointer; margin: 0px;"><span>Hires Fix (2x)</span></label></div><div class="setting-group"><label>🎨 Refiner Pass</label><label style="display: flex; align-items: center; gap: 10px; background: var(--input-bg); border: 1px solid var(--border-color); padding: 12px; border-radius: 12px; cursor: pointer; font-weight: normal; color: var(--text-color); font-size: 1rem;"><input type="checkbox" id="sdRefiner" style="width: 20px; height: 20px; accent-color: var(--accent-color); cursor: pointer; margin: 0px;"><span>Enable Refiner</span></label></div><div class="setting-group"><label>👤 Post-Process</label><label style="display: flex; align-items: center; gap: 10px; background: var(--input-bg); border: 1px solid var(--border-color); padding: 12px; border-radius: 12px; cursor: pointer; font-weight: normal; color: var(--text-color); font-size: 1rem;"><input type="checkbox" id="sdFaceRestore" style="width: 20px; height: 20px; accent-color: var(--accent-color); cursor: pointer; margin: 0px;"><span>Face Restoration</span></label></div><div id="modelInfoPanel" class="model-info-panel visible">
-            <div class="model-info-row">
-                <span class="model-badge arch-match">📐 SDXL 1.0</span>
-                <span class="model-badge">📂 Turbo</span>
-                <span class="model-badge vae-builtin">✅ Built-in VAE</span>
-                <span class="model-badge">💾 6.5 GB</span>
-                <span class="model-badge">🖼️ 1024x1024</span>
-            </div>
-            <div class="model-info-row">
-                <div class="model-trigger-input">
-                    <label style="font-size:0.85rem; color:#cbd5e1; white-space:nowrap;">🏷️ Trigger:</label>
-                    <input type="text" id="sdTriggerInfo" value="" placeholder="trigger words...">
-                </div>
-            </div>
-            <div class="model-recommendation">
-                <strong>💡 Recommended:</strong>
-                <span>CFG <strong>2</strong></span> ·
-                <span>Steps <strong>6</strong></span> ·
-                <span>Sampler <strong>DPM++ SDE Karras</strong></span>
-                <button class="btn-apply-recommendation" onclick="applyRecommended()">✨ Apply</button>
-            </div>
-            <div style="margin-top:8px; font-size:0.8rem; color:#94a3b8; font-style:italic;">
-                Ultra-fast generation. Only 6 steps!
-            </div>
-        </div></div>
+        <div id="engineParams" class="engine-params-grid"></div>
     </div>
 
     <div class="file-upload-container" id="dropZone">
@@ -855,7 +831,10 @@
             <input type="file" id="fileInput" accept=".txt" style="display: none;">
             <span class="drop-hint">or drag &amp; drop here</span>
         </div>
-        <div id="queueStatus" style="font-size: 0.9rem; color: #94a3b8;">Queue: 0 / 0 Subjects</div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <div id="queueStatus" style="font-size: 0.9rem; color: #94a3b8;">Queue: 0 / 0 Subjects</div>
+            <button id="clearQueueBtn" title="Clear queue" style="background: transparent; border: 1px solid var(--border-color); color: #94a3b8; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; display: none; font-weight: 600;">🗑️ Clear</button>
+        </div>
     </div>
 
     <div class="grid-settings">
@@ -1130,7 +1109,7 @@
 
         <div class="setting-group" style="position: relative;">
             <label>🌍 Background &amp; Atmosphere</label>
-            <select id="background">
+            <select id="background" onchange="updateLogic()">
                 <optgroup label="Urban &amp; Architecture">
                     <option value="blurred rainy city street background, wet asphalt, reflections">Rainy City Street</option>
                     <option value="cyberpunk megacity cityscape, towering skyscrapers, hologram billboards">Cyberpunk Megacity</option>
@@ -1204,24 +1183,24 @@
     <div class="result-area">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
             <div class="result-label">Main Prompt <span id="promptScore" class="prompt-score good">95/100</span></div>
-            <button class="copy-btn" onclick="copyPrompt('finalPrompt')">Copy Prompt</button>
+            <button class="copy-btn" onclick="copyPrompt('finalPrompt', event)">Copy Prompt</button>
         </div>
         <textarea id="finalPrompt" rows="4" readonly="" placeholder="Your intelligent prompt will appear here..."></textarea>
 
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; margin-bottom: 10px;">
             <div class="result-label" style="color: var(--negative-color);">Smart Negative Prompt</div>
-            <button class="copy-btn" onclick="copyPrompt('negativePrompt')" style="background: var(--negative-color);">Copy Neg</button>
+            <button class="copy-btn" onclick="copyPrompt('negativePrompt', event)" style="background: var(--negative-color);">Copy Neg</button>
         </div>
         <textarea id="negativePrompt" rows="3" readonly="" placeholder="Negative prompt will appear here..."></textarea>
     </div>
 
     <div class="history-panel">
         <div class="history-header" onclick="toggleHistory()">
-            <span>📜 Prompt History <span id="historyCount" class="history-count">7</span></span>
+            <span>📜 Prompt History <span id="historyCount" class="history-count">0</span></span>
             <span id="historyToggleIcon" class="history-toggle">▼</span>
         </div>
         <div id="historyBody" class="history-body">
-            <div id="historyList" class="history-list"><div class="history-item" title="(masterpiece:1.2), (best quality:1.2), SDXL 1.0 DreamShaper XL Lightning style, (a hyper-realistic, cinematic 8k portrait of the same young woman blue frok dress standing gracefully beside an easel:1.3), Close-up portrait, Hyper-realistic, blurred rainy city street background, wet asphalt, reflections, Professional softbox studio lighting, Shot on 85mm lens, shot at f/1.2, ultra-shallow depth of field, creamy bokeh, Teal and Orange cinematic color grading, subsurface scattering, realistic skin diffusion, ambient occlusion, deep contact shadows, perfectly grounded, RAW photo, unedited, authentic, CFG 2, Steps 6, Sampler DPM++ SDE Karras"><span class="history-item-time">08:43 PM</span>(masterpiece:1.2), (best quality:1.2), SDXL 1.0 DreamShaper XL Lightning style, (a hyper-realistic, cinematic 8k portrai…</div><div class="history-item" title="(masterpiece:1.2), (best quality:1.2), SDXL 1.0 DreamShaper XL Lightning style, (ultra-realistic cinematic portrait of a stylish young man sitting comfortably:1.3), Close-up portrait, Hyper-realistic, blurred rainy city street background, wet asphalt, reflections, Dramatic chiaroscuro, extreme contrast, Shot on 85mm lens, shot at f/1.2, ultra-shallow depth of field, creamy bokeh, Teal and Orange cinematic color grading, subsurface scattering, realistic skin diffusion, ambient occlusion, deep contact shadows, perfectly grounded, RAW photo, unedited, authentic, CFG 2, Steps 6, Sampler DPM++ SDE Karras"><span class="history-item-time">08:33 PM</span>(masterpiece:1.2), (best quality:1.2), SDXL 1.0 DreamShaper XL Lightning style, (ultra-realistic cinematic portrait of a…</div><div class="history-item" title="(masterpiece:1.2), (best quality:1.2), SDXL 1.0 DreamShaper XL Lightning style, (A stunning subject:1.3), Extreme wide shot, expansive scene, Photorealistic, blurred rainy city street background, wet asphalt, reflections, Golden hour natural sunlight, Shot on 14mm ultra-wide lens, Teal and Orange cinematic color grading, Unreal Engine 5, ray tracing, octane render, ambient occlusion, deep contact shadows, perfectly grounded, RAW photo, unedited, authentic, CFG 2, Steps 6, Sampler DPM++ SDE Karras"><span class="history-item-time">08:33 PM</span>(masterpiece:1.2), (best quality:1.2), SDXL 1.0 DreamShaper XL Lightning style, (A stunning subject:1.3), Extreme wide s…</div><div class="history-item" title="(masterpiece:1.2), (best quality:1.2), SDXL 1.0 DreamShaper XL Lightning style, (A stunning subject:1.3), Extreme wide shot, expansive scene, Photorealistic, blurred rainy city street background, wet asphalt, reflections, Golden hour natural sunlight, Shot on 14mm ultra-wide lens, Teal and Orange cinematic color grading, Unreal Engine 5, ray tracing, octane render, ambient occlusion, deep contact shadows, perfectly grounded, RAW photo, unedited, authentic, CFG 7, Steps 25, Sampler Euler a"><span class="history-item-time">08:32 PM</span>(masterpiece:1.2), (best quality:1.2), SDXL 1.0 DreamShaper XL Lightning style, (A stunning subject:1.3), Extreme wide s…</div><div class="history-item" title="(masterpiece), (best quality), SDXL 1.0 Juggernaut XL v9 style, (A stunning subject), Extreme wide shot, expansive scene, Photorealistic, blurred rainy city street background, wet asphalt, reflections, Golden hour natural sunlight, Shot on 14mm ultra-wide lens, Teal and Orange cinematic color grading, Unreal Engine 5, ray tracing, octane render, ambient occlusion, deep contact shadows, perfectly grounded, RAW photo, unedited, authentic, CFG 7, Steps 25, Sampler Euler a"><span class="history-item-time">08:32 PM</span>(masterpiece), (best quality), SDXL 1.0 Juggernaut XL v9 style, (A stunning subject), Extreme wide shot, expansive scene…</div><div class="history-item" title="(masterpiece:1.2), (best quality:1.2), SDXL Turbo SDXL Lightning style, (A stunning subject:1.3), Extreme wide shot, expansive scene, Photorealistic, blurred rainy city street background, wet asphalt, reflections, Golden hour natural sunlight, Shot on 14mm ultra-wide lens, Teal and Orange cinematic color grading, Unreal Engine 5, ray tracing, octane render, ambient occlusion, deep contact shadows, perfectly grounded, RAW photo, unedited, authentic, CFG 7, Steps 25, Sampler Euler a"><span class="history-item-time">08:32 PM</span>(masterpiece:1.2), (best quality:1.2), SDXL Turbo SDXL Lightning style, (A stunning subject:1.3), Extreme wide shot, exp…</div><div class="history-item" title="A photorealistic image of A stunning subject, composed as a extreme wide shot, expansive scene. The scene is set in blurred rainy city street background, wet asphalt, reflections, with ambient occlusion, deep contact shadows, perfectly grounded. Lighting: Golden hour natural sunlight. Captured with shot on 14mm ultra-wide lens, . Color palette: teal and orange cinematic color grading. Rendered with unreal engine 5, ray tracing, octane render, quality standard: raw photo, unedited, authentic. [FLUX.1 [pro] | guidance: 3.5 | steps: 28 | aspect: 1:1]"><span class="history-item-time">06:23 PM</span>A photorealistic image of A stunning subject, composed as a extreme wide shot, expansive scene. The scene is set in blur…</div></div>
+            <div id="historyList" class="history-list"></div>
             <button class="history-clear" onclick="clearHistory()">🗑️ Clear History</button>
         </div>
     </div>
@@ -1261,6 +1240,7 @@
     let suppressArchToast = false;
     let isRebuildingPanel = false;
     let activePresetKey = null;
+    let generateDebounceTimer = null;
 
     // ============================================================
     // STORAGE
@@ -1270,7 +1250,10 @@
     const THEME_KEY = 'aiPromptBuilder_theme';
     const CUSTOM_PRESETS_KEY = 'aiPromptBuilder_customPresets';
     const CUSTOM_MODELS_KEY = 'aiPromptBuilder_customModels';
+    const SUBJECT_QUEUE_KEY = 'aiPromptBuilder_subjectQueue';
+    const SUBJECT_QUEUE_INDEX_KEY = 'aiPromptBuilder_subjectQueueIndex';
     const HISTORY_MAX = 20;
+    const GENERATE_DEBOUNCE_MS = 200;
 
     const PERSISTED_FIELDS = [
         'targetEngine',
@@ -1361,6 +1344,7 @@
         clearSettings();
         localStorage.removeItem(HISTORY_KEY);
         localStorage.removeItem(CUSTOM_PRESETS_KEY);
+        clearSubjectQueue();
         showToast('🔄 Reloading...');
         setTimeout(() => window.location.reload(), 800);
     }
@@ -1457,8 +1441,23 @@
     function loadFromHistory(idx) {
         const history = getHistory();
         if (!history[idx]) return;
-        navigator.clipboard.writeText(history[idx].text);
-        document.getElementById('finalPrompt').value = history[idx].text;
+        const text = history[idx].text;
+        document.getElementById('finalPrompt').value = text;
+
+        try {
+            if (window.location.protocol === 'file:' || !navigator.clipboard) {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.cssText = 'position:fixed; opacity:0;';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            } else {
+                navigator.clipboard.writeText(text);
+            }
+        } catch (e) { console.warn('Copy failed', e); }
+
         showToast('📋 Prompt restored & copied');
     }
 
@@ -1552,16 +1551,6 @@
         });
     }
 
-    function applyCustomPreset(key) {
-        const presets = getCustomPresets();
-        const p = presets[key];
-        if (!p) return;
-
-        // Use the same robust applyPreset logic
-        applyPresetSettings(p.settings, p.name);
-        scheduleSave();
-    }
-
     // ============================================================
     // CUSTOM MODELS
     // ============================================================
@@ -1585,6 +1574,49 @@
         saveCustomModels(models);
         updateEnginePanel();
         showToast(`➕ Model "${name}" added (${arch})`);
+    }
+
+    // ============================================================
+    // SUBJECT QUEUE PERSISTENCE (fix #7)
+    // ============================================================
+    function saveSubjectQueue() {
+        try {
+            if (subjectQueue.length === 0) {
+                sessionStorage.removeItem(SUBJECT_QUEUE_KEY);
+                sessionStorage.removeItem(SUBJECT_QUEUE_INDEX_KEY);
+            } else {
+                sessionStorage.setItem(SUBJECT_QUEUE_KEY, JSON.stringify(subjectQueue));
+                sessionStorage.setItem(SUBJECT_QUEUE_INDEX_KEY, String(currentQueueIndex));
+            }
+        } catch (e) {
+            console.warn('Queue save failed:', e);
+        }
+    }
+
+    function loadSubjectQueue() {
+        try {
+            const raw = sessionStorage.getItem(SUBJECT_QUEUE_KEY);
+            if (!raw) return false;
+            const parsed = JSON.parse(raw);
+            if (!Array.isArray(parsed) || parsed.length === 0) return false;
+
+            subjectQueue = parsed.filter(s => typeof s === 'string' && s.trim() !== '');
+            const idxRaw = sessionStorage.getItem(SUBJECT_QUEUE_INDEX_KEY);
+            const idx = parseInt(idxRaw, 10);
+            currentQueueIndex = (Number.isFinite(idx) && idx >= 0 && idx < subjectQueue.length) ? idx : 0;
+
+            return subjectQueue.length > 0;
+        } catch (e) {
+            console.warn('Queue load failed:', e);
+            return false;
+        }
+    }
+
+    function clearSubjectQueue() {
+        try {
+            sessionStorage.removeItem(SUBJECT_QUEUE_KEY);
+            sessionStorage.removeItem(SUBJECT_QUEUE_INDEX_KEY);
+        } catch (e) {}
     }
 
     // ============================================================
@@ -1960,9 +1992,9 @@
             scheduleSave();
         };
         const triggerEl = document.getElementById('sdTrigger');
-        if (triggerEl) triggerEl.addEventListener('input', () => sync(triggerEl));
+        if (triggerEl) triggerEl.addEventListener('input', () => sync('sdTrigger'));
         const infoEl = document.getElementById('sdTriggerInfo');
-        if (infoEl) infoEl.addEventListener('input', () => sync(infoEl));
+        if (infoEl) infoEl.addEventListener('input', () => sync('sdTriggerInfo'));
     }
 
     function applyRecommended() {
@@ -1982,7 +2014,8 @@
         }
 
         scheduleSave();
-        generatePrompt();
+        generatePrompt({ skipHistory: true });
+        renderScore();
         showToast('✨ Recommended settings applied');
     }
 
@@ -2006,7 +2039,7 @@
     // ============================================================
     // ARCHITECTURE CHANGE HANDLER
     // ============================================================
-    function handleArchitectureChange(event) {
+    function handleArchitectureChange() {
         const archEl = document.getElementById('sdVersion');
         if (!archEl) return;
         const arch = archEl.value;
@@ -2219,25 +2252,26 @@
             infoPanel.id = 'modelInfoPanel';
             infoPanel.className = 'model-info-panel';
             panel.appendChild(infoPanel);
-
-            const modelSelect = document.getElementById('sdModel');
-            if (modelSelect) modelSelect.addEventListener('change', handleModelChange);
-
-            const sdVersionEl = document.getElementById('sdVersion');
-            if (sdVersionEl) {
-                sdVersionEl.addEventListener('change', handleArchitectureChange);
-            }
         }
 
-        const versionSelectIds = ['mjVersion', 'sdVersion', 'fluxVariant', 'dalleVersion'];
-        versionSelectIds.forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.addEventListener('change', () => {
-                refreshBadgeVersion(engine);
-                scheduleSave();
-                renderScore();
+        // Event delegation — un singur listener per container
+        if (!panel.dataset.delegated) {
+            panel.dataset.delegated = 'true';
+            panel.addEventListener('change', (e) => {
+                const t = e.target;
+                const currentEngine = document.getElementById('targetEngine').value;
+
+                if (t.id === 'sdModel') {
+                    handleModelChange();
+                } else if (t.id === 'sdVersion') {
+                    handleArchitectureChange();
+                } else if (['mjVersion', 'fluxVariant', 'dalleVersion'].includes(t.id)) {
+                    refreshBadgeVersion(currentEngine);
+                    scheduleSave();
+                    renderScore();
+                }
             });
-        });
+        }
 
         refreshBadgeVersion(engine);
 
@@ -2547,48 +2581,35 @@
     };
 
     // ============================================================
-    // APPLY PRESET (v22.8 — FIXED)
+    // APPLY PRESET (unified)
     // ============================================================
     function applyPresetSettings(settings, presetName) {
-        // PAS 1: Aplică setările pe elementele existente în DOM (static grid)
+        if (!settings || typeof settings !== 'object') {
+            showToast('❌ Invalid preset data', true);
+            return;
+        }
+
         const deferredSettings = {};
+        const ALLOWED_KEYS = new Set(PERSISTED_FIELDS);
 
         Object.entries(settings).forEach(([id, value]) => {
+            if (id === '__proto__' || id === 'constructor' || id === 'prototype') return;
+            if (!ALLOWED_KEYS.has(id)) return;
+
             const el = document.getElementById(id);
             if (!el) {
-                // Elementul nu există (ex: sdModel când nu ești pe SD engine)
                 deferredSettings[id] = value;
                 return;
             }
             setElementValue(el, value);
         });
 
-        // PAS 2: Detectează dacă presetul necesită un engine switch
-        const hasEngineSpecificSettings = Object.keys(settings).some(id =>
-            id.startsWith('sd') || id.startsWith('mj') || id.startsWith('flux') || id.startsWith('dalle')
-        );
-        const currentEngine = document.getElementById('targetEngine').value;
-        const presetHasSDOnly = Object.keys(settings).some(id => id.startsWith('sd'));
-        const presetHasMJOnly = Object.keys(settings).some(id => id.startsWith('mj'));
-        const presetHasFluxOnly = Object.keys(settings).some(id => id.startsWith('flux'));
-        const presetHasDalleOnly = Object.keys(settings).some(id => id.startsWith('dalle'));
-
-        // Nu facem switch automat — preset-ul nu forțează un engine,
-        // doar aplică setările pentru engine-ul curent.
-        // Setările pentru alte engine-uri rămân în deferredSettings
-        // dar nu sunt aplicate (pentru că elementele nu există în DOM).
-
-        // Dacă elementul engineParams trebuie re-randat (pentru că avem setări engine-specific
-        // și elementele respective nu există), atunci re-randăm.
-
         const needsRerender = Object.keys(deferredSettings).length > 0;
         if (needsRerender) {
-            // Salvează setările deferred temporar, apoi re-randează
             suppressArchToast = true;
             updateEnginePanel();
             suppressArchToast = false;
 
-            // PAS 3: Acum că panel-ul e re-randat, încearcă să aplici deferredSettings
             Object.entries(deferredSettings).forEach(([id, value]) => {
                 const el = document.getElementById(id);
                 if (!el) return;
@@ -2596,42 +2617,61 @@
             });
         }
 
-        // PAS 4: Aplică din nou TOATE setările (după re-render, unele elemente ar putea fi resetate)
         Object.entries(settings).forEach(([id, value]) => {
+            if (id === '__proto__' || id === 'constructor' || id === 'prototype') return;
+            if (!ALLOWED_KEYS.has(id)) return;
             const el = document.getElementById(id);
             if (!el) return;
             setElementValue(el, value);
         });
 
-        // PAS 5: Finalizează
         updateLogic();
-        generatePrompt();
+        generatePrompt({ skipHistory: true });
         scheduleSave();
         showToast(`⚡ Preset applied: ${presetName}`);
     }
 
     function setElementValue(el, value) {
+        if (!el) return;
         if (el.type === 'checkbox') {
             el.checked = !!value;
         } else if (el.tagName === 'SELECT') {
-            const exists = Array.from(el.options).some(o => o.value === value);
-            if (exists) el.value = value;
+            const strVal = String(value);
+            const exists = Array.from(el.options).some(o => o.value === strVal);
+            if (exists) el.value = strVal;
         } else {
-            el.value = value;
+            el.value = String(value ?? '');
         }
     }
 
     function applyPreset(key, buttonEl) {
         const preset = PRESETS[key];
-        if (!preset) return;
+        if (!preset) {
+            console.warn('Unknown preset:', key);
+            return;
+        }
 
         activePresetKey = key;
 
-        // Vizual: marchează chip-ul activ
         document.querySelectorAll('.preset-chip').forEach(el => el.classList.remove('active'));
         if (buttonEl) buttonEl.classList.add('active');
 
         applyPresetSettings(preset.settings, preset.name);
+    }
+
+    function applyCustomPreset(key) {
+        const presets = getCustomPresets();
+        const p = presets[key];
+        if (!p) {
+            console.warn('Unknown custom preset:', key);
+            return;
+        }
+
+        activePresetKey = key;
+
+        document.querySelectorAll('.preset-chip').forEach(el => el.classList.remove('active'));
+
+        applyPresetSettings(p.settings, p.name);
     }
 
     // ============================================================
@@ -2646,6 +2686,7 @@
                 currentQueueIndex = 0;
                 document.getElementById('subject').value = subjectQueue[0];
                 updateQueueStatus();
+                saveSubjectQueue();
                 smartRandomize(subjectQueue[0]);
                 showToast(`📁 ${subjectQueue.length} subjects loaded`);
             } else {
@@ -2691,6 +2732,8 @@
 
     function updateQueueStatus() {
         document.getElementById('queueStatus').innerText = `Queue: ${subjectQueue.length > 0 ? currentQueueIndex + 1 : 0} / ${subjectQueue.length} Subjects`;
+        const clearBtn = document.getElementById('clearQueueBtn');
+        if (clearBtn) clearBtn.style.display = subjectQueue.length > 0 ? 'inline-block' : 'none';
     }
 
     function handleRatioChange() {
@@ -2698,6 +2741,38 @@
         const customInput = document.getElementById('customRatio');
         customInput.disabled = (preset !== 'custom');
         if (preset === 'custom') customInput.focus();
+    }
+
+    // ============================================================
+    // SCORE LIVE UPDATE
+    // ============================================================
+    function attachScoreListeners() {
+        const containers = [
+            document.querySelector('.grid-settings'),
+            document.getElementById('engineParams')
+        ].filter(Boolean);
+
+        containers.forEach(container => {
+            if (container.dataset.scoreDelegated) return;
+            container.dataset.scoreDelegated = 'true';
+
+            container.addEventListener('change', (e) => {
+                const t = e.target;
+                if (!t || !t.id) return;
+                if (t.id === 'subject' || t.id === 'aiInput' || t.id === 'customRatio') return;
+                renderScore();
+            });
+
+            container.addEventListener('input', (e) => {
+                const t = e.target;
+                if (!t || t.tagName !== 'INPUT' || t.type === 'checkbox') return;
+                if (t.id === 'subject' || t.id === 'aiInput' || t.id === 'customRatio') return;
+                if (generateDebounceTimer) clearTimeout(generateDebounceTimer);
+                generateDebounceTimer = setTimeout(() => {
+                    renderScore();
+                }, 150);
+            });
+        });
     }
 
     // ============================================================
@@ -2821,47 +2896,123 @@
     }
 
     // ============================================================
-    // PROMPT SCORE
+    // PROMPT SCORE (v22.12 — weighted, meaningful)
     // ============================================================
+    const SCORE_WEIGHTS = {
+        style: 15,
+        composition: 10,
+        lighting: 6,
+        lightDirection: 4,
+        lightQuality: 4,
+        lightTemp: 3,
+        camera: 6,
+        aperture: 5,
+        motion: 3,
+        filmStock: 5,
+        qualityStandard: 6,
+        colorPalette: 5,
+        renderTech: 5,
+        background: 5,
+        interaction: 5
+    };
+
     function calculatePromptScore(subjectText, engine) {
         let score = 0;
-        if (subjectText && subjectText.length > 3 && subjectText !== "A stunning subject") score += subjectText.length > 20 ? 20 : 12;
-        if (document.getElementById('style').value) score += 15;
-        if (document.getElementById('composition').value) score += 10;
-        ['lighting', 'lightDirection', 'lightQuality', 'lightTemp'].forEach(id => { if (document.getElementById(id).value) score += 5; });
-        ['camera', 'aperture', 'filmStock'].forEach(id => { if (document.getElementById(id).value) score += 5; });
-        if (document.getElementById('qualityStandard').value) score += 5;
-        if (document.getElementById('colorPalette').value) score += 5;
-        if (document.getElementById('renderTech').value) score += 5;
-        if (document.getElementById('background').value) score += 5;
-        if (document.getElementById('interaction').value) score += 5;
 
-        if (engine === 'midjourney') {
-            if (document.getElementById('mjVersion')?.value && document.getElementById('mjStylize')?.value) score += 10;
-        } else if (engine === 'stable_diffusion') {
-            if (document.getElementById('sdModel')?.value && document.getElementById('sdCfg')?.value) score += 10;
-        } else if (engine === 'flux') {
-            if (document.getElementById('fluxVariant')?.value && document.getElementById('fluxGuidance')?.value) score += 10;
-        } else if (engine === 'dalle3') {
-            if (document.getElementById('dalleVersion')?.value && document.getElementById('dalleStyle')?.value) score += 10;
+        // 1. Subject
+        const subj = (subjectText || '').trim();
+        if (subj && subj.length > 3 && subj !== "A stunning subject") {
+            if (subj.length > 40) score += 20;
+            else if (subj.length > 20) score += 17;
+            else if (subj.length > 10) score += 14;
+            else score += 10;
         }
 
-        const conflicts = detectConflicts();
-        score -= conflicts.filter(c => c.level === 'error').length * 8;
-        score -= conflicts.filter(c => c.level === 'warn').length * 3;
+        // 2. Weighted fields
+        Object.entries(SCORE_WEIGHTS).forEach(([id, maxPts]) => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            const val = el.value;
+            if (!val) return;
 
-        return Math.max(0, Math.min(100, score));
+            const len = val.length;
+            if (len > 40) score += maxPts;
+            else if (len > 20) score += maxPts * 0.8;
+            else if (len > 8) score += maxPts * 0.6;
+            else score += maxPts * 0.4;
+        });
+
+        // 3. Engine-specific bonus
+        if (engine === 'midjourney') {
+            const v = document.getElementById('mjVersion')?.value;
+            const s = document.getElementById('mjStylize')?.value;
+            if (v && s) score += 8;
+        } else if (engine === 'stable_diffusion') {
+            const m = document.getElementById('sdModel')?.value;
+            const c = document.getElementById('sdCfg')?.value;
+            const st = document.getElementById('sdSteps')?.value;
+            if (m && c && st) score += 8;
+        } else if (engine === 'flux') {
+            const v = document.getElementById('fluxVariant')?.value;
+            const g = document.getElementById('fluxGuidance')?.value;
+            if (v && g) score += 8;
+        } else if (engine === 'dalle3') {
+            const v = document.getElementById('dalleVersion')?.value;
+            const s = document.getElementById('dalleStyle')?.value;
+            if (v && s) score += 8;
+        }
+
+        // 4. Combo bonuses
+        const get = (id) => document.getElementById(id)?.value?.toLowerCase() || '';
+        const getTag = (id) => document.getElementById(id)?.selectedOptions[0]?.dataset.tag || '';
+
+        if (get('filmStock') && get('qualityStandard') && getTag('style') === 'real') score += 4;
+        if (get('camera') && get('aperture')) score += 3;
+        if (get('composition') && get('lighting')) score += 3;
+
+        const lightFields = ['lighting', 'lightDirection', 'lightQuality', 'lightTemp'].filter(id => get(id)).length;
+        if (lightFields === 4) score += 3;
+        else if (lightFields === 3) score += 2;
+        else if (lightFields === 2) score += 1;
+
+        // 5. Conflicts penalty
+        const conflicts = detectConflicts();
+        score -= conflicts.filter(c => c.level === 'error').length * 10;
+        score -= conflicts.filter(c => c.level === 'warn').length * 4;
+
+        return Math.max(0, Math.min(100, Math.round(score)));
     }
 
     function renderScore() {
         const el = document.getElementById('promptScore');
         if (!el) return;
+
         const subject = document.getElementById('subject').value;
         const engine = document.getElementById('targetEngine').value;
         const score = calculatePromptScore(subject, engine);
+        const newText = `${score}/100`;
+
+        if (el.textContent === newText) return;
+
+        const oldScore = parseInt(el.textContent, 10) || 0;
+        const direction = score > oldScore ? 'up' : score < oldScore ? 'down' : 'same';
+
         let cls = score >= 80 ? 'good' : score >= 50 ? 'warn' : 'bad';
         el.className = 'prompt-score ' + cls;
-        el.textContent = `${score}/100`;
+        el.textContent = newText;
+
+        // Animație scurtă feedback
+        if (direction !== 'same' && oldScore > 0) {
+            el.style.transition = 'transform 0.3s, box-shadow 0.3s';
+            el.style.transform = 'scale(1.15)';
+            el.style.boxShadow = direction === 'up'
+                ? '0 0 12px rgba(16,185,129,0.6)'
+                : '0 0 12px rgba(251,113,133,0.6)';
+            setTimeout(() => {
+                el.style.transform = '';
+                el.style.boxShadow = '';
+            }, 350);
+        }
     }
 
     // ============================================================
@@ -2943,11 +3094,11 @@
         });
 
         updateLogic();
-        generatePrompt();
+        generatePromptDebounced({ skipHistory: true });
     }
 
     // ============================================================
-    // QUEUE
+    // QUEUE NAVIGATION
     // ============================================================
     function nextSubject() {
         if (subjectQueue.length === 0) { alert("Upload a .txt file first!"); return; }
@@ -2957,6 +3108,7 @@
             document.getElementById('subject').value = nextSub;
             smartRandomize(nextSub);
             updateQueueStatus();
+            saveSubjectQueue();
         } else alert("End of list!");
     }
 
@@ -2968,6 +3120,7 @@
             document.getElementById('subject').value = prevSub;
             smartRandomize(prevSub);
             updateQueueStatus();
+            saveSubjectQueue();
         } else alert("First subject!");
     }
 
@@ -3086,7 +3239,8 @@
     // ============================================================
     // GENERATE PROMPT
     // ============================================================
-    function generatePrompt() {
+    function generatePrompt(options = {}) {
+        const { skipHistory = false } = options;
         const subject = document.getElementById('subject').value || "A stunning subject";
         const prompt = buildPromptString(subject);
         document.getElementById('finalPrompt').value = prompt;
@@ -3098,19 +3252,50 @@
         if (styleTag && NEGATIVE_ENGINE.conflict[styleTag]) negParts.push(NEGATIVE_ENGINE.conflict[styleTag]);
         negParts.push(NEGATIVE_ENGINE.quality);
 
-        if (document.getElementById('targetEngine').value === 'stable_diffusion') negParts.push("watermark, text, logo, lowpoly, bad proportions, blurry, distorted");
+        if (document.getElementById('targetEngine').value === 'stable_diffusion') {
+            negParts.push("watermark, text, logo, lowpoly, bad proportions, blurry, distorted");
+        }
 
         if (document.getElementById('targetEngine').value === 'midjourney') {
-            const currentPrompt = document.getElementById('finalPrompt').value;
             const negString = negParts.join(", ");
-            document.getElementById('finalPrompt').value = `${currentPrompt} --no ${negString}`;
+            document.getElementById('finalPrompt').value = `${prompt} --no ${negString}`;
         }
 
         document.getElementById('negativePrompt').value = negParts.join(", ");
 
         scheduleSave();
-        addToHistory(document.getElementById('finalPrompt').value);
+
+        if (!skipHistory) {
+            addToHistory(document.getElementById('finalPrompt').value);
+        }
+
         renderScore();
+    }
+
+    function generatePromptDebounced(options = {}) {
+        if (generateDebounceTimer) clearTimeout(generateDebounceTimer);
+        generateDebounceTimer = setTimeout(() => {
+            generatePrompt(options);
+            generateDebounceTimer = null;
+        }, GENERATE_DEBOUNCE_MS);
+    }
+
+    // ============================================================
+    // PLATFORM DETECTION
+    // ============================================================
+    function detectMacPlatform() {
+        if (navigator.userAgentData && navigator.userAgentData.platform) {
+            return navigator.userAgentData.platform.toLowerCase().includes('mac');
+        }
+        const ua = (navigator.userAgent || '').toLowerCase();
+        if (ua.includes('mac') || ua.includes('iphone') || ua.includes('ipad') || ua.includes('ipod')) {
+            return true;
+        }
+        const hasTouch = 'ontouchend' in document;
+        if (hasTouch && !ua.includes('windows') && !ua.includes('android')) {
+            return true;
+        }
+        return false;
     }
 
     const NEGATIVE_ENGINE = {
@@ -3235,17 +3420,49 @@
     }
 
     // ============================================================
-    // COPY
+    // COPY (robust)
     // ============================================================
-    function copyPrompt(id) {
+    function copyPrompt(id, evt) {
         const copyText = document.getElementById(id);
-        if (!copyText.value) return;
-        copyText.select();
-        navigator.clipboard.writeText(copyText.value);
-        const btn = event.target;
-        const orig = btn.innerText;
-        btn.innerText = "Copied! ✅";
-        setTimeout(() => btn.innerText = orig, 2000);
+        if (!copyText || !copyText.value) return;
+
+        const value = copyText.value;
+        const useFallbackFirst = window.location.protocol === 'file:' || !navigator.clipboard;
+
+        const doFallback = () => {
+            try {
+                const ta = document.createElement('textarea');
+                ta.value = value;
+                ta.style.cssText = 'position:fixed; opacity:0; left:-9999px;';
+                document.body.appendChild(ta);
+                ta.select();
+                ta.setSelectionRange(0, 99999);
+                const ok = document.execCommand('copy');
+                document.body.removeChild(ta);
+                return ok;
+            } catch (e) {
+                console.warn('Copy failed entirely', e);
+                return false;
+            }
+        };
+
+        const doModern = () => {
+            return navigator.clipboard.writeText(value)
+                .then(() => true)
+                .catch(() => doFallback());
+        };
+
+        Promise.resolve(useFallbackFirst ? doFallback() : doModern())
+            .then((success) => {
+                const btn = (evt && evt.currentTarget) || (evt && evt.target);
+                if (!btn) {
+                    showToast(success ? '📋 Copied to clipboard' : '❌ Copy failed');
+                    return;
+                }
+                const orig = btn.innerText;
+                btn.innerText = success ? "Copied! ✅" : "❌ Failed";
+                setTimeout(() => btn.innerText = orig, 2000);
+            });
     }
 
     // ============================================================
@@ -3254,7 +3471,7 @@
     function exportSettingsJSON() {
         try {
             const data = {
-                version: 'v22.8',
+                version: 'v22.12',
                 exportDate: new Date().toISOString(),
                 settings: {},
                 history: getHistory(),
@@ -3283,35 +3500,100 @@
     document.getElementById('importJSON').addEventListener('change', function(e) {
         const file = e.target.files[0];
         if (!file) return;
+        if (!file.name.endsWith('.json')) {
+            showToast('❌ Only .json files accepted', true);
+            e.target.value = '';
+            return;
+        }
+
         const reader = new FileReader();
         reader.onload = (event) => {
             try {
                 const data = JSON.parse(event.target.result);
-                if (!data.settings) throw new Error('Invalid');
 
-                suppressArchToast = true;
-                Object.entries(data.settings).forEach(([id, value]) => {
-                    const el = document.getElementById(id);
-                    if (!el) return;
-                    if (el.type === 'checkbox') el.checked = !!value;
-                    else if (el.tagName === 'SELECT') {
-                        const exists = Array.from(el.options).some(o => o.value === value);
-                        if (exists) el.value = value;
-                    } else el.value = value;
+                if (!data || typeof data !== 'object') {
+                    throw new Error('Root must be an object');
+                }
+                if (!data.settings || typeof data.settings !== 'object' || Array.isArray(data.settings)) {
+                    throw new Error('Missing or invalid "settings" field');
+                }
+
+                const ALLOWED_KEYS = new Set(PERSISTED_FIELDS);
+
+                const safeEntries = Object.entries(data.settings).filter(([id]) => {
+                    if (id === '__proto__' || id === 'constructor' || id === 'prototype') return false;
+                    if (!ALLOWED_KEYS.has(id)) return false;
+                    return true;
                 });
 
-                if (data.history) { saveHistory(data.history); renderHistory(); }
-                if (data.customPresets) { saveCustomPresets(data.customPresets); renderCustomPresets(); }
-                if (data.customModels) { saveCustomModels(data.customModels); }
-                if (data.theme) { localStorage.setItem(THEME_KEY, data.theme); applyTheme(data.theme); }
+                if (safeEntries.length === 0) {
+                    throw new Error('No valid settings found');
+                }
+
+                suppressArchToast = true;
+                let appliedCount = 0;
+                safeEntries.forEach(([id, value]) => {
+                    const el = document.getElementById(id);
+                    if (!el) return;
+
+                    if (el.type === 'checkbox') {
+                        el.checked = !!value;
+                    } else if (el.tagName === 'SELECT') {
+                        const strVal = String(value);
+                        const exists = Array.from(el.options).some(o => o.value === strVal);
+                        if (exists) el.value = strVal;
+                    } else {
+                        el.value = String(value ?? '');
+                    }
+                    appliedCount++;
+                });
+
+                if (appliedCount === 0) {
+                    throw new Error('No settings could be applied');
+                }
+
+                if (Array.isArray(data.history)) {
+                    const validHistory = data.history
+                        .filter(h => h && typeof h === 'object' && typeof h.text === 'string')
+                        .slice(0, 100);
+                    saveHistory(validHistory);
+                    renderHistory();
+                }
+
+                if (data.customPresets && typeof data.customPresets === 'object' && !Array.isArray(data.customPresets)) {
+                    const validPresets = {};
+                    Object.entries(data.customPresets).forEach(([k, v]) => {
+                        if (k === '__proto__' || k === 'constructor' || k === 'prototype') return;
+                        if (v && typeof v === 'object' && typeof v.name === 'string' && v.settings && typeof v.settings === 'object') {
+                            validPresets[k] = v;
+                        }
+                    });
+                    saveCustomPresets(validPresets);
+                    renderCustomPresets();
+                }
+
+                if (Array.isArray(data.customModels)) {
+                    const validModels = data.customModels
+                        .filter(m => m && typeof m === 'object' && typeof m.name === 'string' && typeof m.arch === 'string')
+                        .slice(0, 50);
+                    saveCustomModels(validModels);
+                }
+
+                if (typeof data.theme === 'string' && THEMES.includes(data.theme)) {
+                    try { localStorage.setItem(THEME_KEY, data.theme); } catch(e) {}
+                    applyTheme(data.theme);
+                }
 
                 updateEnginePanel();
                 updateLogic();
                 handleRatioChange();
                 generatePrompt();
 
-                showToast(`📥 Import successful`);
-            } catch (err) { showToast('❌ Invalid JSON', true); }
+                showToast(`📥 Import successful (${appliedCount} settings)`);
+            } catch (err) {
+                console.error('Import failed:', err);
+                showToast(`❌ ${err.message || 'Invalid JSON'}`, true);
+            }
             e.target.value = '';
         };
         reader.readAsText(file);
@@ -3322,7 +3604,7 @@
     // ============================================================
     function attachKeyboardShortcuts() {
         document.addEventListener('keydown', (e) => {
-            const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+            const isMac = detectMacPlatform();
             const mod = isMac ? e.metaKey : e.ctrlKey;
 
             if (mod && e.key === 's') { e.preventDefault(); manualSave(); }
@@ -3351,7 +3633,7 @@
                 if (options.length === 0) return;
                 el.value = options[Math.floor(Math.random() * options.length)].value;
                 updateLogic();
-                generatePrompt();
+                generatePromptDebounced({ skipHistory: true });
                 scheduleSave();
                 el.style.transition = 'box-shadow 0.3s';
                 el.style.boxShadow = '0 0 15px var(--accent-color)';
@@ -3363,7 +3645,6 @@
             let btn = wrapper.querySelector('.randomize-mini');
 
             if (btn) {
-                // Button already exists in static HTML (saved page) — attach the handler.
                 btn.onclick = randomizeClick;
                 btn.style.cssText = 'position:absolute; right:8px; top:50%; transform:translateY(-50%); width:28px; height:28px; padding:0; border-radius:50%; background:rgba(56,189,248,0.15); border:1px solid var(--accent-color); color:var(--accent-color); font-size:0.9rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s; z-index:2;';
                 btn.onmouseenter = () => { btn.style.background = 'var(--accent-color)'; btn.style.color = 'var(--bg-color)'; };
@@ -3415,10 +3696,48 @@
 
         if (engine === 'stable_diffusion') setTimeout(updateModelInfoPanel, 100);
 
-        if (hadSaved) showToast('✅ Settings restored');
+        // Restaurează coada de subiecte
+        const hadQueue = loadSubjectQueue();
+        if (hadQueue) {
+            updateQueueStatus();
+            const subjectEl = document.getElementById('subject');
+            if (subjectEl && !subjectEl.value.trim()) {
+                subjectEl.value = subjectQueue[currentQueueIndex] || '';
+            }
+        }
+
+        if (hadSaved || hadQueue) {
+            const msgs = [];
+            if (hadSaved) msgs.push('settings');
+            if (hadQueue) msgs.push(`${subjectQueue.length} subjects`);
+            showToast(`✅ Restored: ${msgs.join(' + ')}`);
+        }
         suppressArchToast = false;
 
         attachAutoSaveListeners();
+        attachScoreListeners();
+
+        // Debounced live-generate la tastare subject
+        const subjectInput = document.getElementById('subject');
+        if (subjectInput) {
+            subjectInput.addEventListener('input', () => {
+                generatePromptDebounced({ skipHistory: true });
+            });
+        }
+
+        // Clear Queue button
+        const clearBtn = document.getElementById('clearQueueBtn');
+        if (clearBtn) {
+            clearBtn.onclick = () => {
+                if (!confirm('Clear subject queue?')) return;
+                subjectQueue = [];
+                currentQueueIndex = 0;
+                clearSubjectQueue();
+                updateQueueStatus();
+                document.getElementById('subject').value = '';
+                showToast('🗑️ Queue cleared');
+            };
+        }
 
         window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
             if (localStorage.getItem(THEME_KEY) === 'auto') applyTheme('auto');
