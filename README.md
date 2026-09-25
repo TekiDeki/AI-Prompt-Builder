@@ -1,4 +1,3 @@
-```markdown
 <div align="center">
 
 # 🧠 AI Prompt Builder
@@ -419,4 +418,3 @@ Distributed under the **MIT License**. See [LICENSE](LICENSE) for more informati
 [⬆ Back to Top](#-ai-prompt-builder)
 
 </div>
-```
