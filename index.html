@@ -167,7 +167,7 @@
             margin-bottom: 15px;
         }
 
-        .ai-input-group { display: flex; gap: 15px; }
+        .ai-input-group { display: flex; gap: 15px; flex-wrap: wrap; }
 
         .ai-input-group input {
             flex: 1;
@@ -181,15 +181,16 @@
         }
 
         .btn-analyze {
-            background-color: var(--ai-color);
-            color: white;
-            padding: 10px 25px;
-            border-radius: 12px;
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+    background-color: var(--ai-color);
+    color: white;
+    padding: 10px 25px;
+    border-radius: 12px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
 
         .btn-analyze:hover { background-color: #9333ea; transform: translateY(-2px); }
 
@@ -764,8 +765,38 @@
         }
 
         @media (max-width: 768px) {
-            .engine-badge { min-width: auto; width: 100%; align-self: stretch; margin-bottom: 0; }
-            .engine-main-row { flex-direction: column; align-items: stretch; }
+    .engine-badge { min-width: auto; width: 100%; align-self: stretch; margin-bottom: 0; }
+    .engine-main-row { flex-direction: column; align-items: stretch; }
+}
+
+@media (max-width: 480px) {
+    .ai-input-group {
+        flex-direction: column;
+    }
+    .ai-input-group input {
+        width: 100%;
+        font-size: 1rem;
+    }
+    .btn-analyze {
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 1rem;
+        white-space: normal;
+    }
+    .container {
+        padding: 15px;
+    }
+    h1 {
+        font-size: 1.8rem;
+    }
+    .presets-bar {
+        padding: 10px;
+    }
+    .preset-chip {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+}
         }
     </style>
 </head>
