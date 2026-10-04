@@ -7,10 +7,22 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Prompt Builder">
 <link rel="apple-touch-icon" href="icon-192.png">    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>AI Prompt Builder v22.12 - The Luminance Master</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
     <style>
+        /* ===== MOBILE FIX · 1/3 · Foundation ===== */
+        *, *::before, *::after { box-sizing: border-box; }
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            background: var(--bg-color);
+            -webkit-tap-highlight-color: transparent;
+        }
+        img, svg, video, canvas { max-width: 100%; height: auto; }
+        button, select, input, textarea { max-width: 100%; font-family: inherit; }
+        button, .preset-chip, .upload-label, .history-header, select { touch-action: manipulation; }
+
         :root {
             --bg-color: #0f172a;
             --card-bg: #1e293b;
@@ -74,6 +86,11 @@
             display: flex;
             justify-content: center;
             padding: 20px;
+            padding-top: calc(20px + env(safe-area-inset-top, 0px));
+            padding-right: calc(20px + env(safe-area-inset-right, 0px));
+            padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+            padding-left: calc(20px + env(safe-area-inset-left, 0px));
+            overflow-wrap: break-word;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
@@ -760,39 +777,161 @@
             margin: 0 2px;
         }
 
+        /* =====================================================
+           MOBILE — Minimal, non-destructive adjustments
+           ===================================================== */
         @media (max-width: 768px) {
-    .engine-badge { min-width: auto; width: 100%; align-self: stretch; margin-bottom: 0; }
-    .engine-main-row { flex-direction: column; align-items: stretch; }
-}
+            .engine-badge { min-width: auto; width: 100%; align-self: stretch; margin-bottom: 0; }
+            .engine-main-row { flex-direction: column; align-items: stretch; }
+            .container { padding: 18px; }
+            h1 { font-size: 1.9rem; }
+            p.subtitle { font-size: 1.05rem; }
+            .preset-chip { font-size: 0.88rem; padding: 7px 14px; }
+            .file-upload-container { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .aspect-ratio-container { flex-direction: column; align-items: stretch; }
+            .aspect-ratio-container input { width: 100%; }
+            .engine-params-grid { grid-template-columns: 1fr; }
+        }
 
-@media (max-width: 480px) {
-    .ai-input-group {
-        flex-direction: column;
-    }
-    .ai-input-group input {
-        width: 100%;
-        font-size: 1rem;
-    }
-    .btn-analyze {
-        width: 100%;
-        padding: 14px 20px;
-        font-size: 1rem;
-        white-space: normal;
-    }
-    .container {
-        padding: 15px;
-    }
-    h1 {
-        font-size: 1.8rem;
-    }
-    .presets-bar {
-        padding: 10px;
-    }
-    .preset-chip {
-        font-size: 0.8rem;
-        padding: 6px 12px;
-    }
-}
+        @media (max-width: 480px) {
+            .ai-input-group { flex-direction: column; }
+            .ai-input-group input { width: 100%; font-size: 1rem; }
+            .btn-analyze { width: 100%; padding: 14px 20px; font-size: 1rem; white-space: normal; }
+            .container { padding: 14px; border-radius: 14px; }
+            h1 { font-size: 1.6rem; }
+            p.subtitle { font-size: 0.9rem; }
+            .presets-bar { padding: 10px; }
+            .preset-chip { font-size: 0.8rem; padding: 6px 12px; }
+            .button-group { flex-direction: column; }
+            .button-group button { width: 100%; }
+            .support-footer { padding: 25px 15px; }
+            .support-footer > div { flex-direction: column; align-items: stretch; }
+            .support-footer .btn-donate,
+            .support-footer .btn-reset { width: 100%; text-align: center; }
+            .history-body.open { max-height: 60vh; }
+            .result-area { padding: 15px; }
+            #finalPrompt, #negativePrompt { font-size: 0.9rem; }
+            .shortcuts-help { font-size: 0.75rem; }
+        }
+
+        /* ===== MOBILE FIX · 2/3 · Layout & components ===== */
+        .select-wrap { position: relative; display: block; width: 100%; min-width: 0; }
+        .select-wrap > select { width: 100%; }
+        .randomize-mini {
+            position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+            width: 32px; height: 32px; padding: 0; border-radius: 50%;
+            background: rgba(56,189,248,0.15); border: 1px solid var(--accent-color);
+            color: var(--accent-color); font-size: 0.95rem; line-height: 1;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s, color 0.2s; z-index: 2;
+        }
+        @media (hover: hover) { .randomize-mini:hover { background: var(--accent-color); color: var(--bg-color); } }
+        .randomize-mini:active { background: var(--accent-color); color: var(--bg-color); }
+
+        /* grids can never be wider than their container */
+        .grid-settings { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+        .engine-params-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
+        .grid-settings > *, .engine-params-grid > *, .setting-group { min-width: 0; }
+        .setting-group select, .setting-group input[type="text"] { width: 100%; min-width: 0; }
+        .ai-input-group input { min-width: 0; flex: 1 1 220px; }
+        .model-trigger-input input { min-width: 0; }
+        .aspect-ratio-container select { flex: 1 1 auto; min-width: 0; }
+        .upload-row, .queue-row { flex-wrap: wrap; }
+        .result-head { flex-wrap: wrap; gap: 8px; }
+        .history-item { max-width: 100%; }
+
+        /* batch modal (was inline, 30px padding on every screen size) */
+        .batch-modal {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10000;
+            display: flex; align-items: center; justify-content: center;
+            padding: calc(20px + env(safe-area-inset-top, 0px)) calc(20px + env(safe-area-inset-right, 0px))
+                     calc(20px + env(safe-area-inset-bottom, 0px)) calc(20px + env(safe-area-inset-left, 0px));
+        }
+        .batch-modal-content {
+            background: var(--card-bg); border: 2px solid var(--accent-color); border-radius: 20px;
+            max-width: 900px; width: 100%; max-height: 90vh; max-height: 90dvh;
+            overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; padding: 30px;
+        }
+        .batch-modal-content textarea { max-width: 100%; }
+
+        /* toast: never wider than the screen, above home indicator */
+        .toast {
+            width: max-content; max-width: calc(100vw - 32px); text-align: center;
+            bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 12px; padding-top: calc(12px + env(safe-area-inset-top, 0px));
+                   padding-right: calc(12px + env(safe-area-inset-right, 0px));
+                   padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+                   padding-left: calc(12px + env(safe-area-inset-left, 0px)); }
+            .grid-settings { gap: 14px; }
+            .ai-analysis-panel, .engine-panel { padding: 16px; border-radius: 16px; }
+            .support-text { font-size: 1.15rem; }
+            .batch-modal-content { padding: 18px; border-radius: 16px; }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 8px; padding-top: calc(8px + env(safe-area-inset-top, 0px));
+                   padding-right: calc(8px + env(safe-area-inset-right, 0px));
+                   padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+                   padding-left: calc(8px + env(safe-area-inset-left, 0px)); }
+            .ai-analysis-panel, .engine-panel { padding: 14px; }
+            .ai-input-group { gap: 10px; }
+            .ai-input-group input { flex: 0 0 auto; }
+            .file-upload-container { padding: 12px; }
+            .drop-hint { display: none; }
+            .upload-label { font-size: 1rem; }
+
+            /* buttons: compact 2-column grid, key actions full width */
+            .button-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+            .button-group button { width: 100%; padding: 12px 10px; font-size: 0.95rem; min-height: 48px; }
+            .button-group .btn-generate,
+            .button-group .btn-random,
+            .button-group .btn-export { grid-column: 1 / -1; }
+
+            /* presets: one scrollable row instead of ~8 wrapped rows */
+            .presets-bar:not(#customPresetsBar) { flex-wrap: nowrap; justify-content: flex-start;
+                overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; padding-bottom: 12px; }
+            .presets-bar:not(#customPresetsBar) > * { flex: 0 0 auto; white-space: nowrap; }
+
+            .model-trigger-input { flex-wrap: wrap; }
+            .model-trigger-input input { flex: 1 1 100%; }
+            .batch-modal { padding: 10px; }
+            .batch-modal-content { padding: 14px; }
+            .batch-modal-head h2 { font-size: 1.15rem; }
+            .batch-card { padding: 12px !important; }
+        }
+
+        /* ===== MOBILE FIX · 3/3 · Touch ergonomics ===== */
+        /* No "sticky hover" jumps after a tap on touch screens */
+        @media (hover: none) {
+            .btn-analyze:hover, .preset-chip:hover, .btn-donate:hover,
+            .btn-apply-recommendation:hover, .file-upload-container.drag-over { transform: none; }
+            .shortcuts-help { display: none; }            /* keyboard shortcuts are meaningless on phones */
+        }
+
+        /* Comfortable tap targets (>= ~40-44px) + no iOS zoom-on-focus (inputs >= 16px) */
+        @media (pointer: coarse) {
+            select, input[type="text"], input:not([type]), textarea { font-size: 16px; }
+            .model-trigger-input input { font-size: 16px; padding: 10px 12px; }
+            .copy-btn { padding: 10px 14px; font-size: 0.85rem; min-height: 40px; }
+            .btn-apply-recommendation, .btn-fix-arch { padding: 10px 14px; min-height: 40px; }
+            .history-header { padding: 16px 18px; min-height: 48px; }
+            .history-clear { min-height: 44px; }
+            .history-item { padding: 12px 14px; }
+            #clearQueueBtn { padding: 8px 12px !important; min-height: 36px; }
+            .preset-chip { min-height: 40px; }
+            .batch-modal-close { min-width: 44px; min-height: 44px; }
+            .setting-group select, .setting-group input[type="text"] { padding-right: 52px; min-height: 48px; }
+            .randomize-mini { width: 36px; height: 36px; right: 6px; }
+            input[type="checkbox"] { min-width: 22px; min-height: 22px; }
+        }
+
+        /* Landscape phones: don't let the modal/history eat the whole short screen */
+        @media (max-height: 480px) and (orientation: landscape) {
+            .batch-modal-content { max-height: 94vh; max-height: 94dvh; }
+            .history-body.open { max-height: 50vh; }
         }
     </style>
 </head>
@@ -859,12 +998,12 @@
     </div>
 
     <div class="file-upload-container" id="dropZone">
-        <div style="display: flex; align-items: center; gap: 15px;">
+        <div class="upload-row" style="display: flex; align-items: center; gap: 15px;">
             <label for="fileInput" class="upload-label">📁 Upload Subject List (.txt)</label>
             <input type="file" id="fileInput" accept=".txt" style="display: none;">
             <span class="drop-hint">or drag &amp; drop here</span>
         </div>
-        <div style="display: flex; align-items: center; gap: 10px;">
+        <div class="queue-row" style="display: flex; align-items: center; gap: 10px;">
             <div id="queueStatus" style="font-size: 0.9rem; color: #94a3b8;">Queue: 0 / 0 Subjects</div>
             <button id="clearQueueBtn" title="Clear queue" style="background: transparent; border: 1px solid var(--border-color); color: #94a3b8; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; display: none; font-weight: 600;">🗑️ Clear</button>
         </div>
@@ -921,7 +1060,7 @@
                     <option value="Studio Ghibli Anime style" data-tag="anime">Anime (Ghibli)</option>
                 </optgroup>
             </select>
-        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
+        <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" id="group-composition" style="position: relative;">
             <label>📐 Composition &amp; Direction</label>
@@ -957,7 +1096,7 @@
                     <option value="Centripetal composition, converging to center" style="display: block;">Centripetal</option>
                 </optgroup>
             </select>
-        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
+        <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" style="position: relative;">
             <label>💡 Primary Light Source</label>
@@ -975,7 +1114,7 @@
                     <option value="Cyberpunk neon lighting, magenta and cyan">Neon Cyberpunk</option>
                 </optgroup>
             </select>
-        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
+        <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" style="position: relative;">
             <label>📐 Light Direction (Angle)</label>
@@ -986,7 +1125,7 @@
                 <option value="backlighting, rim light, halo effect around subject">Backlighting (Rim)</option>
                 <option value="top lighting, butterfly lighting, overhead source">Top Lighting (Overhead)</option>
             </select>
-        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
+        <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" style="position: relative;">
             <label>✨ Light Quality (Texture)</label>
@@ -996,7 +1135,7 @@
                 <option value="soft light, diffused shadows, smooth gradients">Soft Light (Diffused)</option>
                 <option value="dappled light, filtered sunlight through leaves">Dappled Light (Patterned)</option>
             </select>
-        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
+        <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" style="position: relative;">
             <label>🌡️ Color Temperature</label>
@@ -1006,7 +1145,7 @@
                 <option value="cool color temperature, blue hues, clinical atmosphere">Cool (Blue/Sterile)</option>
                 <option value="mixed lighting, contrast between warm and cool tones">Bicolor (Mixed)</option>
             </select>
-        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
+        <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" style="position: relative;">
             <label>📷 Focal Length (Lens)</label>
@@ -1026,7 +1165,7 @@
                     <option value="Anamorphic lens, wide cinematic aspect">Anamorphic</option>
                 </optgroup>
             </select>
-        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
+        <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" style="position: relative;">
             <label>⭕ Aperture (Depth of Field)</label>
@@ -1037,7 +1176,7 @@
                 <option value="shot at f/8, sharp detail across the frame, deep focus">f/8 (Sharp/Commercial)</option>
                 <option value="shot at f/16, extreme deep focus, everything in focus">f/16 (Deep Focus)</option>
             </select>
-        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
+        <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" style="position: relative;">
             <label>⏱️ Exposure &amp; Motion</label>
@@ -1048,7 +1187,7 @@
                 <option value="slight motion blur, dynamic movement">Slight Motion Blur</option>
                 <option value="light trails, long exposure night photography">Light Trails (Night)</option>
             </select>
-        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
+        <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" style="position: relative;">
             <label>🎞️ Sensor &amp; Film Stock</label>
@@ -1060,7 +1199,7 @@
                 <option value="medium format photography, Hasselblad quality, extreme detail">Medium Format (Luxury)</option>
                 <option value="high ISO grain, gritty documentary texture">High ISO (Gritty)</option>
             </select>
-        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
+        <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" style="position: relative;">
             <label>💎 Quality Standard</label>
@@ -1078,7 +1217,7 @@
                     <option value="Tack sharp focus, zero blur" style="display: block;">Sharp Focus</option>
                 </optgroup>
             </select>
-        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
+        <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" id="group-colors" style="position: relative;">
             <label>🎨 Color Palette (Mood)</label>
@@ -1090,7 +1229,7 @@
                 <option value="Muted colors, desaturated mood">Muted (Realistic)</option>
                 <option value="High contrast black and white" data-tag="mono">B&amp;W High Contrast</option>
             </select>
-        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
+        <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" id="group-render" style="position: relative;">
             <label>⚙️ Render Tech</label>
@@ -1110,7 +1249,7 @@
                     <option value="Chromatic aberration, analog lens fringe">Chromatic Aberration</option>
                 </optgroup>
             </select>
-        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
+        <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" style="position: relative;">
             <label>🌀 Env Interaction</label>
@@ -1138,7 +1277,7 @@
                     <option value="light wrapping, background light bleeding over edges">Light Wrapping</option>
                 </optgroup>
             </select>
-        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
+        <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" style="position: relative;">
             <label>🌍 Background &amp; Atmosphere</label>
@@ -1182,7 +1321,7 @@
                     <option value="liquid iridescent swirls, holographic colors, fluid motion">Iridescent Liquid</option>
                 </optgroup>
             </select>
-        <button class="randomize-mini" title="Randomize" type="button" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; padding: 0px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 2;">🎲</button></div>
+        <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group">
             <label>🖼️ Aspect Ratio (Format)</label>
@@ -1214,13 +1353,13 @@
     <div id="conflictWarnings" class="conflict-warnings"></div>
 
     <div class="result-area">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <div class="result-head" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
             <div class="result-label">Main Prompt <span id="promptScore" class="prompt-score good">95/100</span></div>
             <button class="copy-btn" onclick="copyPrompt('finalPrompt', event)">Copy Prompt</button>
         </div>
         <textarea id="finalPrompt" rows="4" readonly="" placeholder="Your intelligent prompt will appear here..."></textarea>
 
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; margin-bottom: 10px;">
+        <div class="result-head" style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; margin-bottom: 10px;">
             <div class="result-label" style="color: var(--negative-color);">Smart Negative Prompt</div>
             <button class="copy-btn" onclick="copyPrompt('negativePrompt', event)" style="background: var(--negative-color);">Copy Neg</button>
         </div>
@@ -1411,6 +1550,9 @@
         else root.classList.add('theme-dark');
         const btn = document.getElementById('themeBtn');
         if (btn) btn.innerHTML = THEME_ICONS[theme];
+        // keep the mobile browser bar / status bar color in sync with the theme
+        const metaTheme = document.querySelector('meta[name="theme-color"]');
+        if (metaTheme) metaTheme.setAttribute('content', effective === 'light' ? '#f8fafc' : '#0f172a');
     }
 
     function cycleTheme() {
@@ -3401,24 +3543,24 @@
 
         const modal = document.createElement('div');
         modal.id = 'batchModal';
-        modal.style.cssText = 'position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:10000; display:flex; align-items:center; justify-content:center; padding:20px;';
+        modal.className = 'batch-modal';
 
         const content = document.createElement('div');
-        content.style.cssText = 'background:var(--card-bg); border:2px solid var(--accent-color); border-radius:20px; max-width:900px; width:100%; max-height:90vh; overflow-y:auto; padding:30px;';
+        content.className = 'batch-modal-content';
 
         let html = `
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:1px solid var(--border-color); padding-bottom:15px;">
+            <div class="batch-modal-head" style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:20px; border-bottom:1px solid var(--border-color); padding-bottom:15px;">
                 <div>
                     <h2 style="margin:0; color:var(--accent-color);">🎯 Multi-Engine Batch</h2>
                     <p style="margin:5px 0 0 0; color:#94a3b8; font-size:0.9rem;">Subject: <strong>${escapeHtml(subject)}</strong></p>
                 </div>
-                <button onclick="document.getElementById('batchModal').remove()" style="background:transparent; border:none; color:var(--negative-color); font-size:2rem; cursor:pointer; padding:0 10px;">×</button>
+                <button class="batch-modal-close" aria-label="Close" onclick="document.getElementById('batchModal').remove()" style="background:transparent; border:none; color:var(--negative-color); font-size:2rem; cursor:pointer; padding:0 10px;">×</button>
             </div>
         `;
 
         Object.entries(results).forEach(([eng, prompt]) => {
             html += `
-                <div style="margin-bottom:20px; background:#020617; border:1px solid var(--border-color); border-radius:12px; padding:15px;">
+                <div class="batch-card" style="margin-bottom:20px; background:#020617; border:1px solid var(--border-color); border-radius:12px; padding:15px;">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                         <strong style="color:var(--accent-color);">${engineNames[eng]}</strong>
                         <button class="copy-btn" data-prompt-idx="${eng}">Copy</button>
@@ -3673,28 +3815,31 @@
                 setTimeout(() => { el.style.boxShadow = ''; }, 500);
             };
 
-            const wrapper = el.parentNode;
-            wrapper.style.position = 'relative';
-            let btn = wrapper.querySelector('.randomize-mini');
-
-            if (btn) {
-                btn.onclick = randomizeClick;
-                btn.style.cssText = 'position:absolute; right:8px; top:50%; transform:translateY(-50%); width:28px; height:28px; padding:0; border-radius:50%; background:rgba(56,189,248,0.15); border:1px solid var(--accent-color); color:var(--accent-color); font-size:0.9rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s; z-index:2;';
-                btn.onmouseenter = () => { btn.style.background = 'var(--accent-color)'; btn.style.color = 'var(--bg-color)'; };
-                btn.onmouseleave = () => { btn.style.background = 'rgba(56,189,248,0.15)'; btn.style.color = 'var(--accent-color)'; };
-                return;
+            // Wrap the select so the dice button is centered on the select itself
+            // (not on label + select), also when labels wrap on narrow screens.
+            let wrapper = el.parentNode;
+            if (!wrapper.classList.contains('select-wrap')) {
+                const group = el.parentNode;
+                const sw = document.createElement('div');
+                sw.className = 'select-wrap';
+                group.insertBefore(sw, el);
+                sw.appendChild(el);
+                const existing = group.querySelector(':scope > .randomize-mini');
+                if (existing) sw.appendChild(existing);
+                wrapper = sw;
             }
-
-            btn = document.createElement('button');
-            btn.className = 'randomize-mini';
-            btn.innerHTML = '🎲';
-            btn.title = 'Randomize';
-            btn.type = 'button';
+            let btn = wrapper.querySelector('.randomize-mini');
+            if (!btn) {
+                btn = document.createElement('button');
+                btn.className = 'randomize-mini';
+                btn.innerHTML = '🎲';
+                btn.title = 'Randomize';
+                btn.type = 'button';
+                wrapper.appendChild(btn);
+            }
+            btn.removeAttribute('style');
+            btn.setAttribute('aria-label', 'Randomize');
             btn.onclick = randomizeClick;
-            btn.style.cssText = 'position:absolute; right:8px; top:50%; transform:translateY(-50%); width:28px; height:28px; padding:0; border-radius:50%; background:rgba(56,189,248,0.15); border:1px solid var(--accent-color); color:var(--accent-color); font-size:0.9rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s; z-index:2;';
-            btn.onmouseenter = () => { btn.style.background = 'var(--accent-color)'; btn.style.color = 'var(--bg-color)'; };
-            btn.onmouseleave = () => { btn.style.background = 'rgba(56,189,248,0.15)'; btn.style.color = 'var(--accent-color)'; };
-            wrapper.appendChild(btn);
         });
     }
 
