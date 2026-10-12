@@ -7,7 +7,7 @@
 A zero-dependency, single-file web app that builds optimized prompts for **Midjourney**, **FLUX.1**, **Stable Diffusion**, and **DALL-E 3**.
 
 [![Version](https://img.shields.io/badge/version-22.12-blue?style=flat-square)](https://github.com/tekideki/AI-Prompt-Builder)
-[![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue?style=flat-square)](LICENSE)
 [![Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen?style=flat-square)](#)
 [![Made with](https://img.shields.io/badge/made%20with-vanilla%20JS-yellow?style=flat-square)](#)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](../../pulls)
@@ -385,7 +385,7 @@ Contributions are welcome!
 
 ## 📜 License
 
-Distributed under the **MIT License**. See [LICENSE](LICENSE) for more information.
+Distributed under the **Apache License 2.0**. See [LICENSE](LICENSE) and [NOTICE](NOTICE) for details.
 
 ---
 
