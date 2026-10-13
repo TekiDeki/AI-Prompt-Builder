@@ -1,8 +1,11 @@
-const CACHE_NAME = 'ai-prompt-builder-v1';
+const CACHE_NAME = 'ai-prompt-builder-v2';
 const ASSETS = [
   './',
   './index.html',
   './manifest.json',
+  './favicon.ico',
+  './icon-maskable-512.png',
+  './apple-touch-icon.png',
   './icon-192.png',
   './icon-512.png'
 ];
