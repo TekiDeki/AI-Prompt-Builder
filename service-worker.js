@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ai-prompt-builder-v3';
+const CACHE_NAME = 'ai-prompt-builder-v4';
 const ASSETS = [
   './',
   './index.html',
