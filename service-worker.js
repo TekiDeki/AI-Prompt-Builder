@@ -1,7 +1,8 @@
-const CACHE_NAME = 'ai-prompt-builder-v2';
+const CACHE_NAME = 'ai-prompt-builder-v3';
 const ASSETS = [
   './',
   './index.html',
+  './LICENSE',
   './manifest.json',
   './favicon.ico',
   './icon-maskable-512.png',
@@ -23,7 +24,7 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
       Promise.all(
-        keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k))
+        keys.filter((k) => k.startsWith('ai-prompt-builder-v') && k !== CACHE_NAME).map((k) => caches.delete(k))
       )
     )
   );
@@ -32,6 +33,11 @@ self.addEventListener('activate', (event) => {
 
 // Fetch: servește din cache, cu fallback la rețea
 self.addEventListener('fetch', (event) => {
+  const licenseUrl = new URL('./LICENSE', self.registration.scope).href;
+  if (event.request.method === 'GET' && event.request.url === licenseUrl) {
+    event.respondWith(caches.open(CACHE_NAME).then(cache => cache.match(event.request)).then(cached => cached || fetch(event.request)));
+    return;
+  }
   event.respondWith(
     caches.match(event.request).then((cached) => {
       return cached || fetch(event.request).then((response) => {
