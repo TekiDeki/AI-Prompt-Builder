@@ -780,7 +780,7 @@
         }
 
         /* =====================================================
-           MOBILE — Minimal, non-destructive adjustments
+           MOBILE - Minimal, non-destructive adjustments
            ===================================================== */
         @media (max-width: 768px) {
             .engine-badge { min-width: auto; width: 100%; align-self: stretch; margin-bottom: 0; }
@@ -936,7 +936,7 @@
             .history-body.open { max-height: 50vh; }
         }
 
-/* TekiDeki credits — shared footer, 2026-10-14. */
+/* TekiDeki credits - shared footer, 2026-10-14. */
 .tekideki-credits {
   display:flex; justify-content:center; align-items:center; flex-wrap:wrap;
   gap:0 6px; padding:16px 12px; margin:0; width:100%;
@@ -1992,7 +1992,7 @@
 
         const totalModels = Object.values(groups).reduce((s, arr) => s + arr.length, 0);
         if (totalModels === 0) {
-            groups['⚠️ No models'] = ['— Select a different architecture or add custom —'];
+            groups['⚠️ No models'] = ['- Select a different architecture or add custom -'];
         }
 
         return groups;
@@ -2118,7 +2118,7 @@
         if (!panel) return;
 
         const modelName = document.getElementById('sdModel')?.value;
-        if (!modelName || modelName.startsWith('—')) { panel.classList.remove('visible'); return; }
+        if (!modelName || (modelName === '- Select a different architecture or add custom -' || modelName.charCodeAt(0) === 8212)) { panel.classList.remove('visible'); return; }
 
         const currentArch = document.getElementById('sdVersion')?.value || 'SDXL 1.0';
         const data = MODEL_DATABASE[modelName];
@@ -2283,7 +2283,7 @@
                 if (!isCompatible) {
                     for (let i = 0; i < newSelect.options.length; i++) {
                         const opt = newSelect.options[i];
-                        if (opt.value && !opt.value.startsWith('—')) {
+                        if (opt.value && !(opt.value === '- Select a different architecture or add custom -' || opt.value.charCodeAt(0) === 8212)) {
                             newSelect.value = opt.value;
                             break;
                         }
@@ -2295,7 +2295,7 @@
                     } else {
                         for (let i = 0; i < newSelect.options.length; i++) {
                             const opt = newSelect.options[i];
-                            if (opt.value && !opt.value.startsWith('—')) {
+                            if (opt.value && !(opt.value === '- Select a different architecture or add custom -' || opt.value.charCodeAt(0) === 8212)) {
                                 newSelect.value = opt.value;
                                 break;
                             }
@@ -2314,7 +2314,7 @@
         }, 30);
 
         if (!suppressArchToast) {
-            showToast(`🔧 Architecture: ${arch} — Checkpoints filtered`);
+            showToast(`🔧 Architecture: ${arch} - Checkpoints filtered`);
         }
         suppressArchToast = false;
     }
@@ -2469,7 +2469,7 @@
             panel.appendChild(infoPanel);
         }
 
-        // Event delegation — un singur listener per container
+        // Event delegation - un singur listener per container
         if (!panel.dataset.delegated) {
             panel.dataset.delegated = 'true';
             panel.addEventListener('change', (e) => {
@@ -3073,7 +3073,7 @@
             conflicts.push({ level: 'warn', msg: '⚠️ Snow in a tropical environment is unusual.' });
         }
         if (interaction.includes('rain') && (background.includes('volcanic') || background.includes('desert'))) {
-            conflicts.push({ level: 'warn', msg: '⚠️ Rain in desert — check context.' });
+            conflicts.push({ level: 'warn', msg: '⚠️ Rain in desert - check context.' });
         }
         if ((style.includes('anime') || style.includes('ghibli')) && quality.includes('raw')) {
             conflicts.push({ level: 'warn', msg: '⚠️ Anime + RAW Photo = contradictory style.' });
@@ -3111,7 +3111,7 @@
     }
 
     // ============================================================
-    // PROMPT SCORE (v22.12 — weighted, meaningful)
+    // PROMPT SCORE (v22.12 - weighted, meaningful)
     // ============================================================
     const SCORE_WEIGHTS = {
         style: 15,

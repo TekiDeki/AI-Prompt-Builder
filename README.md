@@ -2,7 +2,7 @@
 
 # 🧠 AI Prompt Builder
 
-### The Luminance Master — Craft perfect prompts for AI image generators
+### The Luminance Master - Craft perfect prompts for AI image generators
 
 A zero-dependency, single-file web app that builds optimized prompts for **Midjourney**, **FLUX.1**, **Stable Diffusion**, and **DALL-E 3**.
 
@@ -31,7 +31,7 @@ No installation needed. Works in any modern browser (Chrome, Firefox, Safari, Ed
 
 ## 📖 About
 
-**AI Prompt Builder** is a browser-based tool that helps you craft high-quality, structured prompts for AI image generators. Instead of guessing what words work, you select from curated dropdowns covering **lighting**, **composition**, **camera optics**, **film stock**, **atmosphere**, and more — and the tool assembles a coherent, engine-specific prompt.
+**AI Prompt Builder** is a browser-based tool that helps you craft high-quality, structured prompts for AI image generators. Instead of guessing what words work, you select from curated dropdowns covering **lighting**, **composition**, **camera optics**, **film stock**, **atmosphere**, and more - and the tool assembles a coherent, engine-specific prompt.
 
 The app runs **100% client-side**. No build step, no backend, no tracking. All data stays in your browser via `localStorage` / `sessionStorage`.
 
@@ -39,35 +39,35 @@ The app runs **100% client-side**. No build step, no backend, no tracking. All d
 
 ## ✨ Features
 
-- 🎯 **Multi-Engine Support** — Midjourney, FLUX.1, Stable Diffusion, DALL-E 3
-- 🎨 **14 Built-in Presets** — Cinematic Portrait, Epic Landscape, Neon Cyberpunk, Vintage Film, and more
-- 💾 **Custom Presets** — Save your favorite configurations with one click
-- 📦 **18 SD Models Included** — Each with trigger words, VAE info, and recommended CFG / steps / sampler
-- 🎲 **Smart Randomize** — Context-aware randomization that respects your subject
-- 🚫 **Conflict Detection** — Warns when settings contradict each other
-- 📊 **Live Prompt Score** — Weighted 0–100 rating with visual feedback
-- 📜 **Prompt History** — Last 20 prompts, click to restore & copy
-- 🗂️ **Batch Processing** — Upload a `.txt` of subjects → generate all prompts at once
-- 🎯 **Multi-Engine Batch** — Generate the same prompt for all 4 engines simultaneously
-- 📤 **Export SD Batch** — Download all queued prompts as a single `.txt`
-- 📥 **JSON Import/Export** — Full backup with strict validation (prototype-pollution safe)
-- 🎭 **AI Analysis Panel** — Keyword-based semantic mapping
+- 🎯 **Multi-Engine Support** - Midjourney, FLUX.1, Stable Diffusion, DALL-E 3
+- 🎨 **14 Built-in Presets** - Cinematic Portrait, Epic Landscape, Neon Cyberpunk, Vintage Film, and more
+- 💾 **Custom Presets** - Save your favorite configurations with one click
+- 📦 **18 SD Models Included** - Each with trigger words, VAE info, and recommended CFG / steps / sampler
+- 🎲 **Smart Randomize** - Context-aware randomization that respects your subject
+- 🚫 **Conflict Detection** - Warns when settings contradict each other
+- 📊 **Live Prompt Score** - Weighted 0–100 rating with visual feedback
+- 📜 **Prompt History** - Last 20 prompts, click to restore & copy
+- 🗂️ **Batch Processing** - Upload a `.txt` of subjects → generate all prompts at once
+- 🎯 **Multi-Engine Batch** - Generate the same prompt for all 4 engines simultaneously
+- 📤 **Export SD Batch** - Download all queued prompts as a single `.txt`
+- 📥 **JSON Import/Export** - Full backup with strict validation (prototype-pollution safe)
+- 🎭 **AI Analysis Panel** - Keyword-based semantic mapping
 - 🌓 **Dark / Light / Auto Theme**
 - ⌨️ **Keyboard Shortcuts**
-- 🔒 **Session Persistence** — Queue survives refresh
+- 🔒 **Session Persistence** - Queue survives refresh
 - 📱 **Fully Responsive**
 
 ---
 
 ## 🚀 Quick Start
 
-### Option 1 — Use the Live Demo (Simplest)
+### Option 1 - Use the Live Demo (Simplest)
 
 **👉 [https://tekideki.github.io/AI-Prompt-Builder/](https://tekideki.github.io/AI-Prompt-Builder/)**
 
 Nothing to install. Just open and start building prompts.
 
-### Option 2 — Clone & Run Locally
+### Option 2 - Clone & Run Locally
 
 ```bash
 git clone https://github.com/tekideki/AI-Prompt-Builder.git
@@ -76,7 +76,7 @@ cd AI-Prompt-Builder
 
 Then either:
 
-**a) Double-click `index.html`** — works, but clipboard / `localStorage` may be restricted in Chrome/Edge under `file://`.
+**a) Double-click `index.html`** - works, but clipboard / `localStorage` may be restricted in Chrome/Edge under `file://`.
 
 **b) Run a local server** (recommended for full functionality):
 
@@ -91,7 +91,7 @@ php -S localhost:8000
 
 Then open **http://localhost:8000**
 
-### Option 3 — Fork & Deploy to Your Own GitHub Pages
+### Option 3 - Fork & Deploy to Your Own GitHub Pages
 
 1. **Fork** this repository
 2. Go to **Settings → Pages**
@@ -104,7 +104,7 @@ Then open **http://localhost:8000**
 
 ### Basic Workflow
 
-1. **Enter a subject** — e.g., `a young woman in a red dress`
+1. **Enter a subject** - e.g., `a young woman in a red dress`
 2. **Pick a preset** or configure manually:
    - 🎭 Visual Style
    - 📐 Composition
@@ -232,11 +232,11 @@ index.html  (~2,500 lines, zero dependencies)
 
 ### Design Principles
 
-- **Zero dependencies** — no frameworks, no build step, no network calls
-- **Config-driven** — Add a new engine by adding one `ENGINE_CONFIG` + one `ENGINE_BADGES` entry + one `buildPromptString` case
-- **Event delegation** — One listener per container, not per element
-- **Debounced writes** — `localStorage` writes debounced to 400 ms
-- **Graceful degradation** — Fallbacks for clipboard, `file://` protocol, missing VAE
+- **Zero dependencies** - no frameworks, no build step, no network calls
+- **Config-driven** - Add a new engine by adding one `ENGINE_CONFIG` + one `ENGINE_BADGES` entry + one `buildPromptString` case
+- **Event delegation** - One listener per container, not per element
+- **Debounced writes** - `localStorage` writes debounced to 400 ms
+- **Graceful degradation** - Fallbacks for clipboard, `file://` protocol, missing VAE
 
 ### Local Storage Keys
 
@@ -287,7 +287,7 @@ Check the browser console for errors. Try a hard refresh (<kbd>Ctrl</kbd>+<kbd>S
 <details>
 <summary><strong>Score doesn't change when I switch options</strong></summary>
 
-The score varies based on **prompt length and completeness**, not on the semantic quality of each choice. Two options of similar length produce the same score. This is by design — see `calculatePromptScore()`.
+The score varies based on **prompt length and completeness**, not on the semantic quality of each choice. Two options of similar length produce the same score. This is by design - see `calculatePromptScore()`.
 </details>
 
 <details>
@@ -311,7 +311,7 @@ You're on `file://` with `localStorage` disabled. Use the [live demo](https://te
 <details>
 <summary><strong>Queue disappeared after closing the tab</strong></summary>
 
-By design — the queue uses `sessionStorage`, cleared when the tab closes. To persist across sessions, change `SUBJECT_QUEUE_KEY` to use `localStorage` in the code.
+By design - the queue uses `sessionStorage`, cleared when the tab closes. To persist across sessions, change `SUBJECT_QUEUE_KEY` to use `localStorage` in the code.
 </details>
 
 ---
@@ -348,8 +348,8 @@ Contributions are welcome!
 
 ### Code style
 
-- **No dependencies** — keep it vanilla
-- **Single file** — everything stays in `index.html`
+- **No dependencies** - keep it vanilla
+- **Single file** - everything stays in `index.html`
 - **Comment non-obvious logic**
 - **Test on Firefox + Chrome** before submitting
 
@@ -357,10 +357,10 @@ Contributions are welcome!
 
 ## 📝 Changelog
 
-### v22.12 — Current
+### v22.12 - Current
 
 **Fixes**
-- `copyPrompt()` no longer relies on `window.event` — works on Firefox now
+- `copyPrompt()` no longer relies on `window.event` - works on Firefox now
 - `applyRecommended()` no longer pollutes prompt history
 - No more duplicate event listeners on `sdModel` / `sdVersion` (event delegation)
 - Debounced `generatePrompt` (200 ms) for smoother typing
@@ -376,7 +376,7 @@ Contributions are welcome!
 - Combo bonuses in scoring (realism, technical, pictorial, light stack)
 - Score penalty tuned (errors: −10, warnings: −4)
 
-### v22.8 — Initial Release
+### v22.8 - Initial Release
 
 - Multi-engine support (MJ, FLUX, SD, DALL-E 3)
 - 14 presets, 18 SD models, batch processing
@@ -404,7 +404,7 @@ Distributed under the **Apache License 2.0**. See [LICENSE](LICENSE) and [NOTICE
 - [Midjourney Documentation](https://docs.midjourney.com/)
 - [FLUX.1 by Black Forest Labs](https://blackforestlabs.ai/)
 - [Stable Diffusion (Stability AI)](https://stability.ai/)
-- [Civitai — Model Repository](https://civitai.com/)
+- [Civitai - Model Repository](https://civitai.com/)
 - [DALL-E 3 (OpenAI)](https://openai.com/dall-e-3)
 
 ---
