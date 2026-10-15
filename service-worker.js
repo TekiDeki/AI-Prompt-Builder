@@ -1,4 +1,5 @@
-const CACHE_NAME = 'ai-prompt-builder-v5';
+const CACHE_PREFIX = 'ai-prompt-builder-v';
+const CACHE_NAME = CACHE_PREFIX + '6';
 const ASSETS = [
   './',
   './index.html',
@@ -11,7 +12,10 @@ const ASSETS = [
   './icon-512.png'
 ];
 
-// Instalare: cache-uiește resursele de bază
+// Data files (JSON backups, exports) must always come from the network.
+const NEVER_CACHE = /\.json$/i;
+
+// Install: pre-cache the core assets
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
@@ -19,35 +23,49 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
-// Activare: șterge cache-urile vechi
+// Activate: drop old caches and tell open tabs an update is ready
 self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(
-        keys.filter((k) => k.startsWith('ai-prompt-builder-v') && k !== CACHE_NAME).map((k) => caches.delete(k))
-      )
-    )
-  );
-  self.clients.claim();
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    const obsolete = keys.filter((k) => k.startsWith(CACHE_PREFIX) && k !== CACHE_NAME);
+    await Promise.all(obsolete.map((k) => caches.delete(k)));
+    await self.clients.claim();
+    if (obsolete.length > 0) {
+      const clientList = await self.clients.matchAll({ type: 'window' });
+      clientList.forEach((client) => client.postMessage({ type: 'SW_UPDATED', version: CACHE_NAME }));
+    }
+  })());
 });
 
-// Fetch: servește din cache, cu fallback la rețea
+// Fetch: cache-first for same-origin static assets, network for the rest
 self.addEventListener('fetch', (event) => {
-  const licenseUrl = new URL('./LICENSE', self.registration.scope).href;
-  if (event.request.method === 'GET' && event.request.url === licenseUrl) {
-    event.respondWith(caches.open(CACHE_NAME).then(cache => cache.match(event.request)).then(cached => cached || fetch(event.request)));
+  const request = event.request;
+  if (request.method !== 'GET') return;
+
+  let url;
+  try { url = new URL(request.url); } catch (e) { return; }
+  if (url.origin !== self.location.origin) return;
+
+  if (request.mode === 'navigate') {
+    event.respondWith(
+      caches.match('./index.html').then((cached) => cached || fetch(request))
+        .catch(() => caches.match('./index.html'))
+    );
     return;
   }
+
+  if (NEVER_CACHE.test(url.pathname)) return;
+
   event.respondWith(
-    caches.match(event.request).then((cached) => {
-      return cached || fetch(event.request).then((response) => {
-        // Cache-uiește doar request-urile GET reușite
-        if (event.request.method === 'GET' && response.status === 200) {
+    caches.match(request).then((cached) => {
+      if (cached) return cached;
+      return fetch(request).then((response) => {
+        if (response && response.status === 200 && response.type === 'basic') {
           const clone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+          caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
         }
         return response;
       });
-    }).catch(() => caches.match('./index.html'))
+    })
   );
 });

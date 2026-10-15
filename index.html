@@ -11,7 +11,16 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Prompt Builder">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>AI Prompt Builder v22.12 - The Luminance Master</title>
+    <meta name="description" content="Browser-based prompt builder for Midjourney, FLUX.1, Stable Diffusion and DALL-E 3. Single HTML file, 14 presets, 18 SD models, works offline. No tracking, Apache-2.0.">
+    <link rel="canonical" href="https://tekideki.github.io/AI-Prompt-Builder/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="AI Prompt Builder">
+    <meta property="og:title" content="AI Prompt Builder v22.13 - The Luminance Master">
+    <meta property="og:description" content="Craft structured prompts for Midjourney, FLUX.1, Stable Diffusion and DALL-E 3. Presets, batch export and JSON backup. Runs fully in your browser.">
+    <meta property="og:url" content="https://tekideki.github.io/AI-Prompt-Builder/">
+    <meta property="og:image" content="https://tekideki.github.io/AI-Prompt-Builder/icon-512.png">
+    <meta name="twitter:card" content="summary">
+    <title>AI Prompt Builder v22.13 - The Luminance Master</title>
     <style>
         /* ===== MOBILE FIX · 1/3 · Foundation ===== */
         *, *::before, *::after { box-sizing: border-box; }
@@ -37,8 +46,11 @@
             --negative-color: #fb7185;
             --ai-color: #a855f7;
             --engine-color: #fbbf24;
-            --export-color: #ec4899;
+            --export-color: #be185d;
             --donate-color: #ffbb00;
+            --muted-color: #94a3b8;
+            --ai-btn-bg: #7c3aed;
+            --ai-btn-hover: #6d28d9;
             --engine-mj: #38bdf8;
             --engine-flux: #fbbf24;
             --engine-sd: #10b981;
@@ -49,15 +61,18 @@
             --bg-color: #f8fafc;
             --card-bg: #ffffff;
             --text-color: #0f172a;
-            --accent-color: #0284c7;
-            --accent-hover: #0369a1;
+            --accent-color: #0369a1;
+            --accent-hover: #075985;
             --input-bg: #f1f5f9;
             --border-color: #cbd5e1;
-            --negative-color: #e11d48;
+            --negative-color: #be123c;
             --ai-color: #7c3aed;
             --engine-color: #d97706;
-            --export-color: #db2777;
+            --export-color: #9d174d;
             --donate-color: #eab308;
+            --muted-color: #475569;
+            --ai-btn-bg: #6d28d9;
+            --ai-btn-hover: #5b21b6;
         }
 
         :root.theme-light body { background-color: var(--bg-color); color: var(--text-color); }
@@ -79,6 +94,12 @@
         :root.theme-light .toast { background: linear-gradient(135deg, #ffffff, #f1f5f9); color: #0f172a; }
         :root.theme-light label { color: #334155; }
         :root.theme-light .history-item { color: #334155; }
+        :root.theme-light p.subtitle { color: #475569; }
+        :root.theme-light .prompt-score.good { background: rgba(16, 185, 129, 0.18); color: #065f46; }
+        :root.theme-light .prompt-score.warn { background: rgba(251, 191, 36, 0.3); color: #92400e; }
+        :root.theme-light .prompt-score.bad { background: rgba(190, 18, 60, 0.12); color: #be123c; }
+        :root.theme-light .presets-label-green { color: #047857; }
+        :root.theme-light .preset-chip-green { background: rgba(16, 185, 129, 0.12); border-color: #047857; color: #065f46; }
 
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -117,7 +138,7 @@
 
         p.subtitle {
             text-align: center;
-            color: #94a3b8;
+            color: var(--muted-color);
             margin-bottom: 25px;
             font-size: 1.2rem;
         }
@@ -140,6 +161,14 @@
             color: var(--accent-color);
             font-size: 0.95rem;
             margin-right: 5px;
+        }
+
+        .presets-label-green { color: #10b981; }
+
+        .preset-chip-green {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: #10b981;
+            color: #6ee7b7;
         }
 
         .preset-chip {
@@ -196,7 +225,7 @@
     }
 
         .btn-analyze {
-    background-color: var(--ai-color);
+    background-color: var(--ai-btn-bg);
     color: white;
     padding: 10px 25px;
     border-radius: 12px;
@@ -207,7 +236,7 @@
     white-space: nowrap;
 }
 
-        .btn-analyze:hover { background-color: #9333ea; transform: translateY(-2px); }
+        .btn-analyze:hover { background-color: var(--ai-btn-hover); transform: translateY(-2px); }
 
         .engine-panel {
             background-color: #020617;
@@ -298,7 +327,7 @@
             box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
         }
 
-        .drop-hint { color: #64748b; font-size: 0.85rem; font-style: italic; }
+        .drop-hint { color: var(--muted-color); font-size: 0.85rem; font-style: italic; }
 
         .upload-label {
             color: var(--accent-color);
@@ -338,7 +367,7 @@
             box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
         }
 
-        .btn-next, .btn-prev { background-color: #10b981; color: white; }
+        .btn-next, .btn-prev { background-color: #047857; color: white; }
         .btn-random { background-color: #64748b; color: white; }
         .btn-export { background-color: var(--export-color); color: white; box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4); }
 
@@ -653,7 +682,7 @@
 
         .btn-reset {
             background-color: transparent;
-            color: #94a3b8;
+            color: var(--muted-color);
             border: 2px solid var(--border-color);
             font-size: 0.9rem;
             padding: 10px 20px;
@@ -764,7 +793,7 @@
             to { opacity: 1; transform: translateX(0); }
         }
 
-        .shortcuts-help { text-align: center; margin-top: 20px; font-size: 0.85rem; color: #94a3b8; }
+        .shortcuts-help { text-align: center; margin-top: 20px; font-size: 0.85rem; color: var(--muted-color); }
         .shortcuts-title { font-weight: 700; color: var(--accent-color); margin-right: 8px; }
 
         kbd {
@@ -971,12 +1000,12 @@
 <body>
 
 <div class="container">
-    <h1>🧠 AI Prompt Builder v22.12</h1>
+    <h1>🧠 AI Prompt Builder v22.13</h1>
     <p class="subtitle">The Luminance Master: Physical-Based Lighting &amp; Optic Control</p>
 
     <div class="presets-bar">
         <span class="presets-label">⚡ Quick Presets:</span>
-        <button class="preset-chip" onclick="saveCurrentAsPreset()" style="background: rgba(16,185,129,0.15); border-color: #10b981; color: #6ee7b7;">➕ Save Current</button>
+        <button class="preset-chip preset-chip-green" onclick="saveCurrentAsPreset()">➕ Save Current</button>
         <button class="preset-chip" onclick="applyPreset('cinematic_portrait', this)">🎬 Cinematic Portrait</button>
         <button class="preset-chip" onclick="applyPreset('epic_landscape', this)">🏔️ Epic Landscape</button>
         <button class="preset-chip" onclick="applyPreset('neon_cyberpunk', this)">🌃 Neon Cyberpunk</button>
@@ -994,7 +1023,7 @@
     </div>
 
     <div class="presets-bar" id="customPresetsBar" style="display: none; border-color: rgba(16,185,129,0.3);">
-        <span class="presets-label" style="color: #10b981;">💾 My Presets:</span>
+        <span class="presets-label presets-label-green">💾 My Presets:</span>
         <div id="customPresetsList" style="display: flex; flex-wrap: wrap; gap: 10px;"></div>
     </div>
 
@@ -1009,7 +1038,7 @@
     <div class="engine-panel">
         <div class="engine-main-row">
             <div class="setting-group" style="flex: 1;">
-                <label class="engine-label">🎯 Target AI Engine</label>
+                <label class="engine-label" for="targetEngine">🎯 Target AI Engine</label>
                 <select id="targetEngine" onchange="updateEnginePanel()">
                     <optgroup label="Popular">
                         <option value="midjourney">Midjourney v6</option>
@@ -1037,19 +1066,19 @@
             <span class="drop-hint">or drag &amp; drop here</span>
         </div>
         <div class="queue-row" style="display: flex; align-items: center; gap: 10px;">
-            <div id="queueStatus" style="font-size: 0.9rem; color: #94a3b8;">Queue: 0 / 0 Subjects</div>
-            <button id="clearQueueBtn" title="Clear queue" style="background: transparent; border: 1px solid var(--border-color); color: #94a3b8; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; display: none; font-weight: 600;">🗑️ Clear</button>
+            <div id="queueStatus" style="font-size: 0.9rem; color: var(--muted-color);">Queue: 0 / 0 Subjects</div>
+            <button id="clearQueueBtn" title="Clear queue" style="background: transparent; border: 1px solid var(--border-color); color: var(--muted-color); padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; display: none; font-weight: 600;">🗑️ Clear</button>
         </div>
     </div>
 
     <div class="grid-settings">
         <div class="setting-group">
-            <label>🔍 Current Subject</label>
+            <label for="subject">🔍 Current Subject</label>
             <input type="text" id="subject" placeholder="Enter a subject...">
         </div>
 
         <div class="setting-group" style="position: relative;">
-            <label>🎭 Visual Style</label>
+            <label for="style">🎭 Visual Style</label>
             <select id="style" onchange="updateLogic()">
                 <optgroup label="Photorealism &amp; Cinematic">
                     <option value="Photorealistic" data-tag="real">Photorealism</option>
@@ -1096,7 +1125,7 @@
         <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" id="group-composition" style="position: relative;">
-            <label>📐 Composition &amp; Direction</label>
+            <label for="composition">📐 Composition &amp; Direction</label>
             <select id="composition" onchange="updateLogic()">
                 <optgroup label="Shot Sizes">
                     <option value="Extreme wide shot, expansive scene" data-tag="wide" style="display: block;">Extreme Wide</option>
@@ -1132,7 +1161,7 @@
         <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" style="position: relative;">
-            <label>💡 Primary Light Source</label>
+            <label for="lighting">💡 Primary Light Source</label>
             <select id="lighting" onchange="updateLogic()">
                 <optgroup label="Natural Light">
                     <option value="Golden hour natural sunlight">Golden Hour</option>
@@ -1150,7 +1179,7 @@
         <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" style="position: relative;">
-            <label>📐 Light Direction (Angle)</label>
+            <label for="lightDirection">📐 Light Direction (Angle)</label>
             <select id="lightDirection" onchange="updateLogic()">
                 <option value="">Auto / Natural</option>
                 <option value="front lighting, flat lighting, clear visibility">Front Lighting</option>
@@ -1161,7 +1190,7 @@
         <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" style="position: relative;">
-            <label>✨ Light Quality (Texture)</label>
+            <label for="lightQuality">✨ Light Quality (Texture)</label>
             <select id="lightQuality" onchange="updateLogic()">
                 <option value="">Auto / Balanced</option>
                 <option value="hard light, sharp shadows, high contrast">Hard Light (Sharp)</option>
@@ -1171,7 +1200,7 @@
         <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" style="position: relative;">
-            <label>🌡️ Color Temperature</label>
+            <label for="lightTemp">🌡️ Color Temperature</label>
             <select id="lightTemp" onchange="updateLogic()">
                 <option value="">Auto / Balanced</option>
                 <option value="warm color temperature, amber hues, cozy atmosphere">Warm (Amber/Golden)</option>
@@ -1181,7 +1210,7 @@
         <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" style="position: relative;">
-            <label>📷 Focal Length (Lens)</label>
+            <label for="camera">📷 Focal Length (Lens)</label>
             <select id="camera" onchange="updateLogic()">
                 <optgroup label="Wide Angle">
                     <option value="Shot on 14mm ultra-wide lens">14mm (Ultra Wide)</option>
@@ -1201,7 +1230,7 @@
         <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" style="position: relative;">
-            <label>⭕ Aperture (Depth of Field)</label>
+            <label for="aperture">⭕ Aperture (Depth of Field)</label>
             <select id="aperture" onchange="updateLogic()">
                 <option value="">Standard / Auto</option>
                 <option value="shot at f/1.2, ultra-shallow depth of field, creamy bokeh">f/1.2 (Ultra Bokeh)</option>
@@ -1212,7 +1241,7 @@
         <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" style="position: relative;">
-            <label>⏱️ Exposure &amp; Motion</label>
+            <label for="motion">⏱️ Exposure &amp; Motion</label>
             <select id="motion" onchange="updateLogic()">
                 <option value="">Static / Standard</option>
                 <option value="long exposure, motion blur, silky textures">Long Exposure (Silky)</option>
@@ -1223,7 +1252,7 @@
         <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" style="position: relative;">
-            <label>🎞️ Sensor &amp; Film Stock</label>
+            <label for="filmStock">🎞️ Sensor &amp; Film Stock</label>
             <select id="filmStock" onchange="updateLogic()">
                 <option value="">Digital Modern (Clean)</option>
                 <option value="shot on Kodak Portra 400, analog film grain, warm skin tones">Kodak Portra 400 (Warm)</option>
@@ -1235,7 +1264,7 @@
         <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" style="position: relative;">
-            <label>💎 Quality Standard</label>
+            <label for="qualityStandard">💎 Quality Standard</label>
             <select id="qualityStandard" onchange="updateLogic()">
                 <optgroup label="RAW &amp; Authentic">
                     <option value="RAW photo, unedited, authentic" data-tag="real" style="display: block;">RAW Photo</option>
@@ -1253,7 +1282,7 @@
         <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" id="group-colors" style="position: relative;">
-            <label>🎨 Color Palette (Mood)</label>
+            <label for="colorPalette">🎨 Color Palette (Mood)</label>
             <select id="colorPalette" onchange="updateLogic()">
                 <option value="Teal and Orange cinematic color grading">Teal &amp; Orange (Hollywood)</option>
                 <option value="Monochromatic mood, deep contrast, noir aesthetic" data-tag="mono">Monochromatic / Noir</option>
@@ -1265,7 +1294,7 @@
         <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" id="group-render" style="position: relative;">
-            <label>⚙️ Render Tech</label>
+            <label for="renderTech">⚙️ Render Tech</label>
             <select id="renderTech" onchange="updateLogic()">
                 <optgroup label="Digital Core">
                     <option value="Unreal Engine 5, ray tracing, octane render" data-tag="digital">UE5 / Octane Render</option>
@@ -1285,7 +1314,7 @@
         <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" style="position: relative;">
-            <label>🌀 Env Interaction</label>
+            <label for="interaction">🌀 Env Interaction</label>
             <select id="interaction" onchange="updateLogic()">
                 <optgroup label="Physical Anchoring">
                     <option value="ambient occlusion, deep contact shadows, perfectly grounded">Ambient Occlusion (Grounded)</option>
@@ -1313,7 +1342,7 @@
         <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group" style="position: relative;">
-            <label>🌍 Background &amp; Atmosphere</label>
+            <label for="background">🌍 Background &amp; Atmosphere</label>
             <select id="background" onchange="updateLogic()">
                 <optgroup label="Urban &amp; Architecture">
                     <option value="blurred rainy city street background, wet asphalt, reflections">Rainy City Street</option>
@@ -1357,7 +1386,7 @@
         <button class="randomize-mini" title="Randomize" type="button">🎲</button></div>
 
         <div class="setting-group">
-            <label>🖼️ Aspect Ratio (Format)</label>
+            <label for="ratioPreset">🖼️ Aspect Ratio (Format)</label>
             <div class="aspect-ratio-container">
                 <select id="ratioPreset" onchange="handleRatioChange()">
                     <option value="1:1">1:1 (Square)</option>
@@ -1378,7 +1407,7 @@
         <button class="btn-random" onclick="smartRandomize()">🎲 Smart Randomize</button>
         <button class="btn-generate" onclick="generatePrompt()">🚀 Generate Prompt</button>
         <button class="btn-export" onclick="exportSDBatch()">💾 Export SD Batch (.txt)</button>
-        <button class="btn-export" onclick="batchMultiEngine()" style="background: #a855f7; box-shadow: 0 4px 15px rgba(168,85,247,0.4);">🎯 Batch All Engines</button>
+        <button class="btn-export" onclick="batchMultiEngine()" style="background: var(--ai-btn-bg); box-shadow: 0 4px 15px rgba(168,85,247,0.4);">🎯 Batch All Engines</button>
         <button class="btn-reset" onclick="manualSave()" style="color: var(--accent-color); border-color: var(--accent-color);">💾 Save Now</button>
         <button class="btn-reset" onclick="cycleTheme()" id="themeBtn" title="Switch theme">🌙 Dark</button>
     </div>
@@ -1481,6 +1510,53 @@
         'subject', 'aiInput'
     ];
 
+    const DYNAMIC_ENGINE_FIELDS = ['mjVersion', 'mjStylize', 'mjChaos', 'mjWeird', 'mjStyleRaw', 'mjTile',
+        'sdVersion', 'sdModel', 'sdTrigger', 'sdCfg', 'sdSteps', 'sdSampler', 'sdHires', 'sdRefiner', 'sdFaceRestore',
+        'fluxVariant', 'fluxGuidance', 'fluxSteps', 'fluxSeed', 'fluxRefiner',
+        'dalleVersion', 'dalleStyle'];
+
+    // Remember what each engine had, so switching engines never loses settings.
+    const engineSettings = {};
+    let currentRenderedEngine = null;
+
+    // ============================================================
+    // STORAGE (safe helpers with in-memory fallback)
+    // ============================================================
+    const memoryStore = new Map();
+
+    function storageGet(scope, key) {
+        try {
+            const store = (scope === 'session') ? sessionStorage : localStorage;
+            return store.getItem(key);
+        } catch (e) {
+            console.warn('Storage read blocked:', e && e.name);
+            return memoryStore.has(key) ? memoryStore.get(key) : null;
+        }
+    }
+
+    function storageSet(scope, key, value) {
+        memoryStore.set(key, value);
+        try {
+            const store = (scope === 'session') ? sessionStorage : localStorage;
+            store.setItem(key, value);
+            return true;
+        } catch (e) {
+            console.warn('Storage write failed:', e && e.name);
+            return false;
+        }
+    }
+
+    function storageRemove(scope, key) {
+        memoryStore.delete(key);
+        try {
+            const store = (scope === 'session') ? sessionStorage : localStorage;
+            store.removeItem(key);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
     function saveSettings() {
         try {
             const data = {};
@@ -1490,15 +1566,16 @@
                 if (el.type === 'checkbox') data[id] = { type: 'checkbox', value: el.checked };
                 else data[id] = { type: 'value', value: el.value };
             });
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-        } catch (e) { console.warn('Save failed:', e); }
+            return storageSet('local', STORAGE_KEY, JSON.stringify(data));
+        } catch (e) { console.warn('Save failed:', e); return false; }
     }
 
     function loadSettings(filter = null) {
         try {
-            const raw = localStorage.getItem(STORAGE_KEY);
+            const raw = storageGet('local', STORAGE_KEY);
             if (!raw) return false;
             const data = JSON.parse(raw);
+            if (!data || typeof data !== 'object' || Array.isArray(data)) return false;
             let loaded = 0;
 
             Object.entries(data).forEach(([id, entry]) => {
@@ -1524,7 +1601,7 @@
     }
 
     function clearSettings() {
-        try { localStorage.removeItem(STORAGE_KEY); return true; } catch (e) { return false; }
+        return storageRemove('local', STORAGE_KEY);
     }
 
     function scheduleSave() {
@@ -1547,15 +1624,16 @@
     }
 
     function manualSave() {
-        saveSettings();
-        showToast('💾 Settings saved');
+        if (saveSettings()) showToast('💾 Settings saved');
+        else showToast('⚠️ Could not save settings (storage is unavailable)', true);
     }
 
     function resetAllSettings() {
         if (!confirm('Are you sure you want to reset all saved settings?')) return;
         clearSettings();
-        localStorage.removeItem(HISTORY_KEY);
-        localStorage.removeItem(CUSTOM_PRESETS_KEY);
+        storageRemove('local', HISTORY_KEY);
+        storageRemove('local', CUSTOM_PRESETS_KEY);
+        storageRemove('local', CUSTOM_MODELS_KEY);
         clearSubjectQueue();
         showToast('🔄 Reloading...');
         setTimeout(() => window.location.reload(), 800);
@@ -1596,10 +1674,10 @@
     }
 
     function cycleTheme() {
-        const current = localStorage.getItem(THEME_KEY) || 'dark';
+        const current = storageGet('local', THEME_KEY) || 'dark';
         const idx = THEMES.indexOf(current);
         const next = THEMES[(idx + 1) % THEMES.length];
-        localStorage.setItem(THEME_KEY, next);
+        storageSet('local', THEME_KEY, next);
         applyTheme(next);
         showToast(`🎨 Theme: ${next}`);
     }
@@ -1608,11 +1686,15 @@
     // HISTORY
     // ============================================================
     function getHistory() {
-        try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); } catch (e) { return []; }
+        try {
+            const parsed = JSON.parse(storageGet('local', HISTORY_KEY) || '[]');
+            return Array.isArray(parsed) ? parsed.filter(item => item && typeof item === 'object') : [];
+        } catch (e) { return []; }
     }
 
     function saveHistory(history) {
-        try { localStorage.setItem(HISTORY_KEY, JSON.stringify(history.slice(0, HISTORY_MAX))); } catch (e) {}
+        try { return storageSet('local', HISTORY_KEY, JSON.stringify(history.slice(0, HISTORY_MAX))); }
+        catch (e) { return false; }
     }
 
     function addToHistory(promptText) {
@@ -1659,26 +1741,14 @@
         const text = history[idx].text;
         document.getElementById('finalPrompt').value = text;
 
-        try {
-            if (window.location.protocol === 'file:' || !navigator.clipboard) {
-                const ta = document.createElement('textarea');
-                ta.value = text;
-                ta.style.cssText = 'position:fixed; opacity:0;';
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                document.body.removeChild(ta);
-            } else {
-                navigator.clipboard.writeText(text);
-            }
-        } catch (e) { console.warn('Copy failed', e); }
-
-        showToast('📋 Prompt restored & copied');
+        copyTextToClipboard(text).then((ok) => {
+            showToast(ok ? '📋 Prompt restored & copied' : '📋 Prompt restored, but copying failed', !ok);
+        });
     }
 
     function clearHistory() {
         if (!confirm('Delete all history?')) return;
-        localStorage.removeItem(HISTORY_KEY);
+        storageRemove('local', HISTORY_KEY);
         renderHistory();
         showToast('🗑️ History cleared');
     }
@@ -1694,11 +1764,15 @@
     // CUSTOM PRESETS
     // ============================================================
     function getCustomPresets() {
-        try { return JSON.parse(localStorage.getItem(CUSTOM_PRESETS_KEY) || '{}'); } catch (e) { return {}; }
+        try {
+            const parsed = JSON.parse(storageGet('local', CUSTOM_PRESETS_KEY) || '{}');
+            return (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) ? parsed : {};
+        } catch (e) { return {}; }
     }
 
     function saveCustomPresets(presets) {
-        localStorage.setItem(CUSTOM_PRESETS_KEY, JSON.stringify(presets));
+        try { return storageSet('local', CUSTOM_PRESETS_KEY, JSON.stringify(presets)); }
+        catch (e) { return false; }
     }
 
     function saveCurrentAsPreset() {
@@ -1770,11 +1844,15 @@
     // CUSTOM MODELS
     // ============================================================
     function getCustomModels() {
-        try { return JSON.parse(localStorage.getItem(CUSTOM_MODELS_KEY) || '[]'); } catch (e) { return []; }
+        try {
+            const parsed = JSON.parse(storageGet('local', CUSTOM_MODELS_KEY) || '[]');
+            return Array.isArray(parsed) ? parsed.filter(m => m && typeof m === 'object') : [];
+        } catch (e) { return []; }
     }
 
     function saveCustomModels(models) {
-        localStorage.setItem(CUSTOM_MODELS_KEY, JSON.stringify(models));
+        try { return storageSet('local', CUSTOM_MODELS_KEY, JSON.stringify(models)); }
+        catch (e) { return false; }
     }
 
     function addCustomModel() {
@@ -1797,11 +1875,11 @@
     function saveSubjectQueue() {
         try {
             if (subjectQueue.length === 0) {
-                sessionStorage.removeItem(SUBJECT_QUEUE_KEY);
-                sessionStorage.removeItem(SUBJECT_QUEUE_INDEX_KEY);
+                storageRemove('session', SUBJECT_QUEUE_KEY);
+                storageRemove('session', SUBJECT_QUEUE_INDEX_KEY);
             } else {
-                sessionStorage.setItem(SUBJECT_QUEUE_KEY, JSON.stringify(subjectQueue));
-                sessionStorage.setItem(SUBJECT_QUEUE_INDEX_KEY, String(currentQueueIndex));
+                storageSet('session', SUBJECT_QUEUE_KEY, JSON.stringify(subjectQueue));
+                storageSet('session', SUBJECT_QUEUE_INDEX_KEY, String(currentQueueIndex));
             }
         } catch (e) {
             console.warn('Queue save failed:', e);
@@ -1810,13 +1888,13 @@
 
     function loadSubjectQueue() {
         try {
-            const raw = sessionStorage.getItem(SUBJECT_QUEUE_KEY);
+            const raw = storageGet('session', SUBJECT_QUEUE_KEY);
             if (!raw) return false;
             const parsed = JSON.parse(raw);
             if (!Array.isArray(parsed) || parsed.length === 0) return false;
 
             subjectQueue = parsed.filter(s => typeof s === 'string' && s.trim() !== '');
-            const idxRaw = sessionStorage.getItem(SUBJECT_QUEUE_INDEX_KEY);
+            const idxRaw = storageGet('session', SUBJECT_QUEUE_INDEX_KEY);
             const idx = parseInt(idxRaw, 10);
             currentQueueIndex = (Number.isFinite(idx) && idx >= 0 && idx < subjectQueue.length) ? idx : 0;
 
@@ -1828,10 +1906,8 @@
     }
 
     function clearSubjectQueue() {
-        try {
-            sessionStorage.removeItem(SUBJECT_QUEUE_KEY);
-            sessionStorage.removeItem(SUBJECT_QUEUE_INDEX_KEY);
-        } catch (e) {}
+        storageRemove('session', SUBJECT_QUEUE_KEY);
+        storageRemove('session', SUBJECT_QUEUE_INDEX_KEY);
     }
 
     // ============================================================
@@ -1966,6 +2042,25 @@
         }
     };
 
+    const NO_MODEL_PLACEHOLDER = '- Select a different architecture or add custom -';
+
+    function isNoModelPlaceholder(value) {
+        // Legacy exports stored the same placeholder with an em dash (8212).
+        return !value || value === NO_MODEL_PLACEHOLDER || value.charCodeAt(0) === 8212;
+    }
+
+    function findModelEntry(name) {
+        if (isNoModelPlaceholder(name)) return null;
+        if (Object.prototype.hasOwnProperty.call(MODEL_DATABASE, name)) {
+            return { source: 'builtin', data: MODEL_DATABASE[name] };
+        }
+        const arch = document.getElementById('sdVersion')?.value || '';
+        const matches = getCustomModels().filter(m => m && m.name === name);
+        if (matches.length === 0) return null;
+        const data = matches.find(m => m.arch === arch) || matches[0];
+        return { source: 'custom', data };
+    }
+
     // ============================================================
     // BUILD SD MODEL OPTIONS
     // ============================================================
@@ -1987,12 +2082,19 @@
         });
 
         const customModels = getCustomModels();
-        const matchingCustom = customModels.filter(m => m.arch === arch).map(m => m.name);
+        const seenCustom = new Set();
+        const matchingCustom = [];
+        customModels.forEach(m => {
+            if (!m || typeof m.name !== 'string' || m.arch !== arch) return;
+            if (seenCustom.has(m.name)) return;
+            seenCustom.add(m.name);
+            matchingCustom.push(m.name);
+        });
         if (matchingCustom.length > 0) groups['Custom'] = matchingCustom;
 
         const totalModels = Object.values(groups).reduce((s, arr) => s + arr.length, 0);
         if (totalModels === 0) {
-            groups['⚠️ No models'] = ['- Select a different architecture or add custom -'];
+            groups['⚠️ No models'] = [NO_MODEL_PLACEHOLDER];
         }
 
         return groups;
@@ -2118,76 +2220,120 @@
         if (!panel) return;
 
         const modelName = document.getElementById('sdModel')?.value;
-        if (!modelName || (modelName === '- Select a different architecture or add custom -' || modelName.charCodeAt(0) === 8212)) { panel.classList.remove('visible'); return; }
+        if (isNoModelPlaceholder(modelName)) { panel.classList.remove('visible'); return; }
 
         const currentArch = document.getElementById('sdVersion')?.value || 'SDXL 1.0';
-        const data = MODEL_DATABASE[modelName];
-        const customModels = getCustomModels();
-        const customEntry = customModels.find(m => m.name === modelName);
+        const entry = findModelEntry(modelName);
+        if (!entry) { panel.classList.remove('visible'); return; }
 
-        if (!data && customEntry) {
-            panel.classList.add('visible');
-            const archMatch = customEntry.arch === currentArch;
-            panel.innerHTML = `
-                <div class="model-info-row">
-                    <span class="model-badge">📁 Custom Model</span>
-                    <span class="model-badge ${archMatch ? 'arch-match' : 'arch-mismatch'}">
-                        ${archMatch ? '✅' : '⚠️'} ${customEntry.arch}
-                    </span>
-                </div>
-                <div class="model-trigger-input">
-                    <label style="font-size:0.85rem; color:#cbd5e1; white-space:nowrap;">🏷️ Trigger:</label>
-                    <input type="text" id="sdTriggerInfo" value="${escapeAttr(document.getElementById('sdTrigger')?.value || '')}" placeholder="trigger words...">
-                </div>
-            `;
+        panel.textContent = '';
+        panel.classList.add('visible');
+
+        const mkRow = () => {
+            const row = document.createElement('div');
+            row.className = 'model-info-row';
+            panel.appendChild(row);
+            return row;
+        };
+        const mkBadge = (parent, text, cls) => {
+            const span = document.createElement('span');
+            span.className = 'model-badge' + (cls ? ' ' + cls : '');
+            span.textContent = text;
+            parent.appendChild(span);
+            return span;
+        };
+        const addTriggerRow = () => {
+            const row = mkRow();
+            const wrap = document.createElement('div');
+            wrap.className = 'model-trigger-input';
+            const label = document.createElement('label');
+            label.style.cssText = 'font-size:0.85rem; color:var(--text-color); white-space:nowrap;';
+            label.textContent = '🏷️ Trigger:';
+            label.htmlFor = 'sdTriggerInfo';
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.id = 'sdTriggerInfo';
+            input.value = document.getElementById('sdTrigger')?.value || '';
+            input.placeholder = 'trigger words...';
+            wrap.appendChild(label);
+            wrap.appendChild(input);
+            row.appendChild(wrap);
             attachTriggerListener();
+        };
+
+        if (entry.source === 'custom') {
+            const archMatch = entry.data.arch === currentArch;
+            const row = mkRow();
+            mkBadge(row, '📁 Custom Model');
+            mkBadge(row, `${archMatch ? '✅' : '⚠️'} ${entry.data.arch}`, archMatch ? 'arch-match' : 'arch-mismatch');
+            addTriggerRow();
             return;
         }
 
-        if (!data) { panel.classList.remove('visible'); return; }
+        const data = entry.data;
 
         if (data.arch !== currentArch) {
-            panel.classList.add('visible');
-            panel.innerHTML = `
-                <div class="mismatch-warning">
-                    ⚠️ <strong>Mismatch:</strong> Model "${escapeHtml(modelName)}" is built for <strong>${data.arch}</strong>,
-                    but selected architecture is <strong>${currentArch}</strong>.
-                    <button class="btn-fix-arch" onclick="fixArchitectureMismatch('${data.arch}')">🔧 Fix to ${data.arch}</button>
-                </div>
-            `;
+            const warn = document.createElement('div');
+            warn.className = 'mismatch-warning';
+            warn.appendChild(document.createTextNode('⚠️ '));
+            const strong = document.createElement('strong');
+            strong.textContent = 'Mismatch:';
+            warn.appendChild(strong);
+            warn.appendChild(document.createTextNode(` Model "${modelName}" is built for ${data.arch}, but selected architecture is ${currentArch}. `));
+            const fix = document.createElement('button');
+            fix.type = 'button';
+            fix.className = 'btn-fix-arch';
+            fix.textContent = `🔧 Fix to ${data.arch}`;
+            fix.addEventListener('click', () => fixArchitectureMismatch(data.arch));
+            warn.appendChild(fix);
+            panel.appendChild(warn);
             return;
         }
 
-        panel.classList.add('visible');
-        const vaeClass = data.vae === 'builtin' ? 'vae-builtin' : 'vae-external';
-        const vaeText = data.vae === 'builtin' ? '✅ Built-in VAE' : '⚠️ Requires external VAE';
+        const row1 = mkRow();
+        mkBadge(row1, `📐 ${data.arch}`, 'arch-match');
+        mkBadge(row1, `📂 ${data.category}`);
+        mkBadge(row1, data.vae === 'builtin' ? '✅ Built-in VAE' : '⚠️ Requires external VAE', data.vae === 'builtin' ? 'vae-builtin' : 'vae-external');
+        mkBadge(row1, `💾 ${data.size}`);
+        mkBadge(row1, `🖼️ ${data.resolution}`);
+        addTriggerRow();
 
-        panel.innerHTML = `
-            <div class="model-info-row">
-                <span class="model-badge arch-match">📐 ${data.arch}</span>
-                <span class="model-badge">📂 ${data.category}</span>
-                <span class="model-badge ${vaeClass}">${vaeText}</span>
-                <span class="model-badge">💾 ${data.size}</span>
-                <span class="model-badge">🖼️ ${data.resolution}</span>
-            </div>
-            <div class="model-info-row">
-                <div class="model-trigger-input">
-                    <label style="font-size:0.85rem; color:#cbd5e1; white-space:nowrap;">🏷️ Trigger:</label>
-                    <input type="text" id="sdTriggerInfo" value="${escapeAttr(document.getElementById('sdTrigger')?.value || data.trigger || '')}" placeholder="trigger words...">
-                </div>
-            </div>
-            <div class="model-recommendation">
-                <strong>💡 Recommended:</strong>
-                <span>CFG <strong>${data.recommended.cfg}</strong></span> ·
-                <span>Steps <strong>${data.recommended.steps}</strong></span> ·
-                <span>Sampler <strong>${data.recommended.sampler}</strong></span>
-                <button class="btn-apply-recommendation" onclick="applyRecommended()">✨ Apply</button>
-            </div>
-            <div style="margin-top:8px; font-size:0.8rem; color:#94a3b8; font-style:italic;">
-                ${escapeHtml(data.notes)}
-            </div>
-        `;
-        attachTriggerListener();
+        const rec = mkRow();
+        rec.className = 'model-recommendation';
+        const recTitle = document.createElement('strong');
+        recTitle.textContent = '💡 Recommended:';
+        rec.appendChild(recTitle);
+        const cfgSpan = document.createElement('span');
+        cfgSpan.append('CFG ');
+        const cfgVal = document.createElement('strong');
+        cfgVal.textContent = String(data.recommended.cfg);
+        cfgSpan.appendChild(cfgVal);
+        rec.appendChild(cfgSpan);
+        rec.appendChild(document.createTextNode(' · '));
+        const stepsSpan = document.createElement('span');
+        stepsSpan.append('Steps ');
+        const stepsVal = document.createElement('strong');
+        stepsVal.textContent = String(data.recommended.steps);
+        stepsSpan.appendChild(stepsVal);
+        rec.appendChild(stepsSpan);
+        rec.appendChild(document.createTextNode(' · '));
+        const samplerSpan = document.createElement('span');
+        samplerSpan.append('Sampler ');
+        const samplerVal = document.createElement('strong');
+        samplerVal.textContent = String(data.recommended.sampler);
+        samplerSpan.appendChild(samplerVal);
+        rec.appendChild(samplerSpan);
+        const applyBtn = document.createElement('button');
+        applyBtn.type = 'button';
+        applyBtn.className = 'btn-apply-recommendation';
+        applyBtn.textContent = '✨ Apply';
+        applyBtn.addEventListener('click', applyRecommended);
+        rec.appendChild(applyBtn);
+
+        const notes = document.createElement('div');
+        notes.style.cssText = 'margin-top:8px; font-size:0.8rem; color:var(--muted-color); font-style:italic;';
+        notes.textContent = data.notes || '';
+        panel.appendChild(notes);
     }
 
     function escapeHtml(s) {
@@ -2207,7 +2353,10 @@
             scheduleSave();
         };
         const triggerEl = document.getElementById('sdTrigger');
-        if (triggerEl) triggerEl.addEventListener('input', () => sync('sdTrigger'));
+        if (triggerEl && !triggerEl.dataset.listenerBound) {
+            triggerEl.dataset.listenerBound = '1';
+            triggerEl.addEventListener('input', () => sync('sdTrigger'));
+        }
         const infoEl = document.getElementById('sdTriggerInfo');
         if (infoEl) infoEl.addEventListener('input', () => sync('sdTriggerInfo'));
     }
@@ -2334,16 +2483,22 @@
     function updateEnginePanel() {
         const engine = document.getElementById('targetEngine').value;
 
+        // The controls currently in the DOM belong to the engine rendered last.
+        const previousEngine = currentRenderedEngine;
         const snapshot = {};
-        const dynamicIds = ['mjVersion', 'mjStylize', 'mjChaos', 'mjWeird', 'mjStyleRaw', 'mjTile',
-                            'sdVersion', 'sdModel', 'sdTrigger', 'sdCfg', 'sdSteps', 'sdSampler', 'sdHires', 'sdRefiner', 'sdFaceRestore',
-                            'fluxVariant', 'fluxGuidance', 'fluxSteps', 'fluxSeed', 'fluxRefiner',
-                            'dalleVersion', 'dalleStyle'];
-        dynamicIds.forEach(id => {
+        const sourceEngine = previousEngine || engine;
+        const sourceFields = ENGINE_CONFIGS[sourceEngine] ? ENGINE_CONFIGS[sourceEngine].params.map(param => param.id) : [];
+        sourceFields.forEach(id => {
             const el = document.getElementById(id);
             if (!el) return;
             snapshot[id] = (el.type === 'checkbox') ? el.checked : el.value;
         });
+        if (previousEngine) {
+            if (!engineSettings[previousEngine]) engineSettings[previousEngine] = {};
+            Object.assign(engineSettings[previousEngine], snapshot);
+        }
+        currentRenderedEngine = engine;
+        const remembered = engineSettings[engine] || {};
 
         const panel = document.getElementById('engineParams');
         panel.innerHTML = '';
@@ -2357,6 +2512,7 @@
 
             const label = document.createElement('label');
             label.innerText = p.label;
+            label.htmlFor = p.id;
             group.appendChild(label);
 
             let input;
@@ -2364,7 +2520,7 @@
                 input = document.createElement('select');
                 let options = p.options;
                 if (p.type === 'select-dynamic' && p.optionsBuilder) {
-                    options = p.optionsBuilder(snapshot.sdVersion);
+                    options = p.optionsBuilder(remembered.sdVersion);
                 }
 
                 if (Array.isArray(options)) {
@@ -2412,7 +2568,7 @@
 
                 input = document.createElement('input');
                 input.type = 'checkbox';
-                input.checked = !!p.default;
+                input.checked = (remembered[p.id] !== undefined) ? !!remembered[p.id] : !!p.default;
                 input.style.cssText = 'width:20px; height:20px; accent-color:var(--accent-color); cursor:pointer; margin:0;';
 
                 const cbLabel = document.createElement('span');
@@ -2428,7 +2584,7 @@
             } else {
                 input = document.createElement('input');
                 input.type = p.type;
-                input.value = p.default;
+                input.value = (remembered[p.id] !== undefined) ? remembered[p.id] : p.default;
                 if (p.min !== undefined) input.min = p.min;
                 if (p.max !== undefined) input.max = p.max;
                 if (p.step !== undefined) input.step = p.step;
@@ -2438,14 +2594,14 @@
             group.appendChild(input);
             panel.appendChild(group);
 
-            if (snapshot[p.id] !== undefined) {
-                if (input.type === 'checkbox') input.checked = !!snapshot[p.id];
+            if (remembered[p.id] !== undefined) {
+                if (input.type === 'checkbox') input.checked = !!remembered[p.id];
                 else {
                     if (input.tagName === 'SELECT') {
-                        const exists = Array.from(input.options).some(o => o.value === snapshot[p.id]);
-                        if (exists) input.value = snapshot[p.id];
+                        const exists = Array.from(input.options).some(o => o.value === remembered[p.id]);
+                        if (exists) input.value = remembered[p.id];
                     } else {
-                        input.value = snapshot[p.id];
+                        input.value = remembered[p.id];
                     }
                 }
             }
@@ -3111,7 +3267,7 @@
     }
 
     // ============================================================
-    // PROMPT SCORE (v22.12 - weighted, meaningful)
+    // PROMPT SCORE (v22.13 - weighted, meaningful)
     // ============================================================
     const SCORE_WEIGHTS = {
         style: 15,
@@ -3372,9 +3528,9 @@
 
         if (engine === 'midjourney') {
             const version = document.getElementById('mjVersion')?.value || '6.0';
-            const stylize = document.getElementById('mjStylize')?.value || 250;
-            const chaos = document.getElementById('mjChaos')?.value || 0;
-            const weird = document.getElementById('mjWeird')?.value || 0;
+            const stylize = numericValue(document.getElementById('mjStylize'), 250);
+            const chaos = numericValue(document.getElementById('mjChaos'), 0);
+            const weird = numericValue(document.getElementById('mjWeird'), 0);
             const styleRaw = document.getElementById('mjStyleRaw')?.checked || false;
             const tile = document.getElementById('mjTile')?.checked || false;
             const ratioString = finalRatio ? `--ar ${finalRatio}` : '';
@@ -3392,9 +3548,9 @@
         }
         else if (engine === 'flux') {
             const variant = document.getElementById('fluxVariant')?.value || "FLUX.1 [dev]";
-            const guidance = document.getElementById('fluxGuidance')?.value || 3.5;
-            const steps = document.getElementById('fluxSteps')?.value || 28;
-            const seed = document.getElementById('fluxSeed')?.value || 0;
+            const guidance = numericValue(document.getElementById('fluxGuidance'), 3.5);
+            const steps = numericValue(document.getElementById('fluxSteps'), 28);
+            const seed = numericValue(document.getElementById('fluxSeed'), 0);
             const refiner = document.getElementById('fluxRefiner')?.checked || false;
 
             const naturalPrompt =
@@ -3413,8 +3569,8 @@
             const version = document.getElementById('sdVersion')?.value || "SDXL 1.0";
             const model = document.getElementById('sdModel')?.value || "SDXL";
             const trigger = document.getElementById('sdTrigger')?.value.trim() || '';
-            const cfg = document.getElementById('sdCfg')?.value || 7;
-            const steps = document.getElementById('sdSteps')?.value || 25;
+            const cfg = numericValue(document.getElementById('sdCfg'), 7);
+            const steps = numericValue(document.getElementById('sdSteps'), 25);
             const sampler = document.getElementById('sdSampler')?.value || "Euler a";
             const hires = document.getElementById('sdHires')?.checked || false;
             const refiner = document.getElementById('sdRefiner')?.checked || false;
@@ -3449,6 +3605,22 @@
             return `A professional ${style} image of ${subjectText}. The scene is composed as a ${composition}, set against a ${background}. The lighting is ${lightString}${camera}. ${opticalsString}The image features ${interaction}, with a color mood and palette of ${colorPalette}, using ${renderTech}. The overall quality is ${qualityStd}.${hdBoost} Style: ${dalleStyle}. Aspect ratio: ${finalRatio}.`;
         }
         return "";
+    }
+
+    // ============================================================
+    // NUMERIC INPUT VALIDATION
+    // ============================================================
+    function numericValue(el, fallback) {
+        if (!el) return fallback;
+        const raw = el.value;
+        if (raw === '' || raw === null || raw === undefined) return fallback;
+        let n = Number(raw);
+        if (!Number.isFinite(n)) return fallback;
+        const min = Number(el.min);
+        const max = Number(el.max);
+        if (el.min !== '' && Number.isFinite(min) && n < min) n = min;
+        if (el.max !== '' && Number.isFinite(max) && n > max) n = max;
+        return n;
     }
 
     // ============================================================
@@ -3558,19 +3730,33 @@
         if (!subject) { showToast('❌ Add a subject first', true); return; }
 
         const currentEngine = document.getElementById('targetEngine').value;
+        const snapshot = {};
+        DYNAMIC_ENGINE_FIELDS.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) snapshot[id] = (el.type === 'checkbox') ? el.checked : el.value;
+        });
+
         const engines = ['midjourney', 'flux', 'stable_diffusion', 'dalle3'];
         const results = {};
 
         suppressArchToast = true;
-        engines.forEach(eng => {
-            document.getElementById('targetEngine').value = eng;
+        try {
+            engines.forEach(eng => {
+                document.getElementById('targetEngine').value = eng;
+                updateEnginePanel();
+                results[eng] = buildPromptString(subject);
+            });
+        } finally {
+            document.getElementById('targetEngine').value = currentEngine;
             updateEnginePanel();
-            results[eng] = buildPromptString(subject);
-        });
-
-        document.getElementById('targetEngine').value = currentEngine;
-        updateEnginePanel();
-        generatePrompt();
+            DYNAMIC_ENGINE_FIELDS.forEach(id => {
+                const el = document.getElementById(id);
+                if (!el || snapshot[id] === undefined) return;
+                if (el.type === 'checkbox') el.checked = !!snapshot[id];
+                else el.value = snapshot[id];
+            });
+            suppressArchToast = false;
+        }
 
         showBatchModal(subject, results);
     }
@@ -3618,9 +3804,12 @@
 
         content.querySelectorAll('[data-prompt-idx]').forEach(btn => {
             btn.onclick = () => {
-                navigator.clipboard.writeText(results[btn.dataset.promptIdx]);
-                btn.textContent = '✓';
-                setTimeout(() => btn.textContent = 'Copy', 1500);
+                btn.disabled = true;
+                copyTextToClipboard(results[btn.dataset.promptIdx]).then((ok) => {
+                    btn.disabled = false;
+                    btn.textContent = ok ? '✓' : '❌';
+                    setTimeout(() => btn.textContent = 'Copy', 1500);
+                });
             };
         });
 
@@ -3630,24 +3819,20 @@
     function copyAllBatch() {
         const results = window._batchResults;
         if (!results) return;
-        navigator.clipboard.writeText(Object.entries(results).map(([e, p]) => `=== ${e.toUpperCase()} ===\n${p}\n`).join('\n'));
-        showToast('📋 All copied');
+        const text = Object.entries(results).map(([e, p]) => `=== ${e.toUpperCase()} ===\n${p}\n`).join('\n');
+        copyTextToClipboard(text).then((ok) => showToast(ok ? '📋 All copied' : '❌ Copy failed', !ok));
     }
 
     // ============================================================
     // COPY (robust)
     // ============================================================
-    function copyPrompt(id, evt) {
-        const copyText = document.getElementById(id);
-        if (!copyText || !copyText.value) return;
-
-        const value = copyText.value;
-        const useFallbackFirst = window.location.protocol === 'file:' || !navigator.clipboard;
-
-        const doFallback = () => {
+    function copyTextToClipboard(text) {
+        const value = String(text ?? '');
+        const fallback = () => {
             try {
                 const ta = document.createElement('textarea');
                 ta.value = value;
+                ta.setAttribute('readonly', '');
                 ta.style.cssText = 'position:fixed; opacity:0; left:-9999px;';
                 document.body.appendChild(ta);
                 ta.select();
@@ -3656,28 +3841,34 @@
                 document.body.removeChild(ta);
                 return ok;
             } catch (e) {
-                console.warn('Copy failed entirely', e);
+                console.warn('Copy fallback failed', e);
                 return false;
             }
         };
 
-        const doModern = () => {
-            return navigator.clipboard.writeText(value)
-                .then(() => true)
-                .catch(() => doFallback());
-        };
+        if (window.location.protocol === 'file:' || !navigator.clipboard || !navigator.clipboard.writeText) {
+            return Promise.resolve(fallback());
+        }
+        return navigator.clipboard.writeText(value).then(() => true, () => fallback());
+    }
 
-        Promise.resolve(useFallbackFirst ? doFallback() : doModern())
-            .then((success) => {
-                const btn = (evt && evt.currentTarget) || (evt && evt.target);
-                if (!btn) {
-                    showToast(success ? '📋 Copied to clipboard' : '❌ Copy failed');
-                    return;
-                }
-                const orig = btn.innerText;
+    function copyPrompt(id, evt) {
+        const copyText = document.getElementById(id);
+        if (!copyText || !copyText.value) return;
+
+        const btn = (evt && (evt.currentTarget || evt.target)) || null;
+        const orig = btn ? btn.innerText : null;
+        if (btn) { btn.disabled = true; btn.innerText = '...'; }
+
+        copyTextToClipboard(copyText.value).then((success) => {
+            if (btn) {
+                btn.disabled = false;
                 btn.innerText = success ? "Copied! ✅" : "❌ Failed";
                 setTimeout(() => btn.innerText = orig, 2000);
-            });
+            } else {
+                showToast(success ? '📋 Copied to clipboard' : '❌ Copy failed', !success);
+            }
+        });
     }
 
     // ============================================================
@@ -3686,13 +3877,13 @@
     function exportSettingsJSON() {
         try {
             const data = {
-                version: 'v22.12',
+                version: 'v22.13',
                 exportDate: new Date().toISOString(),
                 settings: {},
                 history: getHistory(),
                 customPresets: getCustomPresets(),
                 customModels: getCustomModels(),
-                theme: localStorage.getItem(THEME_KEY) || 'dark'
+                theme: storageGet('local', THEME_KEY) || 'dark'
             };
             PERSISTED_FIELDS.forEach(id => {
                 const el = document.getElementById(id);
@@ -3723,10 +3914,28 @@
 
         const reader = new FileReader();
         reader.onload = (event) => {
+            const rollback = {
+                settings: storageGet('local', STORAGE_KEY),
+                history: storageGet('local', HISTORY_KEY),
+                presets: storageGet('local', CUSTOM_PRESETS_KEY),
+                models: storageGet('local', CUSTOM_MODELS_KEY)
+            };
+            const restoreRollback = () => {
+                const put = (key, value) => {
+                    if (value === null) storageRemove('local', key);
+                    else storageSet('local', key, value);
+                };
+                put(STORAGE_KEY, rollback.settings);
+                put(HISTORY_KEY, rollback.history);
+                put(CUSTOM_PRESETS_KEY, rollback.presets);
+                put(CUSTOM_MODELS_KEY, rollback.models);
+            };
+            const storageFailures = [];
+
             try {
                 const data = JSON.parse(event.target.result);
 
-                if (!data || typeof data !== 'object') {
+                if (!data || typeof data !== 'object' || Array.isArray(data)) {
                     throw new Error('Root must be an object');
                 }
                 if (!data.settings || typeof data.settings !== 'object' || Array.isArray(data.settings)) {
@@ -3734,11 +3943,9 @@
                 }
 
                 const ALLOWED_KEYS = new Set(PERSISTED_FIELDS);
-
                 const safeEntries = Object.entries(data.settings).filter(([id]) => {
                     if (id === '__proto__' || id === 'constructor' || id === 'prototype') return false;
-                    if (!ALLOWED_KEYS.has(id)) return false;
-                    return true;
+                    return ALLOWED_KEYS.has(id);
                 });
 
                 if (safeEntries.length === 0) {
@@ -3746,32 +3953,86 @@
                 }
 
                 suppressArchToast = true;
-                let appliedCount = 0;
-                safeEntries.forEach(([id, value]) => {
-                    const el = document.getElementById(id);
-                    if (!el) return;
 
-                    if (el.type === 'checkbox') {
-                        el.checked = !!value;
-                    } else if (el.tagName === 'SELECT') {
-                        const strVal = String(value);
-                        const exists = Array.from(el.options).some(o => o.value === strVal);
-                        if (exists) el.value = strVal;
-                    } else {
-                        el.value = String(value ?? '');
-                    }
-                    appliedCount++;
-                });
+                const applyEntries = (entries) => {
+                    const deferred = [];
+                    const stale = [];
+                    let applied = 0;
 
-                if (appliedCount === 0) {
-                    throw new Error('No settings could be applied');
+                    entries.forEach(([id, value]) => {
+                        const el = document.getElementById(id);
+                        if (!el) { deferred.push([id, value]); return; }
+
+                        if (el.type === 'checkbox') {
+                            el.checked = !!value;
+                            applied++;
+                            return;
+                        }
+
+                        if (el.tagName === 'SELECT') {
+                            const strVal = String(value);
+                            if (Array.from(el.options).some(o => o.value === strVal)) {
+                                el.value = strVal;
+                                applied++;
+                            } else {
+                                stale.push([id, value]);
+                            }
+                            return;
+                        }
+
+                        if (el.type === 'number') {
+                            if (value === '' || value === null || value === undefined) { stale.push([id, value]); return; }
+                            const n = Number(value);
+                            if (!Number.isFinite(n)) { stale.push([id, value]); return; }
+                            let clamped = n;
+                            const min = Number(el.min);
+                            const max = Number(el.max);
+                            if (el.min !== '' && Number.isFinite(min) && clamped < min) clamped = min;
+                            if (el.max !== '' && Number.isFinite(max) && clamped > max) clamped = max;
+                            el.value = String(clamped);
+                            applied++;
+                            return;
+                        }
+
+                        const str = String(value ?? '');
+                        if (str.length > 5000) { stale.push([id, value]); return; }
+                        el.value = str;
+                        applied++;
+                    });
+
+                    return { applied, deferred, stale };
+                };
+
+                // Some controls (engine parameters, checkpoint lists) only exist after the
+                // engine is restored, so apply in rounds and rebuild the panel in between.
+                let pool = safeEntries.slice();
+                let applied = 0;
+                let deferred = [];
+                let stale = [];
+                for (let round = 0; round < 8 && pool.length > 0; round++) {
+                    const step = applyEntries(pool);
+                    applied += step.applied;
+                    deferred = step.deferred;
+                    stale = step.stale;
+                    if (deferred.length === 0 && stale.length === 0) break;
+                    // Values that had no matching control or option are retried after the
+                    // panel (and the checkpoint list for the restored architecture) is rebuilt.
+                    pool = deferred.concat(stale);
+                    updateEnginePanel();
+                }
+
+                if (applied === 0) {
+                    throw new Error('No valid settings could be applied');
+                }
+                if (deferred.length > 0) {
+                    throw new Error(`Only ${applied} of ${safeEntries.length} settings could be applied`);
                 }
 
                 if (Array.isArray(data.history)) {
                     const validHistory = data.history
                         .filter(h => h && typeof h === 'object' && typeof h.text === 'string')
                         .slice(0, 100);
-                    saveHistory(validHistory);
+                    if (!saveHistory(validHistory)) storageFailures.push('history');
                     renderHistory();
                 }
 
@@ -3783,7 +4044,7 @@
                             validPresets[k] = v;
                         }
                     });
-                    saveCustomPresets(validPresets);
+                    if (!saveCustomPresets(validPresets)) storageFailures.push('custom presets');
                     renderCustomPresets();
                 }
 
@@ -3791,12 +4052,11 @@
                     const validModels = data.customModels
                         .filter(m => m && typeof m === 'object' && typeof m.name === 'string' && typeof m.arch === 'string')
                         .slice(0, 50);
-                    saveCustomModels(validModels);
+                    if (!saveCustomModels(validModels)) storageFailures.push('custom models');
                 }
 
                 if (typeof data.theme === 'string' && THEMES.includes(data.theme)) {
-                    try { localStorage.setItem(THEME_KEY, data.theme); } catch(e) {}
-                    applyTheme(data.theme);
+                    if (storageSet('local', THEME_KEY, data.theme)) applyTheme(data.theme);
                 }
 
                 updateEnginePanel();
@@ -3804,12 +4064,27 @@
                 handleRatioChange();
                 generatePrompt();
 
-                showToast(`📥 Import successful (${appliedCount} settings)`);
+                if (storageFailures.length > 0) {
+                    showToast(`⚠️ Imported for this session, but ${storageFailures.join(' and ')} could not be saved`, true);
+                } else if (stale.length > 0) {
+                    showToast(`⚠️ Imported ${applied} of ${safeEntries.length} settings (${stale.length} invalid or unknown)`, true);
+                } else {
+                    showToast(`📥 Import successful (${applied} settings)`);
+                }
             } catch (err) {
                 console.error('Import failed:', err);
-                showToast(`❌ ${err.message || 'Invalid JSON'}`, true);
+                restoreRollback();
+                loadSettings();
+                updateEnginePanel();
+                renderHistory();
+                renderCustomPresets();
+                updateLogic();
+                generatePrompt({ skipHistory: true });
+                showToast(`❌ ${err.message || 'Invalid JSON'} - nothing was changed`, true);
+            } finally {
+                suppressArchToast = false;
+                e.target.value = '';
             }
-            e.target.value = '';
         };
         reader.readAsText(file);
     });
@@ -3887,7 +4162,8 @@
     // INIT
     // ============================================================
     window.onload = () => {
-        applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
+      try {
+        applyTheme(storageGet('local', THEME_KEY) || 'dark');
 
         suppressArchToast = true;
         const hadSaved = loadSettings();
@@ -3958,13 +4234,15 @@
         }
 
         window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
-            if (localStorage.getItem(THEME_KEY) === 'auto') applyTheme('auto');
+            if (storageGet('local', THEME_KEY) === 'auto') applyTheme('auto');
         });
 
         window.addEventListener('storage', (e) => {
             if (e.key === STORAGE_KEY && e.newValue) {
                 suppressArchToast = true;
+                const engineBefore = document.getElementById('targetEngine').value;
                 loadSettings();
+                if (document.getElementById('targetEngine').value !== engineBefore) updateEnginePanel();
                 updateLogic();
                 refreshBadgeVersion(document.getElementById('targetEngine').value);
                 showToast('🔄 Synced');
@@ -3975,6 +4253,9 @@
             if (e.key === CUSTOM_PRESETS_KEY) renderCustomPresets();
             if (e.key === CUSTOM_MODELS_KEY) updateEnginePanel();
         });
+      } catch (e) {
+        console.error('Init error:', e);
+      }
     };
 </script>
 <script>
@@ -3983,6 +4264,11 @@
       navigator.serviceWorker.register('./service-worker.js')
         .then((reg) => console.log('SW registered:', reg.scope))
         .catch((err) => console.error('SW registration failed:', err));
+    });
+    navigator.serviceWorker.addEventListener('message', (event) => {
+      if (!event.data || event.data.type !== 'SW_UPDATED') return;
+      if (typeof window.__tdShowUpdateReady === 'function') window.__tdShowUpdateReady(event.data.version);
+      else if (typeof showToast === 'function') showToast('🔄 A new version is ready. Reload to update.');
     });
   }
 </script>

@@ -6,7 +6,7 @@
 
 A zero-dependency, single-file web app that builds optimized prompts for **Midjourney**, **FLUX.1**, **Stable Diffusion**, and **DALL-E 3**.
 
-[![Version](https://img.shields.io/badge/version-22.12-blue?style=flat-square)](https://github.com/tekideki/AI-Prompt-Builder)
+[![Version](https://img.shields.io/badge/version-22.13-blue?style=flat-square)](https://github.com/tekideki/AI-Prompt-Builder)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue?style=flat-square)](LICENSE)
 [![Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen?style=flat-square)](#)
 [![Made with](https://img.shields.io/badge/made%20with-vanilla%20JS-yellow?style=flat-square)](#)
@@ -50,7 +50,7 @@ The app runs **100% client-side**. No build step, no backend, no tracking. All d
 - 🗂️ **Batch Processing** - Upload a `.txt` of subjects → generate all prompts at once
 - 🎯 **Multi-Engine Batch** - Generate the same prompt for all 4 engines simultaneously
 - 📤 **Export SD Batch** - Download all queued prompts as a single `.txt`
-- 📥 **JSON Import/Export** - Full backup with strict validation (prototype-pollution safe)
+- 📥 **JSON Import/Export** - Settings, history, custom presets, custom models and theme, with strict validation (prototype-pollution safe)
 - 🎭 **AI Analysis Panel** - Keyword-based semantic mapping
 - 🌓 **Dark / Light / Auto Theme**
 - ⌨️ **Keyboard Shortcuts**
@@ -250,6 +250,8 @@ index.html  (~2,500 lines, zero dependencies)
 | `aiPromptBuilder_subjectQueue` | `sessionStorage` | Current batch queue |
 | `aiPromptBuilder_subjectQueueIndex` | `sessionStorage` | Queue position |
 
+The JSON backup contains **settings, history, custom presets, custom models and the theme**. The subject queue is intentionally session-only and is therefore not part of the backup.
+
 ---
 
 ## 🌐 Browser Support
@@ -309,6 +311,20 @@ You're on `file://` with `localStorage` disabled. Use the [live demo](https://te
 </details>
 
 <details>
+<summary><strong>Import says "nothing was changed"</strong></summary>
+
+The file was rejected before anything was applied, so your current settings, history and presets are untouched. This happens when the JSON is not a Prompt Builder export, when the settings are not in the expected shape, or when a setting value no longer exists in the current version. Use the file produced by **Export JSON** without editing it.
+
+If some settings are reported as not applied, the backup was written by a different version of the app: the values that are still valid were imported, and the toast tells you how many.
+</details>
+
+<details>
+<summary><strong>Save says storage is unavailable</strong></summary>
+
+The browser refused to store the settings (`localStorage` blocked, private mode, or a full quota). The app keeps working in this tab, but nothing is persisted until storage is available again. Try the [live demo](https://tekideki.github.io/AI-Prompt-Builder/) in a regular window, or free some space.
+</details>
+
+<details>
 <summary><strong>Queue disappeared after closing the tab</strong></summary>
 
 By design - the queue uses `sessionStorage`, cleared when the tab closes. To persist across sessions, change `SUBJECT_QUEUE_KEY` to use `localStorage` in the code.
@@ -332,7 +348,7 @@ By design - the queue uses `sessionStorage`, cleared when the tab closes. To per
 - [ ] LoRA selector for SD
 - [ ] A/B prompt comparison view
 - [ ] Prompt library with tags & search
-- [ ] PWA support (offline install)
+- [x] PWA support (manifest, offline service worker, install button)
 
 ---
 
@@ -357,7 +373,32 @@ Contributions are welcome!
 
 ## 📝 Changelog
 
-### v22.12 - Current
+### v22.13 - Current
+
+**Security**
+- Custom model names and architecture values are rendered as text, never as HTML (fixes a stored DOM XSS path reachable through an imported JSON backup)
+- Import now validates the whole file first and rolls back cleanly if anything fails
+
+**Fixes**
+- JSON backup restores engine parameters correctly (architecture, checkpoint, CFG, steps, sampler, Hires/Refiner/Face Restoration and the other engine fields)
+- Switching engines and `Batch All Engines` no longer overwrite your current parameters
+- Checkbox settings (Style Raw, Tile, Hires Fix, Refiner, Face Restoration) survive a panel rebuild
+- Cross-tab sync rebuilds the engine panel instead of showing another engine's controls
+- History restore, batch copy and Copy All report copy failures honestly instead of a false success
+- Saving reports a real error when the browser refuses the write, and a blocked `localStorage` no longer prevents the app from starting
+- Malformed stored history can no longer break startup
+- Numeric engine parameters are clamped to their allowed range before they reach the prompt
+
+**Accessibility**
+- Every select, number and text field has an associated label
+- Contrast raised for buttons, hints, labels, score badges, history header and footer in both themes
+
+**Improvements**
+- Service worker: offline navigation fallback, no caching of JSON or cross-origin requests, update notification
+- Added description, canonical and social preview metadata, plus richer web app manifest
+- Copy/import failures now report the real outcome instead of a success message
+
+### v22.12
 
 **Fixes**
 - `copyPrompt()` no longer relies on `window.event` - works on Firefox now

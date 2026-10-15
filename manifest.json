@@ -1,10 +1,16 @@
 {
+  "id": "./",
   "name": "AI Prompt Builder",
   "short_name": "Prompt Builder",
+  "description": "Craft structured prompts for Midjourney, FLUX.1, Stable Diffusion and DALL-E 3. Runs fully in your browser, works offline.",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
+  "lang": "en",
+  "dir": "ltr",
   "background_color": "#0f0f0f",
   "theme_color": "#0f0f0f",
+  "categories": ["productivity", "design", "utilities"],
   "icons": [
     {
       "src": "icon-192.png",
