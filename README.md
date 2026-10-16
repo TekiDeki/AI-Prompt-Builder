@@ -8,6 +8,7 @@ A zero-dependency, single-file web app that builds optimized prompts for **Midjo
 
 [![Version](https://img.shields.io/badge/version-22.13-blue?style=flat-square)](https://github.com/tekideki/AI-Prompt-Builder)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue?style=flat-square)](LICENSE)
+[![Support](https://img.shields.io/badge/support-buy%20me%20a%20coffee-ff5f5f?style=flat-square)](https://paypal.me/TekiDeki)
 [![Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen?style=flat-square)](#)
 [![Made with](https://img.shields.io/badge/made%20with-vanilla%20JS-yellow?style=flat-square)](#)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](../../pulls)
