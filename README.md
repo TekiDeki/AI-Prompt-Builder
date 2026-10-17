@@ -45,7 +45,7 @@ The app runs **100% client-side**. No build step, no backend, no tracking. All d
 - 📦 **18 SD Models Included** - Each with trigger words, VAE info, and recommended CFG / steps / sampler
 - 🎲 **Smart Randomize** - Context-aware randomization that respects your subject
 - 🚫 **Conflict Detection** - Warns when settings contradict each other
-- 📊 **Live Prompt Score** - Weighted 0–100 rating with visual feedback
+- 📊 **Live Prompt Score** - Weighted 0-100 rating with visual feedback
 - 📜 **Prompt History** - Last 20 prompts, click to restore & copy
 - 🗂️ **Batch Processing** - Upload a `.txt` of subjects → generate all prompts at once
 - 🎯 **Multi-Engine Batch** - Generate the same prompt for all 4 engines simultaneously
