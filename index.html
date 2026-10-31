@@ -94,7 +94,7 @@
         :root.theme-light .shortcuts-help,
         :root.theme-light .drop-hint { color: #475569; }
         :root.theme-light .toast { background: linear-gradient(135deg, #ffffff, #f1f5f9); color: #0f172a; }
-        :root.theme-light label { color: #334155; }
+        :root.theme-light label, :root.theme-light .setting-caption { color: #334155; }
         :root.theme-light .history-item { color: #334155; }
         :root.theme-light p.subtitle { color: #475569; }
         :root.theme-light .prompt-score.good { background: rgba(16, 185, 129, 0.18); color: #065f46; }
@@ -286,7 +286,7 @@
 
         .setting-group { display: flex; flex-direction: column; gap: 8px; }
 
-        label {
+        label, .setting-caption {
             font-weight: 600;
             font-size: 0.9rem;
             color: #cbd5e1;
@@ -294,6 +294,11 @@
             align-items: center;
             gap: 5px;
         }
+
+        /* .setting-caption este textul de deasupra unui bifator. Sta intr-un <span>, nu intr-un
+           <label for>, ca sa nu fie o a doua eticheta pentru acelasi camp (numele accesibil ieșea
+           dublu) si ca sa nu fie o tinta separata de 34px, sub pragul de 44px. */
+        .setting-caption { cursor: default; }
 
         select, input {
             background-color: var(--input-bg);
@@ -2586,9 +2591,15 @@
             const group = document.createElement('div');
             group.className = 'setting-group';
 
-            const label = document.createElement('label');
+            /* Bifatoarele au deja eticheta proprie, lipita de bifa (mai jos: cbWrapper), care
+               e si suprafata pe care se apasa. Un <label for> deasupra ar insemna o a doua
+               eticheta pentru acelasi camp: numele accesibil iese dublu, iar eticheta-captura
+               ramane o tinta separata de 34px, sub pragul de 44px. De aceea, la bifatoare,
+               captura este un simplu <span>, care nu se apasa. */
+            const label = document.createElement(p.type === 'checkbox' ? 'span' : 'label');
             label.innerText = p.label;
-            label.htmlFor = p.id;
+            if (p.type === 'checkbox') label.className = 'setting-caption';
+            else label.htmlFor = p.id;
             group.appendChild(label);
 
             let input;
